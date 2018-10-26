@@ -26,16 +26,19 @@
         <!-- Core Style CSS -->
         <link rel="stylesheet" href="../css/core-style.css">
         <link rel="stylesheet" href="../style.css">
+        <style>
+            .ellipsis{
+                overflow: hidden;
+                text-overflow: ellipsis;
+                display: -webkit-box;
+                -webkit-line-clamp: 2; /* number of lines to show */
+                -webkit-box-orient: vertical;
+            }
+        </style>
     </head>
     <body>
         <!--header-->
         <jsp:include page="header.jsp"/>
-        <div class="container" style="max-width: 100%;padding: 0;">
-            <div class="alert alert-danger alert-dismissible" style="margin: 0;text-align: center;">
-                <button type="button" class="close" data-dismiss="alert">&times;</button>
-                <strong>Chưa làm</strong> <strong>${uri}</strong> 
-            </div>
-        </div>
         <!--cart-->
         <jsp:include page="nav_right_side.jsp"/>
         <!-- ##### Breadcumb Area Start ##### -->
@@ -56,126 +59,32 @@
         <div class="blog-wrapper section-padding-80">
             <div class="container">
                 <div class="row">
-
-                    <!-- Single Blog Area -->
-                    <div class="col-12 col-lg-6">
-                        <div class="single-blog-area mb-50">
-                            <img src="../img/bg-img/blog1.jpg" alt="">
-                            <!-- Post Title -->
-                            <div class="post-title">
-                                <a href="#">Vivamus sed nunc in arcu cursus mollis quis et orci. Interdum et malesuada</a>
-                            </div>
-                            <!-- Hover Content -->
-                            <div class="hover-content">
+                    <c:forEach var="rows" items="${listNews}">
+                        <!-- Single Blog Area -->
+                        <div class="col-12 col-lg-6">
+                            <div class="single-blog-area mb-50">
+                                <img src="../img/bg-img/${rows.imagetitle}" alt="">
                                 <!-- Post Title -->
-                                <div class="hover-post-title">
-                                    <a href="#">Vivamus sed nunc in arcu cursus mollis quis et orci. Interdum et malesuada</a>
+                                <div class="post-title">
+                                    <div class="ellipsis">
+                                        <a href="#">${rows.title}</a>
+                                    </div>
                                 </div>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce enim nulla, mollis eu metus in, sagittis fringilla tortor. Phasellus purus dignissim convallis.</p>
-                                <a href="#">Continue reading <i class="fa fa-angle-right"></i></a>
+                                <!-- Hover Content -->
+                                <div class="hover-content">
+                                    <!-- Post Title -->
+                                    <div class="hover-post-title">
+                                        <a href="#" class="text-truncate">${rows.title}</a>
+                                    </div>
+                                    <div style="max-height: 50%;overflow: hidden;">
+                                        ${rows.content}
+                                    </div>
+                                    <a href="#">Continue reading <i class="fa fa-angle-right"></i></a>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    </c:forEach>
 
-                    <!-- Single Blog Area -->
-                    <div class="col-12 col-lg-6">
-                        <div class="single-blog-area mb-50">
-                            <img src="../img/bg-img/blog2.jpg" alt="">
-                            <!-- Post Title -->
-                            <div class="post-title">
-                                <a href="#">Vivamus sed nunc in arcu cursus mollis quis et orci. Interdum et malesuada</a>
-                            </div>
-                            <!-- Hover Content -->
-                            <div class="hover-content">
-                                <!-- Post Title -->
-                                <div class="hover-post-title">
-                                    <a href="#">Vivamus sed nunc in arcu cursus mollis quis et orci. Interdum et malesuada</a>
-                                </div>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce enim nulla, mollis eu metus in, sagittis fringilla tortor. Phasellus purus dignissim convallis.</p>
-                                <a href="#">Continue reading <i class="fa fa-angle-right"></i></a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Single Blog Area -->
-                    <div class="col-12 col-lg-6">
-                        <div class="single-blog-area mb-50">
-                            <img src="../img/bg-img/blog3.jpg" alt="">
-                            <!-- Post Title -->
-                            <div class="post-title">
-                                <a href="#">Vivamus sed nunc in arcu cursus mollis quis et orci. Interdum et malesuada</a>
-                            </div>
-                            <!-- Hover Content -->
-                            <div class="hover-content">
-                                <!-- Post Title -->
-                                <div class="hover-post-title">
-                                    <a href="#">Vivamus sed nunc in arcu cursus mollis quis et orci. Interdum et malesuada</a>
-                                </div>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce enim nulla, mollis eu metus in, sagittis fringilla tortor. Phasellus purus dignissim convallis.</p>
-                                <a href="#">Continue reading <i class="fa fa-angle-right"></i></a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Single Blog Area -->
-                    <div class="col-12 col-lg-6">
-                        <div class="single-blog-area mb-50">
-                            <img src="../img/bg-img/blog4.jpg" alt="">
-                            <!-- Post Title -->
-                            <div class="post-title">
-                                <a href="#">Vivamus sed nunc in arcu cursus mollis quis et orci. Interdum et malesuada</a>
-                            </div>
-                            <!-- Hover Content -->
-                            <div class="hover-content">
-                                <!-- Post Title -->
-                                <div class="hover-post-title">
-                                    <a href="#">Vivamus sed nunc in arcu cursus mollis quis et orci. Interdum et malesuada</a>
-                                </div>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce enim nulla, mollis eu metus in, sagittis fringilla tortor. Phasellus purus dignissim convallis.</p>
-                                <a href="#">Continue reading <i class="fa fa-angle-right"></i></a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Single Blog Area -->
-                    <div class="col-12 col-lg-6">
-                        <div class="single-blog-area mb-50">
-                            <img src="../img/bg-img/blog5.jpg" alt="">
-                            <!-- Post Title -->
-                            <div class="post-title">
-                                <a href="#">Vivamus sed nunc in arcu cursus mollis quis et orci. Interdum et malesuada</a>
-                            </div>
-                            <!-- Hover Content -->
-                            <div class="hover-content">
-                                <!-- Post Title -->
-                                <div class="hover-post-title">
-                                    <a href="#">Vivamus sed nunc in arcu cursus mollis quis et orci. Interdum et malesuada</a>
-                                </div>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce enim nulla, mollis eu metus in, sagittis fringilla tortor. Phasellus purus dignissim convallis.</p>
-                                <a href="#">Continue reading <i class="fa fa-angle-right"></i></a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Single Blog Area -->
-                    <div class="col-12 col-lg-6">
-                        <div class="single-blog-area mb-50">
-                            <img src="../img/bg-img/blog6.jpg" alt="">
-                            <!-- Post Title -->
-                            <div class="post-title">
-                                <a href="#">Vivamus sed nunc in arcu cursus mollis quis et orci. Interdum et malesuada</a>
-                            </div>
-                            <!-- Hover Content -->
-                            <div class="hover-content">
-                                <!-- Post Title -->
-                                <div class="hover-post-title">
-                                    <a href="#">Vivamus sed nunc in arcu cursus mollis quis et orci. Interdum et malesuada</a>
-                                </div>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce enim nulla, mollis eu metus in, sagittis fringilla tortor. Phasellus purus dignissim convallis.</p>
-                                <a href="#">Continue reading <i class="fa fa-angle-right"></i></a>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>

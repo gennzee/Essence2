@@ -46,7 +46,7 @@
                             </div>
                         </li>
                         <li><a href="../sale/sale.htm">Sales</a>
-                            
+
                         </li>
                         <li><a href="../news/news.htm">News</a></li>
                         <li><a href="../contact/contact.htm">Contact</a></li>
@@ -72,10 +72,18 @@
                 </form>
             </div>
             <!-- Favourite Area -->
-            <div class="favourite-area">
-                <a href="#"><img src="../img/core-img/heart.svg" alt=""><span>${sessionScope.CARTSIZE}</span></a>
-            </div>
-
+            <c:choose>
+                <c:when test="${sessionScope.WISHLIST_SIZE > 0}">
+                    <div class="favourite-area">
+                        <a href="#" data-toggle="modal" data-target="#wishlistModal"><img src="../img/core-img/heart.svg" alt=""><span>${sessionScope.WISHLIST_SIZE}</span></a>
+                    </div>
+                </c:when>
+                <c:otherwise>
+                    <div class="favourite-area">
+                        <a href="#" data-toggle="modal" data-target="#wishlistModal"><img src="../img/core-img/heart.svg" alt=""><span></span></a>
+                    </div>
+                </c:otherwise>
+            </c:choose>
             <!-- User Login Info -->
             <c:if test="${sessionScope.USER == null}">
                 <div class="user-login-info">

@@ -195,29 +195,56 @@
                                                         <span>-<fmt:formatNumber value="${(rows.discount/rows.price)*100}" maxFractionDigits="0"/>%</span>
                                                     </div>
                                                 </c:if>
+
                                                 <!-- Favourite -->
-                                                <div class="product-favourite">
-                                                    <a href="#" class="favme fa fa-heart"></a>
-                                                </div>
+                                                <c:if test="${sessionScope.USER != null}">
+                                                    <c:choose>
+                                                        <c:when test="${sessionScope.WISHLIST_SIZE > 0}">
+                                                            <c:forEach var="rowss" items="${sessionScope.WISHLIST_LIST}">
+                                                                <c:choose>
+                                                                    <c:when test="${rowss.productid == rows.id}">
+                                                                        <div class="product-favourite">
+                                                                            <a href="<s:url value="#"/>" class="favme fa fa-heart active"></a>
+                                                                        </div>
+                                                                    </c:when>
+                                                                    <c:otherwise>
+                                                                        <div class="product-favourite">
+                                                                            <a href="<s:url value="javascript:void(0)"/>" onclick="$.get('../wishlist/${rows.id}.htm');return location.reload();" class="favme fa fa-heart"></a>
+                                                                        </div>
+                                                                    </c:otherwise>
+                                                                </c:choose>
+                                                            </c:forEach>
+                                                        </c:when>
+                                                        <c:otherwise>
+                                                            <div class="product-favourite">
+                                                                <a href="<s:url value="javascript:void(0)"/>" onclick="$.get('../wishlist/${rows.id}.htm');return location.reload();" class="favme fa fa-heart"></a>
+                                                            </div>
+                                                        </c:otherwise>
+                                                    </c:choose>
+                                                </c:if>
+
                                             </div>
 
                                             <!-- Product Description -->
                                             <div class="product-description">
+
                                                 <span>${rows.brand}</span>
                                                 <a href="<s:url value="../product_detail/${rows.id}.htm"/>">
                                                     <h6>${rows.name}</h6>
                                                 </a>
 
-                                                <p class="product-price"><fmt:formatNumber value="${rows.price}" type="number" /> VNĐ</p>
+                                                <p class="product-price"><fmt:formatNumber value="${rows.price}" type="number" /> &#8363</p>
 
                                                 <!-- Hover Content -->
                                                 <div class="hover-content">
                                                     <!-- Add to Cart -->
                                                     <div class="add-to-cart-btn">
-                                                        <a href="<s:url value="../cartbean/${rows.id}.htm"/>" class="btn essence-btn">Add to Cart</a>
+                                                        <a href="<s:url value="javascript:void(0)"/>" onclick="$.get('../cartbean/${rows.id}.htm');return location.reload();" class="btn essence-btn">Add to Cart</a>
+                                                        <!--onclick="$.get('../cartbean/${rows.id}.htm');return location.reload();" -->
                                                     </div>
                                                 </div>
                                             </div>
+
                                         </div>
                                     </div>
                                 </c:forEach>
@@ -235,12 +262,20 @@
         <script src="http://code.jquery.com/jquery-latest.js"></script>
         <script src="../js/jquery.easyPaginate.js"></script>
         <script>
-            $('#easyPaginate').easyPaginate({
-                paginateElement: 'div.col-12',
-                elementsPerPage: 6,
-                effect: 'default'
-            });
+                                                            $('#easyPaginate').easyPaginate({
+                                                                paginateElement: 'div.col-12',
+                                                                elementsPerPage: 6,
+                                                                effect: 'default'
+                                                            });
         </script>
+        <!--        <script>
+        //            addtocart
+                    $(function () {
+                        $("a.btn").click(function () {
+                            return location.reload();
+                        });
+                    });
+                </script>-->
         <jsp:include page="footer.jsp"/>
 
 

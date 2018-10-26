@@ -18,8 +18,11 @@
             <!-- Single Cart Item -->
             <c:set var="shop" value="${sessionScope.SHOP}"/>
             <c:if test="${not empty shop}">
-                <c:set var="count" value="0"/>
+                <c:set var="totalprice" value="${0}"/>
+                <c:set var="totaldiscount" value="${0}"/>
                 <c:forEach var="rows" items="${shop}">
+                    <c:set var="totalprice" value="${totalprice + rows.value.sanpham.price * rows.value.quantity}"/>
+                    <c:set var="totaldiscount" value="${totaldiscount + rows.value.sanpham.discount * rows.value.quantity}"/>
                     <div class="single-cart-item">
                         <div class="product-image">
                             <img src="../img/product-img/${rows.value.sanpham.img1}" class="cart-thumb" alt="">
@@ -31,7 +34,7 @@
                                     <h6>${rows.value.sanpham.name}</h6>
                                     <p class="size">Quantity: ${rows.value.quantity}</p>
                                     <p class="size">Discount: <fmt:formatNumber value="${(rows.value.sanpham.discount/rows.value.sanpham.price)*100}" maxFractionDigits="0"/>%</p>
-                                    <p class="price">${rows.value.sanpham.price} VND</p>
+                                    <p class="price"><fmt:formatNumber type="number" value="${rows.value.sanpham.price}"/> &#8363</p>
                                 </div>
                             </form>
                         </div>
@@ -45,10 +48,24 @@
             <div class="cart-amount-summary">
                 <h2>Summary</h2>
                 <ul class="summary-table">
-                    <li><span>subtotal:</span> <span>$274.00</span></li>
-                    <li><span>delivery:</span> <span>Free</span></li>
-                    <li><span>discount:</span> <span>-15%</span></li>
-                    <li><span>total:</span> <span>$232.00</span></li>
+                    <li><span>subtotal:</span> <span><fmt:formatNumber type="number" value="${totalprice}"/> &#8363</span></li>
+                    <li><span>delivery:</span> 
+                        <c:if test="${totalprice >= 300000000}">
+                            <span>Free</span>
+                        </c:if>
+                        <c:if test="${totalprice < 300000000}">
+                            <span><fmt:formatNumber type="number" value="25000"/> &#8363</span>
+                        </c:if>
+                    </li>
+                    <li><span>discount:</span> <span><fmt:formatNumber value="${(totaldiscount/totalprice)*100}" maxFractionDigits="0"/>%</span></li>
+                    <li><span>total:</span> 
+                        <c:if test="${totalprice >= 300000000}">
+                            <span><fmt:formatNumber type="number" value="${totalprice - totaldiscount}"/> &#8363</span>
+                        </c:if>
+                        <c:if test="${totalprice < 300000000}">
+                            <span><fmt:formatNumber type="number" value="${totalprice + 25000 - totaldiscount}"/> &#8363</span>
+                        </c:if>
+                    </li>
                 </ul>
                 <div class="checkout-btn mt-100">
                     <a href="../checkout/checkout.htm" class="btn essence-btn">check out</a>

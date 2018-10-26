@@ -50,7 +50,7 @@
                 <a href="#">
                     <h2>${rows.name}</h2>
                 </a>
-                <p class="product-price"><fmt:formatNumber value="${rows.price}" type="number" /> VNĐ</p>
+                <p class="product-price"><fmt:formatNumber value="${rows.price}" type="number" /> &#8363</p>
                 <p class="product-desc">${rows.detail}</p>
 
                 <!-- Form -->
@@ -73,10 +73,10 @@
                     <!-- Cart & Favourite Box -->
                     <div class="cart-fav-box d-flex align-items-center">
                         <!-- Cart -->
-                        <button type="submit" name="addtocart" value="5" class="btn essence-btn">Add to cart</button>
+                        <a href="<s:url value="javascript:void(0)"/>" onclick="$.get('../cartbean/${rows.id}.htm');return location.reload();" class="btn essence-btn">Add to Cart</a>
                         <!-- Favourite -->
                         <div class="product-favourite ml-4">
-                            <a href="#" class="favme fa fa-heart"></a>
+                            <a href="<s:url value="../wishlist/${rows.id}.htm"/>" class="favme fa fa-heart"></a>
                         </div>
                     </div>
                 </form>

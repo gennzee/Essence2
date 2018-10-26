@@ -1,5 +1,6 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 <!-- ##### Footer Area Start ##### -->
 <footer class="footer_area clearfix">
     <div class="container">
@@ -323,6 +324,111 @@
         </div>
     </div>
 </div>
+
+<c:choose>
+    <c:when test="${sessionScope.USER == null}">
+        <div class="modal fade" id="wishlistModal" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <!-- Modal Header -->
+                    <div class="modal-header">
+                        <h4 class="modal-title">Please login in to use this function</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <form action="../login/loginIndex.htm" method="post">
+                        <!-- Modal body -->
+                        <div class="modal-body">
+                            <div>
+                                <div class="col-12 mb-3">
+                                    <label for="city">Username </label>
+                                    <input type="text" name="txtUser" class="form-control" value="">
+                                </div>
+                                <div class="col-12 mb-3">
+                                    <label for="state">Password </label>
+                                    <input type="password" name="txtPass" class="form-control" value="">
+                                </div>
+                                <div class="col-12 mb-3">
+                                    <label for="state">Đăng ký tài khoản <a href="#" style="font-size: 14px;" data-toggle="modal" data-target="#user_register">tại đây </a> </label>
+                                    <label for="state" style="float: right;"><a href="#" style="font-size: 14px;" data-toggle="modal" data-target="#forgot_password" data-dismiss="modal">Quên mật khẩu ? </a> </label>
+                                </div>
+                                <div style="width: 100%;text-align: center;">
+                                    <button type="submit" class="btn essence-btn" >Submit</button>
+                                    <button type="button" class="btn essence-btn" data-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </c:when>
+    <c:otherwise>
+        <c:choose>
+            <c:when test="${sessionScope.WISHLIST_SIZE > 0}">
+                <div class="modal fade" id="wishlistModal" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <!-- Modal Header -->
+                            <div class="modal-header">
+                                <h4 class="modal-title">Your Wishlist !</h4>
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            </div>
+                            <!-- Modal body -->
+                            <div class="modal-body">
+                                <form action="#" method="post">
+                                    <table class="table table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">Name</th>
+                                                <th scope="col">Brand</th>
+                                                <th scope="col">Discount</th>
+                                                <th scope="col">Price</th>
+                                                <th scope="col"></th>
+                                                <th scope="col"></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <c:forEach var="rows" items="${sessionScope.WISHLIST_LIST}">
+                                                <tr>
+                                                    <th scope="row"><a href="#">${rows.productname}</a></th>
+                                                    <td>${rows.productbrand}</td>
+                                                    <td><fmt:formatNumber value="${(rows.productdiscount/rows.productprice)*100}" maxFractionDigits="0"/>%</td>
+                                                    <td><fmt:formatNumber type="number" value="${rows.productprice}"/> &#8363</td>
+                                                    <td><a href="#"><i class="fa fa-shopping-cart"></i></a></td>
+                                                    <td><a href="#"><i class="fa fa-trash" aria-hidden="true"></i></a></td>
+                                                </tr>
+                                            </c:forEach>
+                                        </tbody>
+
+                                    </table>
+                                </form>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </c:when>
+            <c:otherwise>
+                <div class="modal fade" id="wishlistModal" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <!-- Modal Header -->
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            </div>
+                            <!-- Modal body -->
+                            <div class="modal-body">
+                                <h4 class="modal-title">Your Wishlist is empty.</h4>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </c:otherwise>
+        </c:choose>
+
+    </c:otherwise>
+</c:choose>
 
 <script>
     function readIMG(input) {

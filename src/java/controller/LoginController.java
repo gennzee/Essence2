@@ -8,6 +8,7 @@ package controller;
 import DAO.NavigationBarDAO;
 import DAO.ProductsDAO;
 import DAO.UsersDAO;
+import DAO.WishlistDAO;
 import java.util.ArrayList;
 import java.util.List;
 import javax.mail.internet.MimeMessage;
@@ -16,6 +17,7 @@ import javax.servlet.http.HttpSession;
 import model.NavigationBar;
 import model.Products;
 import model.Users;
+import model.Wishlist;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -23,6 +25,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.portlet.ModelAndView;
 import service.RandomString;
 
 /**
@@ -48,9 +51,19 @@ public class LoginController {
 
             List<Users> ds2 = new ArrayList<Users>();
             ds2 = users.showUsers(username);
+            
+            Wishlist a = new Wishlist();
+            WishlistDAO wishlist = new WishlistDAO();
+            List<Wishlist> ds3 = new ArrayList<>();
+            ds3 = wishlist.showWishlist(ds2.get(0).getId());
 
             session.setAttribute("IMGUSER", ds2.get(0).getImageuser());
             session.setAttribute("listUser", ds2);
+            session.setAttribute("WISHLIST_SIZE", ds3.size());
+            session.setAttribute("WISHLIST_LIST", ds3);
+            
+            int userid = Integer.parseInt(ds2.get(0).getId());
+            session.setAttribute("USER_ID", userid);
 
             session.getAttribute("CARTSIZE");
 
@@ -74,6 +87,8 @@ public class LoginController {
         session.removeAttribute("PASS");
         session.removeAttribute("ROLE");
         session.removeAttribute("IMGUSER");
+        session.removeAttribute("WISHLIST_SIZE");
+        session.removeAttribute("WISHLIST_LIST");
 
         return "redirect:" + session.getAttribute("uri").toString();
     }
@@ -114,7 +129,7 @@ public class LoginController {
                 MimeMessage mail = mailer1.createMimeMessage();
                 // Sử dụng lớp trợ giúp
                 MimeMessageHelper helper = new MimeMessageHelper(mail);
-                String from = "khoivtps05357@fpt.edu.vn";
+                String from = "anhnxps05368@fpt.edu.vn";
                 String subject = "Quên mật khẩu";
                 String body = "Mật khẩu mới của bạn là: " + new_password;
                 helper.setFrom(from, from);

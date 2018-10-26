@@ -38,7 +38,7 @@
                         <div class="hero-content">
                             <h6>asoss</h6>
                             <h2><s:message code="label.newcollection"/></h2>
-                            <a href="#" class="btn essence-btn"><s:message code="label.viewcollection"/></a>
+                            <a href="../news/news.htm" class="btn essence-btn"><s:message code="label.viewcollection"/></a>
                         </div>
                     </div>
                 </div>
@@ -132,7 +132,7 @@
                                         </c:if>
                                         <!-- Favourite -->
                                         <div class="product-favourite">
-                                            <a href="#" class="favme fa fa-heart"></a>
+                                            <a href="<s:url value="../wishlist/${rows.id}.htm"/>" class="favme fa fa-heart"></a>
                                         </div>
                                     </div>
                                     <!-- Product Description -->

@@ -18,7 +18,6 @@ public class Products {
     private String detail;
     private int price;
     private int discount;
-    private String date;
     private int quantity;
     private String brand;
     private String img1;
@@ -29,13 +28,12 @@ public class Products {
     public Products() {
     }
 
-    public Products(int id, String name, String detail, int price, int discount, String date, int quantity, String brand, String img1, String img2, int catalogid, int supplierid) {
+    public Products(int id, String name, String detail, int price, int discount, int quantity, String brand, String img1, String img2, int catalogid, int supplierid) {
         this.id = id;
         this.name = name;
         this.detail = detail;
         this.price = price;
         this.discount = discount;
-        this.date = date;
         this.quantity = quantity;
         this.brand = brand;
         this.img1 = img1;
@@ -84,13 +82,6 @@ public class Products {
         this.discount = discount;
     }
 
-    public String getDate() {
-        return date;
-    }
-
-    public void setDate(String date) {
-        this.date = date;
-    }
 
     public int getQuantity() {
         return quantity;
