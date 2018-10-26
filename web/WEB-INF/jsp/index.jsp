@@ -131,9 +131,35 @@
                                             </div>
                                         </c:if>
                                         <!-- Favourite -->
-                                        <div class="product-favourite">
-                                            <a href="<s:url value="../wishlist/${rows.id}.htm"/>" class="favme fa fa-heart"></a>
-                                        </div>
+                                        <c:if test="${sessionScope.USER != null}">
+                                            <c:choose>
+                                                <c:when test="${sessionScope.WISHLIST_SIZE > 0}">
+                                                    <c:forEach var="rowss" items="${sessionScope.WISHLIST_LIST}">
+                                                        <c:if test="${rowss.productid == rows.id}">
+                                                            <c:set var="productid" value="${rowss.productid}"/> 
+                                                        </c:if>
+                                                    </c:forEach>
+                                                    <c:choose>
+                                                        <c:when test="${productid == rows.id}">
+                                                            <div class="product-favourite">
+                                                                <a href="<s:url value="#"/>" class="favme fa fa-heart active"></a>
+                                                            </div>
+                                                        </c:when>
+                                                        <c:otherwise>
+                                                            <div class="product-favourite">
+                                                                <a href="<s:url value="javascript:void(0)"/>" onclick="$.get('../wishlist/${rows.id}.htm');return location.reload();" class="favme fa fa-heart"></a>
+                                                            </div>
+                                                        </c:otherwise>
+                                                    </c:choose>
+
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <div class="product-favourite">
+                                                        <a href="<s:url value="javascript:void(0)"/>" onclick="$.get('../wishlist/${rows.id}.htm');return location.reload();" class="favme fa fa-heart"></a>
+                                                    </div>
+                                                </c:otherwise>
+                                            </c:choose>
+                                        </c:if>
                                     </div>
                                     <!-- Product Description -->
                                     <div class="product-description">
