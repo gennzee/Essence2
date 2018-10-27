@@ -99,6 +99,9 @@
                                             </div>
                                         </div>
                                     </c:forEach>
+                                        <c:forEach var="rows" items="${sessionScope.listCart}">
+                                            <input type="text" value="${rows}"/>
+                                        </c:forEach>
                                 </div>
                                 <c:set var="shop2" value="${sessionScope.SHOP}"/>
                                 <c:if test="${not empty shop2}">

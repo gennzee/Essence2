@@ -67,16 +67,16 @@ public class CheckoutController {
         String note = request.getParameter("note");
         int userid = Integer.parseInt(request.getParameter("txtUserID"));
 
-        int productid = Integer.parseInt(request.getParameter("txtProductID"));
-        int quantity = Integer.parseInt(request.getParameter("txtQuantity"));
-
         Orders orders = new Orders(total, now.toString(), name, phone, address, note, userid, 1, 1);
         CheckoutDAO list = new CheckoutDAO();
         list.add_order(orders);
         
-        OrderDetail orderdetail = new OrderDetail(quantity, list.select_id_just_added_to_order(), productid);
-        list.add_orderdetail(orderdetail);
-
+        CartBean cartBean = (CartBean) session.getAttribute("SHOP");
+        for (ProductDTO productDTO : cartBean.values()){
+            OrderDetail orderdetail = new OrderDetail(productDTO.getQuantity(), list.select_id_just_added_to_order(), productDTO.getSanpham().getId());
+            list.add_orderdetail(orderdetail);
+        }
+        
         return view(model, request);
     }
 }

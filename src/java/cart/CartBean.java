@@ -11,7 +11,7 @@ import java.util.HashMap;
  *
  * @author tanks
  */
-public class CartBean extends HashMap {
+public class CartBean extends HashMap<Integer, ProductDTO> {
 
     public void addSanPham(ProductDTO sanpham) {
         int key = sanpham.getSanpham().getId();

@@ -21,7 +21,7 @@ public class CheckoutDAO {
     public CheckoutDAO() {
     }
 
-    public int add_order(Orders orders) {
+    public boolean add_order(Orders orders) {
         try {
             Connection conn = DBConnection.getConn();
             String sql = "insert into Orders values (?,?,?,?,?,?,?,?,?)";
@@ -35,16 +35,15 @@ public class CheckoutDAO {
             ps.setInt(7, orders.getUserid());
             ps.setInt(8, orders.getShipperid());
             ps.setInt(9, orders.getPaymentstatus());
-            ResultSet rs = ps.executeQuery();
-            if (rs.next()) {
-                int id = rs.getInt(1);
-                return id;
+            int rs = ps.executeUpdate();
+            if (rs > 0) {
+                return true;
             }
         } catch (Exception e) {
             System.out.println("add_order(DAO)");
             e.printStackTrace();
         }
-        return 0;
+        return false;
     }
 
     public int select_id_just_added_to_order() {
@@ -72,8 +71,8 @@ public class CheckoutDAO {
             ps.setInt(1, orderDetail.getQuantity());
             ps.setInt(2, orderDetail.getOrderid());
             ps.setInt(3, orderDetail.getProductid());
-            ResultSet rs = ps.executeQuery();
-            if (rs.next()) {
+            int rs = ps.executeUpdate();
+            if (rs > 0) {
                 return true;
             }
         } catch (Exception e) {
