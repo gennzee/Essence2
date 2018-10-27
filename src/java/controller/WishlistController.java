@@ -22,7 +22,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
  *
  * @author tanks
  */
-
 @Controller
 @RequestMapping(value = "/wishlist/")
 public class WishlistController {
@@ -41,6 +40,20 @@ public class WishlistController {
         session.setAttribute("WISHLIST_SIZE", ds3.size());
         session.setAttribute("WISHLIST_LIST", ds3);
 
+        return "redirect:" + session.getAttribute("uri").toString();
+    }
+
+    @RequestMapping(value = "remove/{id}")
+    public String remove_wishlist(ModelMap model, HttpServletRequest request, HttpSession session, @PathVariable int id) {
+        session = request.getSession(false);
+        WishlistDAO list = new WishlistDAO();
+        list.Delete(id);
+
+        WishlistDAO wishlist = new WishlistDAO();
+        List<Wishlist> ds3 = new ArrayList<Wishlist>();
+        ds3 = wishlist.showWishlist(session.getAttribute("USER_ID").toString());
+        session.setAttribute("WISHLIST_SIZE", ds3.size());
+        session.setAttribute("WISHLIST_LIST", ds3);
         return "redirect:" + session.getAttribute("uri").toString();
     }
 

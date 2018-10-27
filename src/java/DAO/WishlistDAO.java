@@ -65,7 +65,24 @@ public class WishlistDAO {
                 return true;
             }
         } catch (Exception e) {
-            System.out.println(e);
+            System.out.println("InsertWishlist(DAO)");
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public boolean Delete(int id) {
+        try {
+            Connection conn = DBConnection.getConn();
+            String sql = "Delete from Wishlist where Id like'" + id + "'";
+            Statement st = conn.createStatement();
+            int rs = st.executeUpdate(sql);
+            if (rs > 0) {
+                return true;
+            }
+        } catch (Exception e) {
+            System.out.println("DeleteWishlist(DAO)");
+            e.printStackTrace();
         }
         return false;
     }

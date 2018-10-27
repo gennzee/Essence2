@@ -1,6 +1,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
+<%@taglib uri="http://www.springframework.org/tags" prefix="s"%>
 <!-- ##### Footer Area Start ##### -->
 <footer class="footer_area clearfix">
     <div class="container">
@@ -390,12 +391,12 @@
                                         <tbody>
                                             <c:forEach var="rows" items="${sessionScope.WISHLIST_LIST}">
                                                 <tr>
-                                                    <th scope="row"><a href="#">${rows.productname}</a></th>
+                                                    <th scope="row"><a href="<s:url value="../product_detail/${rows.productid}.htm"/>">${rows.productname}</a></th>
                                                     <td>${rows.productbrand}</td>
                                                     <td><fmt:formatNumber value="${(rows.productdiscount/rows.productprice)*100}" maxFractionDigits="0"/>%</td>
                                                     <td><fmt:formatNumber type="number" value="${rows.productprice}"/> &#8363</td>
-                                                    <td><a href="#"><i class="fa fa-shopping-cart"></i></a></td>
-                                                    <td><a href="#"><i class="fa fa-trash" aria-hidden="true"></i></a></td>
+                                                    <td><a href="javascript:void(0)" onclick="$.get('../cartbean/${rows.productid}.htm');return location.reload();"><i style="font-size: 140%;" class="fa fa-shopping-cart"></i></a></td>
+                                                    <td><a href="javascript:void(0)" onclick="$.get('../wishlist/remove/${rows.id}.htm');return location.reload();"><i style="font-size: 140%;" class="fa fa-trash" aria-hidden="true"></i></a></td>
                                                 </tr>
                                             </c:forEach>
                                         </tbody>

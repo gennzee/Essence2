@@ -35,52 +35,86 @@
         <section class="single_product_details_area d-flex align-items-center">
             <c:forEach var="rows" items="${listProducts}">
 
-            <!-- Single Product Thumb -->
-            <div class="single_product_thumb clearfix">
-                <div class="product_thumbnail_slides owl-carousel">
-                    <img src="../img/product-img/${rows.img1}" alt="">
-                    <img src="../img/product-img/${rows.img2}" alt="">
+                <!-- Single Product Thumb -->
+                <div class="single_product_thumb clearfix">
+                    <div class="product_thumbnail_slides owl-carousel">
+                        <img src="../img/product-img/${rows.img1}" alt="">
+                        <img src="../img/product-img/${rows.img2}" alt="">
+                    </div>
                 </div>
-            </div>
 
-            <!-- Single Product Description -->
-            
-            <div class="single_product_desc clearfix">
-                <span>mango</span>
-                <a href="#">
-                    <h2>${rows.name}</h2>
-                </a>
-                <p class="product-price"><fmt:formatNumber value="${rows.price}" type="number" /> &#8363</p>
-                <p class="product-desc">${rows.detail}</p>
+                <!-- Single Product Description -->
 
-                <!-- Form -->
-                <form class="cart-form clearfix" method="post">
-                    <!-- Select Box -->
-                    <div class="select-box d-flex mt-50 mb-30">
-                        <select name="select" id="productSize" class="mr-5">
-                            <option value="value">Size: XL</option>
-                            <option value="value">Size: X</option>
-                            <option value="value">Size: M</option>
-                            <option value="value">Size: S</option>
-                        </select>
-                        <select name="select" id="productColor">
-                            <option value="value">Color: Black</option>
-                            <option value="value">Color: White</option>
-                            <option value="value">Color: Red</option>
-                            <option value="value">Color: Purple</option>
-                        </select>
-                    </div>
-                    <!-- Cart & Favourite Box -->
-                    <div class="cart-fav-box d-flex align-items-center">
-                        <!-- Cart -->
-                        <a href="<s:url value="javascript:void(0)"/>" onclick="$.get('../cartbean/${rows.id}.htm');return location.reload();" class="btn essence-btn">Add to Cart</a>
-                        <!-- Favourite -->
-                        <div class="product-favourite ml-4">
-                            <a href="<s:url value="../wishlist/${rows.id}.htm"/>" class="favme fa fa-heart"></a>
+                <div class="single_product_desc clearfix">
+                    <span>mango</span>
+                    <a href="#">
+                        <h2>${rows.name}</h2>
+                    </a>
+                    <c:choose>
+                        <c:when test="${rows.discount > 0}">
+                            <p class="product-price"><span class="old-price"><fmt:formatNumber value="${rows.price}" type="number" /> &#8363</span><fmt:formatNumber value="${rows.price - rows.discount}" type="number" /> &#8363</p>
+                        </c:when>
+                        <c:otherwise>
+                            <p class="product-price"><fmt:formatNumber value="${rows.price - rows.discount}" type="number" /> &#8363</p>
+                        </c:otherwise>
+                    </c:choose>
+                    <p class="product-desc">${rows.detail}</p>
+
+                    <!-- Form -->
+                    <form class="cart-form clearfix" method="post">
+                        <!-- Select Box -->
+                        <div class="select-box d-flex mt-50 mb-30">
+                            <select name="select" id="productSize" class="mr-5">
+                                <option value="value">Size: XL</option>
+                                <option value="value">Size: X</option>
+                                <option value="value">Size: M</option>
+                                <option value="value">Size: S</option>
+                            </select>
+                            <select name="select" id="productColor">
+                                <option value="value">Color: Black</option>
+                                <option value="value">Color: White</option>
+                                <option value="value">Color: Red</option>
+                                <option value="value">Color: Purple</option>
+                            </select>
                         </div>
-                    </div>
-                </form>
-            </div>
+                        <!-- Cart & Favourite Box -->
+                        <div class="cart-fav-box d-flex align-items-center">
+                            <!-- Cart -->
+                            <a style="margin-right: 5%;" href="<s:url value="javascript:void(0)"/>" onclick="$.get('../cartbean/${rows.id}.htm');return location.reload();" class="btn essence-btn">Add to Cart</a>
+                            <!-- Favourite -->
+                            <c:if test="${sessionScope.USER != null}">
+                                <c:choose>
+                                    <c:when test="${sessionScope.WISHLIST_SIZE > 0}">
+                                        <c:forEach var="rowss" items="${sessionScope.WISHLIST_LIST}">
+                                            <c:if test="${rowss.productid == rows.id}">
+                                                <c:set var="productid" value="${rowss.productid}"/>
+                                                <c:set var="wishlist_id" value="${rowss.id}"/>
+                                            </c:if>
+                                        </c:forEach>
+                                        <c:choose>
+                                            <c:when test="${productid == rows.id}">
+                                                <div class="product-favourite">
+                                                    <a href="<s:url value="javascript:void(0)"/>" onclick="$.get('../wishlist/remove/${wishlist_id}.htm');return location.reload();" class="favme fa fa-heart active"></a>
+                                                </div>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <div class="product-favourite">
+                                                    <a href="<s:url value="javascript:void(0)"/>" onclick="$.get('../wishlist/${rows.id}.htm');return location.reload();" class="favme fa fa-heart"></a>
+                                                </div>
+                                            </c:otherwise>
+                                        </c:choose>
+
+                                    </c:when>
+                                    <c:otherwise>
+                                        <div class="product-favourite">
+                                            <a href="<s:url value="javascript:void(0)"/>" onclick="$.get('../wishlist/${rows.id}.htm');return location.reload();" class="favme fa fa-heart"></a>
+                                        </div>
+                                    </c:otherwise>
+                                </c:choose>
+                            </c:if>
+                        </div>
+                    </form>
+                </div>
             </c:forEach>
         </section>
         <!-- ##### Single Product Details Area End ##### -->

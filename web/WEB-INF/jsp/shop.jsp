@@ -202,13 +202,14 @@
                                                         <c:when test="${sessionScope.WISHLIST_SIZE > 0}">
                                                             <c:forEach var="rowss" items="${sessionScope.WISHLIST_LIST}">
                                                                 <c:if test="${rowss.productid == rows.id}">
-                                                                    <c:set var="productid" value="${rowss.productid}"/> 
+                                                                    <c:set var="productid" value="${rowss.productid}"/>
+                                                                    <c:set var="wishlist_id" value="${rowss.id}"/>
                                                                 </c:if>
                                                             </c:forEach>
                                                             <c:choose>
                                                                 <c:when test="${productid == rows.id}">
                                                                     <div class="product-favourite">
-                                                                        <a href="<s:url value="#"/>" class="favme fa fa-heart active"></a>
+                                                                        <a href="<s:url value="javascript:void(0)"/>" onclick="$.get('../wishlist/remove/${wishlist_id}.htm');return location.reload();" class="favme fa fa-heart active"></a>
                                                                     </div>
                                                                 </c:when>
                                                                 <c:otherwise>

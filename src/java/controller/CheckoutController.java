@@ -5,15 +5,25 @@
  */
 package controller;
 
+import DAO.CheckoutDAO;
 import DAO.NavigationBarDAO;
+import cart.CartBean;
+import cart.ProductDTO;
+import java.time.DayOfWeek;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import model.NavigationBar;
+import model.OrderDetail;
+import model.Orders;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 /**
  *
@@ -24,7 +34,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class CheckoutController {
 
     @RequestMapping(value = "checkout")
-    public String news(ModelMap model, HttpServletRequest request) {
+    public String view(ModelMap model, HttpServletRequest request) {
         HttpSession session = request.getSession(false);
 
         NavigationBarDAO navigation = new NavigationBarDAO();
@@ -40,9 +50,33 @@ public class CheckoutController {
         session.getAttribute("CARTSIZE");
         session.getAttribute("IMGUSER");
         session.getAttribute("listUser");
-                session.getAttribute("WISHLIST_SIZE");
+        session.getAttribute("WISHLIST_SIZE");
         session.getAttribute("WISHLIST_LIST");
         session.setAttribute("uri", request.getRequestURI().substring(request.getContextPath().length()));
         return "checkout";
+    }
+
+    @RequestMapping(value = "add_orders", method = RequestMethod.GET)
+    public String add_orders(ModelMap model, HttpServletRequest request, HttpSession session) {
+        int total = Integer.parseInt(request.getParameter("txtTotalPrice"));
+        LocalDate now = LocalDate.now();
+        String name = request.getParameter("txtName");
+        String phone = request.getParameter("txtPhone");
+        String address = request.getParameter("txtAddress");
+        String email = request.getParameter("txtEmail");
+        String note = request.getParameter("note");
+        int userid = Integer.parseInt(request.getParameter("txtUserID"));
+
+        int productid = Integer.parseInt(request.getParameter("txtProductID"));
+        int quantity = Integer.parseInt(request.getParameter("txtQuantity"));
+
+        Orders orders = new Orders(total, now.toString(), name, phone, address, note, userid, 1, 1);
+        CheckoutDAO list = new CheckoutDAO();
+        list.add_order(orders);
+        
+        OrderDetail orderdetail = new OrderDetail(quantity, list.select_id_just_added_to_order(), productid);
+        list.add_orderdetail(orderdetail);
+
+        return view(model, request);
     }
 }
