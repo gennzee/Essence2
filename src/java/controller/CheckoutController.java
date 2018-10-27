@@ -104,6 +104,6 @@ public class CheckoutController {
             e.printStackTrace();
         }
 
-        return view(model, request);
+        return "redirect:" + session.getAttribute("uri").toString();
     }
 }
