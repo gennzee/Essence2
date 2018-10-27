@@ -139,12 +139,11 @@
                                         </div>
                                         <div style="width: 100%;text-align: center;">
                                             <button type="submit" class="btn essence-btn" >Submit</button>
-                                            <button type="button" class="btn essence-btn" data-dismiss="modal">Close</button>
+                                            <button type="reset" class="btn essence-btn">Reset</button>
                                         </div>
                                     </form>
                                 </c:otherwise>
                             </c:choose>
-
                         </div>
                     </div>
 
@@ -240,8 +239,14 @@
                                     </div>
                                 </div>
                             </div>
-
-                            <button type="submit" form="form" href="#"  class="btn essence-btn">Place Order</button>
+                            <c:choose>
+                                <c:when test="${sessionScope.USER != null}">
+                                    <button type="submit" form="form" href="#" class="btn essence-btn">Place Order</button>
+                                </c:when>
+                                <c:otherwise>
+                                    <a href="#" data-toggle="modal" data-target="#loginModal" class="btn essence-btn">Place Order</a>
+                                </c:otherwise>
+                            </c:choose>
                         </div>
                     </div>
                 </div>
