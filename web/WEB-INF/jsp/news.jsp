@@ -79,7 +79,7 @@
                                     <div style="max-height: 50%;overflow: hidden;">
                                         ${rows.content}
                                     </div>
-                                    <a href="#">Continue reading <i class="fa fa-angle-right"></i></a>
+                                        <a href="<s:url value="../news/${rows.id}.htm"/>">Continue reading <i class="fa fa-angle-right"></i></a>
                                 </div>
                             </div>
                         </div>

@@ -195,7 +195,7 @@
 </div>      
 
 <!-- User Register -->
-<div class="modal fade" id="user_register" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="modal fade" id="user_register" tabindex="-1" role="dialog" aria-hidden="true" style="z-index: 2000;">
     <div class="modal-dialog">
         <div class="modal-content">
             <!-- Modal Header -->
@@ -249,7 +249,7 @@
 </div>
 
 <!-- Forgot password -->
-<div class="modal fade" id="forgot_password" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="modal fade" id="forgot_password" tabindex="-1" role="dialog" aria-hidden="true" style="z-index: 1999">
     <div class="modal-dialog">
         <div class="modal-content">
             <!-- Modal Header -->
@@ -328,7 +328,7 @@
 
 <c:choose>
     <c:when test="${sessionScope.USER == null}">
-        <div class="modal fade" id="wishlistModal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal fade" id="wishlistModal" tabindex="-1" role="dialog" aria-hidden="true" style="z-index: 1999">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <!-- Modal Header -->

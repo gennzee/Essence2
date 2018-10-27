@@ -15,6 +15,7 @@ import model.NavigationBar;
 import model.News;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -27,15 +28,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class NewsController {
 
     @RequestMapping(value = "news", method = RequestMethod.GET)
-    public String news(ModelMap model, HttpServletRequest request) {
+    public String view(ModelMap model, HttpServletRequest request) {
         HttpSession session = request.getSession(false);
 
         NewsDAO news = new NewsDAO();
         List<News> ds = new ArrayList<>();
         ds = news.showListNews();
         model.addAttribute("listNews", ds);
-        
-        
+
         NavigationBarDAO navigation = new NavigationBarDAO();
         List<NavigationBar> thuonghieu = new ArrayList<NavigationBar>();
         thuonghieu = navigation.showNav("1");
@@ -49,9 +49,40 @@ public class NewsController {
         session.getAttribute("CARTSIZE");
         session.getAttribute("IMGUSER");
         session.getAttribute("listUser");
-                session.getAttribute("WISHLIST_SIZE");
+        session.getAttribute("WISHLIST_SIZE");
         session.getAttribute("WISHLIST_LIST");
         session.setAttribute("uri", request.getRequestURI().substring(request.getContextPath().length()));
         return "news";
+    }
+
+    @RequestMapping(value = "{id}", method = RequestMethod.GET)
+    public String news_detail(ModelMap model, HttpServletRequest request, @PathVariable int id) {
+        HttpSession session = request.getSession(false);
+
+        NewsDAO news = new NewsDAO();
+        List<News> ds = new ArrayList<>();
+        ds = news.show_single_news(id);
+        model.addAttribute("news_item", ds);
+
+        ds = news.showListNews();
+        model.addAttribute("listNews", ds);
+
+        NavigationBarDAO navigation = new NavigationBarDAO();
+        List<NavigationBar> thuonghieu = new ArrayList<NavigationBar>();
+        thuonghieu = navigation.showNav("1");
+        List<NavigationBar> linhkien = new ArrayList<NavigationBar>();
+        linhkien = navigation.showNav("2");
+        List<NavigationBar> gioitinh = new ArrayList<NavigationBar>();
+        gioitinh = navigation.showNav("3");
+        model.addAttribute("listNav_thuonghieu", thuonghieu);
+        model.addAttribute("listNav_linhkien", linhkien);
+        model.addAttribute("listNav_gioitinh", gioitinh);
+        session.getAttribute("CARTSIZE");
+        session.getAttribute("IMGUSER");
+        session.getAttribute("listUser");
+        session.getAttribute("WISHLIST_SIZE");
+        session.getAttribute("WISHLIST_LIST");
+        session.setAttribute("uri", request.getRequestURI().substring(request.getContextPath().length()));
+        return "new_detail";
     }
 }

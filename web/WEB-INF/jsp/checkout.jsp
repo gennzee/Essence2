@@ -32,12 +32,6 @@
     <body>
         <!--header-->
         <jsp:include page="header.jsp"/>
-        <div class="container" style="max-width: 100%;padding: 0;">
-            <div class="alert alert-danger alert-dismissible" style="margin: 0;text-align: center;">
-                <button type="button" class="close" data-dismiss="alert">&times;</button>
-                <strong>Đang làm</strong> 
-            </div>
-        </div>
         <!--cart-->
         <jsp:include page="nav_right_side.jsp"/>
 
@@ -61,71 +55,96 @@
                 <div class="row">
                     <div class="col-12 col-md-6">
                         <div class="checkout_details_area mt-50 clearfix">
-                            <div class="cart-page-heading mb-30">
-                                <h5>Billing Address</h5>
-                            </div>
-                            <form id="form" action="../checkout/add_orders.htm" method="get">
-                                <div class="row">
-                                    <c:forEach var="rows" items="${listUser}">
-                                        <input type="text" hidden="true" name="txtUserID" value="${rows.id}">
+                            <c:choose>
+                                <c:when test="${sessionScope.USER != null}">
+                                    <div class="cart-page-heading mb-30">
+                                        <h5>Billing Address</h5>
+                                    </div>
+                                    <form id="form" action="../checkout/add_orders.htm" method="get">
+                                        <div class="row">
+                                            <c:forEach var="rows" items="${listUser}">
+                                                <input type="text" hidden="true" name="txtUserID" value="${rows.id}">
+                                                <div class="col-12 mb-3">
+                                                    <label for="full_name">Full Name <span>*</span></label>
+                                                    <input name="txtName" type="text" class="form-control mb-3" id="full_name" value="${rows.name}">
+                                                </div>
+                                                <div class="col-12 mb-3">
+                                                    <label for="street_address">Address <span>*</span></label>
+                                                    <input name="txtAddress" type="text" class="form-control mb-3" id="street_address" value="${rows.address}">
+                                                </div>
+                                                <div class="col-12 mb-3">
+                                                    <label for="phone_number">Phone No <span>*</span></label>
+                                                    <input name="txtPhone" type="number" class="form-control" id="phone_number" min="0" value="${rows.phone}">
+                                                </div>
+                                                <div class="col-12 mb-4">
+                                                    <label for="email_address">Email Address <span>*</span></label>
+                                                    <input name="txtEmail" type="email" class="form-control" id="email_address" value="${rows.email}">
+                                                </div>
+                                                <div class="col-12 mb-4">
+                                                    <label for="note">Notes </label>
+                                                    <textarea style="height: 20vh;" rows="10" cols="50" class="form-control" id="note" name="note" ></textarea>
+                                                </div>
+                                                <div class="col-12">
+                                                    <div class="custom-control custom-checkbox d-block mb-2">
+                                                        <input type="checkbox" class="custom-control-input" id="customCheck1">
+                                                        <label class="custom-control-label" for="customCheck1">Terms and conitions</label>
+                                                    </div>
+                                                    <div class="custom-control custom-checkbox d-block mb-2">
+                                                        <input type="checkbox" class="custom-control-input" id="customCheck2">
+                                                        <label class="custom-control-label" for="customCheck2">Create an accout</label>
+                                                    </div>
+                                                </div>
+                                            </c:forEach>
+                                        </div>
+                                        <c:set var="shop2" value="${sessionScope.SHOP}"/>
+                                        <c:if test="${not empty shop2}">
+                                            <c:set var="totalprice2" value="${0}"/>
+                                            <c:set var="totaldiscount2" value="${0}"/>
+                                            <c:forEach var="rowss" items="${shop2}">
+                                                <c:set var="totalprice2" value="${totalprice2 + rowss.value.sanpham.price * rowss.value.quantity}"/>
+                                                <c:set var="totaldiscount2" value="${totaldiscount2 + rowss.value.sanpham.discount * rowss.value.quantity}"/>
+                                                <input name="txtProductID" type="text" hidden="true" value="${rowss.value.sanpham.id}"/>
+                                                <input name="txtQuantity" type="text" hidden="true" value="${rowss.value.quantity}"/>
+                                            </c:forEach>
+                                            <c:choose>
+                                                <c:when test="${totalprice2 >= 300000000}">
+                                                    <input name="txtTotalPrice" type="text" hidden="true" value="${totalprice2 - totaldiscount2}"/>
+                                                </c:when>
+                                                <c:when test="${totalprice2 < 300000000}">
+                                                    <input name="txtTotalPrice" type="text" hidden="true" value="${totalprice2 + 25000 - totaldiscount2}"/>
+                                                </c:when>
+                                            </c:choose>
+                                        </c:if>
+                                    </form>
+                                    <div style="width: 100%; text-align: center;">
+                                        <button onclick="resetFunction();" class="btn essence-btn">Reset</button>
+                                    </div>
+                                </c:when>
+                                <c:otherwise>
+                                    <div class="cart-page-heading mb-30">
+                                        <h5>Login in to checkout those products.</h5>
+                                    </div>
+                                    <form action="../login/loginIndex.htm" method="post">
                                         <div class="col-12 mb-3">
-                                            <label for="full_name">Full Name <span>*</span></label>
-                                            <input name="txtName" type="text" class="form-control mb-3" id="full_name" value="${rows.name}">
+                                            <label for="user_name">Username <span>*</span></label>
+                                            <input name="txtUser" type="text" class="form-control mb-3" id="user_name" value="">
                                         </div>
                                         <div class="col-12 mb-3">
-                                            <label for="street_address">Address <span>*</span></label>
-                                            <input name="txtAddress" type="text" class="form-control mb-3" id="street_address" value="${rows.address}">
+                                            <label for="pass_word">Password <span>*</span></label>
+                                            <input name="txtPass" type="password" class="form-control mb-3" id="pass_word" value="">
                                         </div>
                                         <div class="col-12 mb-3">
-                                            <label for="phone_number">Phone No <span>*</span></label>
-                                            <input name="txtPhone" type="number" class="form-control" id="phone_number" min="0" value="${rows.phone}">
+                                            <label for="state">Đăng ký tài khoản <a href="#" style="text-decoration: underline;" data-toggle="modal" data-target="#user_register">tại đây </a> </label>
+                                            <label for="state" style="float: right;"><a href="#" data-toggle="modal" data-target="#forgot_password" data-dismiss="modal">Quên mật khẩu ? </a> </label>
                                         </div>
-                                        <div class="col-12 mb-4">
-                                            <label for="email_address">Email Address <span>*</span></label>
-                                            <input name="txtEmail" type="email" class="form-control" id="email_address" value="${rows.email}">
+                                        <div style="width: 100%;text-align: center;">
+                                            <button type="submit" class="btn essence-btn" >Submit</button>
+                                            <button type="button" class="btn essence-btn" data-dismiss="modal">Close</button>
                                         </div>
-                                        <div class="col-12 mb-4">
-                                            <label for="note">Notes </label>
-                                            <textarea style="height: 20vh;" rows="10" cols="50" class="form-control" id="note" name="note" ></textarea>
-                                        </div>
-                                        <div class="col-12">
-                                            <div class="custom-control custom-checkbox d-block mb-2">
-                                                <input type="checkbox" class="custom-control-input" id="customCheck1">
-                                                <label class="custom-control-label" for="customCheck1">Terms and conitions</label>
-                                            </div>
-                                            <div class="custom-control custom-checkbox d-block mb-2">
-                                                <input type="checkbox" class="custom-control-input" id="customCheck2">
-                                                <label class="custom-control-label" for="customCheck2">Create an accout</label>
-                                            </div>
-                                        </div>
-                                    </c:forEach>
-                                        <c:forEach var="rows" items="${sessionScope.listCart}">
-                                            <input type="text" value="${rows}"/>
-                                        </c:forEach>
-                                </div>
-                                <c:set var="shop2" value="${sessionScope.SHOP}"/>
-                                <c:if test="${not empty shop2}">
-                                    <c:set var="totalprice2" value="${0}"/>
-                                    <c:set var="totaldiscount2" value="${0}"/>
-                                    <c:forEach var="rowss" items="${shop2}">
-                                        <c:set var="totalprice2" value="${totalprice2 + rowss.value.sanpham.price * rowss.value.quantity}"/>
-                                        <c:set var="totaldiscount2" value="${totaldiscount2 + rowss.value.sanpham.discount * rowss.value.quantity}"/>
-                                        <input name="txtProductID" type="text" hidden="true" value="${rowss.value.sanpham.id}"/>
-                                        <input name="txtQuantity" type="text" hidden="true" value="${rowss.value.quantity}"/>
-                                    </c:forEach>
-                                    <c:choose>
-                                        <c:when test="${totalprice2 >= 300000000}">
-                                            <input name="txtTotalPrice" type="text" hidden="true" value="${totalprice2 - totaldiscount2}"/>
-                                        </c:when>
-                                        <c:when test="${totalprice2 < 300000000}">
-                                            <input name="txtTotalPrice" type="text" hidden="true" value="${totalprice2 + 25000 - totaldiscount2}"/>
-                                        </c:when>
-                                    </c:choose>
-                                </c:if>
-                            </form>
-                                <div style="width: 100%; text-align: center;">
-                                <button onclick="resetFunction();" class="btn essence-btn">Reset</button>
-                            </div>
+                                    </form>
+                                </c:otherwise>
+                            </c:choose>
+
                         </div>
                     </div>
 
