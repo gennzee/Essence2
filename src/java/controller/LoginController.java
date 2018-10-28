@@ -6,6 +6,7 @@
 package controller;
 
 import DAO.NavigationBarDAO;
+import DAO.OrderDAO;
 import DAO.ProductsDAO;
 import DAO.UsersDAO;
 import DAO.WishlistDAO;
@@ -15,6 +16,7 @@ import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import model.NavigationBar;
+import model.Orders;
 import model.Products;
 import model.Users;
 import model.Wishlist;
@@ -51,7 +53,7 @@ public class LoginController {
 
             List<Users> ds2 = new ArrayList<Users>();
             ds2 = users.showUsers(username);
-            
+
             Wishlist a = new Wishlist();
             WishlistDAO wishlist = new WishlistDAO();
             List<Wishlist> ds3 = new ArrayList<>();
@@ -61,11 +63,18 @@ public class LoginController {
             session.setAttribute("listUser", ds2);
             session.setAttribute("WISHLIST_SIZE", ds3.size());
             session.setAttribute("WISHLIST_LIST", ds3);
-            
+
             int userid = Integer.parseInt(ds2.get(0).getId());
             session.setAttribute("USER_ID", userid);
 
             session.getAttribute("CARTSIZE");
+
+            // List order of user - start
+            List<Orders> order = new ArrayList<>();
+            OrderDAO orderdao = new OrderDAO();
+            order = orderdao.listOrders(session.getAttribute("USER_ID").toString());
+            session.setAttribute("ORDER_LIST", order);
+            // List order of user - end
 
             model.addAttribute("login_success", "Đăng nhập thành công.");
 
@@ -89,6 +98,7 @@ public class LoginController {
         session.removeAttribute("IMGUSER");
         session.removeAttribute("WISHLIST_SIZE");
         session.removeAttribute("WISHLIST_LIST");
+        session.removeAttribute("ORDER_LIST");
 
         return "redirect:" + session.getAttribute("uri").toString();
     }
@@ -111,6 +121,7 @@ public class LoginController {
 
         session.getAttribute("CARTSIZE");
         session.getAttribute("IMGUSER");
+        session.getAttribute("ORDER_LIST");
 
         return "redirect:" + session.getAttribute("uri").toString();
     }
@@ -174,6 +185,7 @@ public class LoginController {
 
         session.setAttribute("listUser", ds2);
         session.setAttribute("IMGUSER", image);
+        session.getAttribute("ORDER_LIST");
 
         return "redirect:" + session.getAttribute("uri").toString();
     }

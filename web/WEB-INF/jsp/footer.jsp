@@ -367,7 +367,7 @@
         <c:choose>
             <c:when test="${sessionScope.WISHLIST_SIZE > 0}">
                 <div class="modal fade" id="wishlistModal" tabindex="-1" role="dialog" aria-hidden="true">
-                    <div class="modal-dialog">
+                    <div class="modal-dialog" style="max-width: 600px;">
                         <div class="modal-content">
                             <!-- Modal Header -->
                             <div class="modal-header">
@@ -430,6 +430,109 @@
 
     </c:otherwise>
 </c:choose>
+
+<div class="modal fade" id="history_shipping_status" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" style="max-width: 700px;">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Your history ordered !</h4>
+                <button onclick="close_filter_table()" type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <!-- Modal body -->
+            <div class="modal-body">
+                <form action="#" method="post">
+                    <div class="col-12 mb-4">
+                        <input style="background: url(../img/core-img/698627-icon-111-search-512.png) no-repeat scroll 5px 2px; padding-left: 41px;" id="myInput" onkeyup="search_filter_table()" placeholder="Search for name, date, ..." type="text" class="form-control" value="">
+                    </div>
+
+                    <table class="table table-striped" id="myTable">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Total Price</th>
+                                <th scope="col">Ordered Date</th>
+                                <th scope="col">Buyer</th>
+                                <th scope="col">Status</th>
+                                <th scope="col"></th>
+                            </tr>
+                        </thead>
+                        <c:forEach var="rows" items="${sessionScope.ORDER_LIST}">
+                            <tbody>
+                                <tr>
+                                    <th scope="row">${rows.id}</th>
+                                    <td><fmt:formatNumber type="number" value="${rows.total}"/></td>
+                                    <td>${rows.orderdate}</td>
+                                    <td>${rows.name}</td>
+                                    <c:choose>
+                                        <c:when test="${rows.paymentstatus == 1}">
+                                            <td style="color: green;">Done <i class="fa fa-check" aria-hidden="true"></i></td>
+                                        </c:when>
+                                        <c:when test="${rows.paymentstatus == 2}">
+                                            <td style="color: red;">Shipping <i style="text-decoration: underline;" class="fa fa-motorcycle" aria-hidden="true"></i></td>
+                                        </c:when>
+                                    </c:choose>
+                                    <td>                    
+                                        <a href="<s:url value="../orderdetail/${rows.id}.htm"/>"><div class="hoverrr" style="width: 22px;text-align: center;border-radius: 50%;border: 1px solid black;"><i class="fa fa-info"></i></div></a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </c:forEach>
+
+
+                    </table>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script>
+    function search_filter_table() {
+
+        var input, filter, table, tr, td, i, th, td1, td2, td3;
+        input = document.getElementById("myInput");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("myTable");
+        tr = table.getElementsByTagName("tr");
+        for (i = 0; i < 9; i++) {
+            td = tr[i].getElementsByTagName("td")[0];
+            th = tr[i].getElementsByTagName("th")[0];
+            td1 = tr[i].getElementsByTagName("td")[1];
+            td2 = tr[i].getElementsByTagName("td")[2];
+            td3 = tr[i].getElementsByTagName("td")[3];
+            if (td) {
+                if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                } else if (th) {
+                    if (th.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                        tr[i].style.display = "";
+                    } else if (td1) {
+                        if (td1.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                            tr[i].style.display = "";
+                        } else if (td2) {
+                            if (td2.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                                tr[i].style.display = "";
+                            } else if (td3) {
+                                if (td3.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                                    tr[i].style.display = "";
+                                } else {
+                                    tr[i].style.display = "none";
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    function close_filter_table(){
+        document.getElementById("myInput").value = "";
+    }
+
+</script>
 
 <script>
     function readIMG(input) {

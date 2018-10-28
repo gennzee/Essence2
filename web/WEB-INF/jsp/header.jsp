@@ -96,12 +96,25 @@
                 </div>
             </c:if>
 
+            <!-- Shipping Area -->
+            <c:if test="${sessionScope.USER != null}">
+                <div class="favourite-area">
+                    <a href="#" data-toggle="modal" data-target="#history_shipping_status"><img style="max-width: 25px;" src="../img/core-img/img_571294.png" alt=""><span></span></a>
+                </div>
+            </c:if>
+
             <!-- Cart Area -->
             <div class="cart-area">
                 <a href="#" id="essenceCartBtn"><img src="../img/core-img/bag.svg" alt=""> <span>${sessionScope.CARTSIZE}</span></a>
             </div>
         </div>
     </div>
+            <style>
+                .hoverrr:hover{
+                    background-color: black;
+                    color: white;
+                }
+            </style>
 </header>
 <div>
     <c:if test="${login_error != null}">

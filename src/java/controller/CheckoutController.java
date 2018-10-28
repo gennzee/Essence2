@@ -59,6 +59,7 @@ public class CheckoutController {
         session.getAttribute("listUser");
         session.getAttribute("WISHLIST_SIZE");
         session.getAttribute("WISHLIST_LIST");
+        session.getAttribute("ORDER_LIST");
         session.setAttribute("uri", request.getRequestURI().substring(request.getContextPath().length()));
         return "checkout";
     }

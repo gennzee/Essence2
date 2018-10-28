@@ -60,6 +60,7 @@ public class CartBeanController {
         session.setAttribute("CARTSIZE", a.size());
         session.getAttribute("IMGUSER");
         session.getAttribute("listUser");
+        session.getAttribute("ORDER_LIST");
 
         return "redirect:"+session.getAttribute("uri").toString();
     }
@@ -84,6 +85,7 @@ public class CartBeanController {
         }
         session.getAttribute("IMGUSER");
         session.getAttribute("listUser");
+        session.getAttribute("ORDER_LIST");
         return "redirect:"+session.getAttribute("uri").toString();
     }
 
