@@ -7,6 +7,7 @@ package controller;
 
 import DAO.CheckoutDAO;
 import DAO.NavigationBarDAO;
+import DAO.OrderDAO;
 import cart.CartBean;
 import cart.ProductDTO;
 import java.time.DayOfWeek;
@@ -75,7 +76,7 @@ public class CheckoutController {
         String note = request.getParameter("note");
         int userid = Integer.parseInt(request.getParameter("txtUserID"));
 
-        Orders orders = new Orders(total, now.toString(), name, phone, address, note, userid, 1, 1);
+        Orders orders = new Orders(total, now.toString(), name, phone, address, note, userid, 1, 2);
         CheckoutDAO list = new CheckoutDAO();
         list.add_order(orders);
 
@@ -104,6 +105,12 @@ public class CheckoutController {
             model.addAttribute("message", "Gửi email thất bại !");
             e.printStackTrace();
         }
+
+        List<Orders> order = new ArrayList<>();
+        OrderDAO orderdao = new OrderDAO();
+        order = orderdao.listOrders(session.getAttribute("USER_ID").toString());
+        session.setAttribute("ORDER_LIST", order);
+        // List order of user - end
 
         return "redirect:" + session.getAttribute("uri").toString();
     }

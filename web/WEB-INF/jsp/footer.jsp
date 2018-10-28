@@ -466,11 +466,14 @@
                                     <td>${rows.name}</td>
                                     <c:choose>
                                         <c:when test="${rows.paymentstatus == 1}">
-                                            <td style="color: green;">Done <i class="fa fa-check" aria-hidden="true"></i></td>
+                                            <td style="color: grey;"><i class="fa fa-spinner fa-spin" style="font-size:20px"></i> Processing </td>
                                         </c:when>
                                         <c:when test="${rows.paymentstatus == 2}">
-                                            <td style="color: red;">Shipping <i style="text-decoration: underline;" class="fa fa-motorcycle" aria-hidden="true"></i></td>
+                                            <td style="color: brown;"><i style="text-decoration: underline;" class="fa fa-motorcycle" aria-hidden="true"></i> Shipper </td>
                                         </c:when>
+                                        <c:otherwise>
+                                            <td style="color: green;"><i class="fa fa-check" aria-hidden="true"></i> Delivered </td>
+                                        </c:otherwise>
                                     </c:choose>
                                     <td>                    
                                         <a href="<s:url value="../orderdetail/${rows.id}.htm"/>"><div class="hoverrr" style="width: 22px;text-align: center;border-radius: 50%;border: 1px solid black;"><i class="fa fa-info"></i></div></a>
@@ -527,8 +530,8 @@
             }
         }
     }
-    
-    function close_filter_table(){
+
+    function close_filter_table() {
         document.getElementById("myInput").value = "";
     }
 
