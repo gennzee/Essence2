@@ -15,7 +15,6 @@ import java.util.List;
 import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import model.NavigationBar;
 import model.Orders;
 import model.Products;
 import model.Users;
@@ -46,7 +45,7 @@ public class LoginController {
         String username = request.getParameter("txtUser");
         String password = request.getParameter("txtPass");
         UsersDAO users = new UsersDAO();
-        if (users.Login(username, password) == "admin" || users.Login(username, password) == "nhanvien" || users.Login(username, password) == "guest") {
+        if (users.Login(username, password) == "nhanvien" || users.Login(username, password) == "guest") {
             session.setAttribute("USER", username);
             session.setAttribute("PASS", password);
             session.setAttribute("ROLE", users.Login(username, password));
@@ -79,6 +78,12 @@ public class LoginController {
             model.addAttribute("login_success", "Đăng nhập thành công.");
 
             return "redirect:" + session.getAttribute("uri").toString();
+        } else if (users.Login(username, password) == "admin") {
+            session.setAttribute("USER", username);
+            session.setAttribute("PASS", password);
+            session.setAttribute("ROLE", users.Login(username, password));
+
+            return "admin/dashboard";
         } else {
             session.getAttribute("CARTSIZE");
             model.addAttribute("login_error", "Sai tên tài khoản hoặc mật khẩu.");

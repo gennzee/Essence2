@@ -6,6 +6,7 @@
 package DAO;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -74,4 +75,29 @@ public class NewsDAO {
         }
         return null;
     }
+
+    public boolean add_news(News news) {
+        try {
+            Connection conn = DBConnection.getConn();
+            String sql = "insert into news values(?,?,?,?,?,?,?)";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, news.getTitle());
+            ps.setString(2, news.getContent());
+            ps.setString(3, news.getCreatedby());
+            ps.setString(4, news.getEditedby());
+            ps.setString(5, news.getCreateddate());
+            ps.setString(6, news.getEditeddate());
+            ps.setString(7, news.getImagetitle());
+            int rs = ps.executeUpdate();
+            if (rs > 0) {
+                return true;
+            }
+        } catch (Exception e) {
+            System.out.println("add_news(DAO)");
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+
 }

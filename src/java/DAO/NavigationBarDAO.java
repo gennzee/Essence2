@@ -12,7 +12,8 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import model.NavigationBar;
+import model.Catalog;
+import model.NavigationBarr;
 
 /**
  *
@@ -23,27 +24,45 @@ public class NavigationBarDAO {
     public NavigationBarDAO() {
     }
 
-    public List<NavigationBar> showNav(String idd) {
+
+    public List<NavigationBarr> showNav2() {
         try {
             Connection conn = DBConnection.getConn();
-            String sql = "select NavMenu.Id as NavMenuID, Catalog.Id as CatalogID, NavMenu.Name as NavMenuName, Catalog.Name as CatalogName\n"
-                    + "from Catalog\n"
-                    + "inner join NavMenu on NavMenu.Id = Catalog.NavID\n"
-                    + "where NavMenu.Id like '" + idd + "'";
+            String sql = "select * from NavMenu";
             Statement st = conn.createStatement();
             ResultSet rs = st.executeQuery(sql);
-            List<NavigationBar> list = new ArrayList<NavigationBar>();
+            List<NavigationBarr> list = new ArrayList<>();
             while (rs.next()) {
-                int navmenuid = rs.getInt(1);
-                int catalogmenuid = rs.getInt(2);
-                String navmenuname = rs.getString(3);
-                String catalogmenuname = rs.getString(4);
-                NavigationBar a = new NavigationBar(navmenuid, catalogmenuid, navmenuname, catalogmenuname);
+                int id = rs.getInt(1);
+                String name = rs.getString(2);
+                NavigationBarr a = new NavigationBarr(id, name);
                 list.add(a);
             }
             return list;
         } catch (Exception e) {
-            System.out.println("showNav(DAO)");
+            System.out.println("showNav2(DAO)");
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public List<Catalog> showCatalog() {
+        try {
+            Connection conn = DBConnection.getConn();
+            String sql = "select * from Catalog";
+            Statement st = conn.createStatement();
+            ResultSet rs = st.executeQuery(sql);
+            List<Catalog> list = new ArrayList<>();
+            while (rs.next()) {
+                int id = rs.getInt(1);
+                String name = rs.getString(2);
+                int navid = rs.getInt(3);
+                Catalog a = new Catalog(id, name, navid);
+                list.add(a);
+            }
+            return list;
+        } catch (Exception e) {
+            System.out.println("showNav2(DAO)");
             e.printStackTrace();
         }
         return null;

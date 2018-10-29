@@ -20,30 +20,28 @@
                 <!-- Nav Start -->
                 <div class="classynav">
                     <ul>
-                        <li><a href="#">Shop</a>
+                        <li>
+
+                            <a href="#">Shop</a>
+
                             <div class="megamenu">
-                                <ul class="single-mega cn-col-4">
-                                    <li class="title"><b>Thương hiệu</b></li>
-                                        <c:forEach var="rows" items="${listNav_thuonghieu}">
-                                        <li><a href="<s:url value="../products/${rows.catalogmenuid}.htm"/>">${rows.catalogmenuname}</a></li>
-                                        </c:forEach>
-                                </ul>
-                                <ul class="single-mega cn-col-4">
-                                    <li class="title"><b>Linh kiện</b></li>
-                                        <c:forEach var="rows" items="${listNav_linhkien}">
-                                        <li><a href="<s:url value="../products/${rows.catalogmenuid}.htm"/>">${rows.catalogmenuname}</a></li>
-                                        </c:forEach>
-                                </ul>
-                                <ul class="single-mega cn-col-4">
-                                    <li class="title"><b>Đồng hồ cho giới tính</b></li>
-                                        <c:forEach var="rows" items="${listNav_gioitinh}">
-                                        <li><a href="<s:url value="../products/${rows.catalogmenuid}.htm"/>">${rows.catalogmenuname}</a></li>
-                                        </c:forEach>
-                                </ul>
-                                <div class="single-mega cn-col-4">
-                                    <img src="../img/bg-img/bg-98.jpg" alt="">
-                                </div>
+                                <c:forEach var="rows" items="${sessionScope.list_Nav}">
+                                    <ul class="single-mega cn-col-4">
+                                        <li class="title"><b>${rows.name}</b></li>
+                                                <c:forEach var="rowss" items="${sessionScope.list_Catalog}">
+                                                    <c:if test="${rows.id == rowss.navid}">
+                                                <li><a href="<s:url value="../products/${rowss.id}.htm"/>">${rowss.name}</a></li>
+                                                </c:if>
+                                            </c:forEach>
+                                    </ul>
+                                </c:forEach>
+                                <c:if test="${sessionScope.nav_Size <= 3}">
+                                    <div class="single-mega cn-col-4">
+                                        <img src="../img/bg-img/bg-98.jpg" alt="">
+                                    </div>
+                                </c:if>
                             </div>
+
                         </li>
                         <li><a href="../sale/sale.htm">Sales</a>
 
@@ -109,12 +107,12 @@
             </div>
         </div>
     </div>
-            <style>
-                .hoverrr:hover{
-                    background-color: black;
-                    color: white;
-                }
-            </style>
+    <style>
+        .hoverrr:hover{
+            background-color: black;
+            color: white;
+        }
+    </style>
 </header>
 <div>
     <c:if test="${login_error != null}">

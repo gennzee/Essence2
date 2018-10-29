@@ -77,6 +77,34 @@ public class UsersDAO {
         return null;
     }
 
+    public List<Users> showList_users_admin() {
+        try {
+            Connection conn = DBConnection.getConn();
+            String sql = "  select * from Users where RoleID = 1 OR RoleID = 2";
+            Statement st = conn.createStatement();
+            ResultSet rs = st.executeQuery(sql);
+            List<Users> list = new ArrayList<Users>();
+            while (rs.next()) {
+                String id = rs.getString(1);
+                String username = rs.getString(2);
+                String pass = rs.getString(3);
+                String name = rs.getString(4);
+                String email = rs.getString(5);
+                int roleid = rs.getInt(6);
+                String imageuser = rs.getString(7);
+                String phone = rs.getString(8);
+                String address = rs.getString(9);
+                Users a = new Users(id, username, pass, name, email, roleid, imageuser, phone, address);
+                list.add(a);
+            }
+            return list;
+        } catch (Exception e) {
+            System.out.println("showList_users_admin(DAO)");
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     public boolean Insert(Users users) {
         try {
             Connection conn = DBConnection.getConn();

@@ -33,6 +33,26 @@ public class News {
         this.imagetitle = imagetitle;
     }
 
+    public News(String title, String content, String createdby, String editedby, String createddate, String editeddate, String imagetitle) {
+        this.title = title;
+        this.content = content;
+        this.createdby = createdby;
+        this.editedby = editedby;
+        this.createddate = createddate;
+        this.editeddate = editeddate;
+        this.imagetitle = imagetitle;
+    }
+
+    public News(String title, String content, String createdby, String createddate, String imagetitle) {
+        this.title = title;
+        this.content = content;
+        this.createdby = createdby;
+        this.createddate = createddate;
+        this.imagetitle = imagetitle;
+    }
+    
+    
+
     public int getId() {
         return id;
     }

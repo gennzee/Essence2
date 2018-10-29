@@ -19,7 +19,6 @@ import java.util.List;
 import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import model.NavigationBar;
 import model.OrderDetail;
 import model.Orders;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,16 +44,9 @@ public class CheckoutController {
     public String view(ModelMap model, HttpServletRequest request) {
         HttpSession session = request.getSession(false);
 
-        NavigationBarDAO navigation = new NavigationBarDAO();
-        List<NavigationBar> thuonghieu = new ArrayList<NavigationBar>();
-        thuonghieu = navigation.showNav("1");
-        List<NavigationBar> linhkien = new ArrayList<NavigationBar>();
-        linhkien = navigation.showNav("2");
-        List<NavigationBar> gioitinh = new ArrayList<NavigationBar>();
-        gioitinh = navigation.showNav("3");
-        model.addAttribute("listNav_thuonghieu", thuonghieu);
-        model.addAttribute("listNav_linhkien", linhkien);
-        model.addAttribute("listNav_gioitinh", gioitinh);
+        session.getAttribute("list_Nav");
+        session.getAttribute("list_Catalog");
+        session.getAttribute("nav_Size");
         session.getAttribute("CARTSIZE");
         session.getAttribute("IMGUSER");
         session.getAttribute("listUser");
@@ -76,7 +68,7 @@ public class CheckoutController {
         String note = request.getParameter("note");
         int userid = Integer.parseInt(request.getParameter("txtUserID"));
 
-        Orders orders = new Orders(total, now.toString(), name, phone, address, note, userid, 1, 2);
+        Orders orders = new Orders(total, now.toString(), name, phone, address, note, userid, 1, 1);
         CheckoutDAO list = new CheckoutDAO();
         list.add_order(orders);
 
