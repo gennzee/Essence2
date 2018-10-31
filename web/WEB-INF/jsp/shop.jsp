@@ -10,6 +10,7 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <script src="../js/pace.js"></script>
         <meta charset="UTF-8">
         <meta name="description" content="">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -42,7 +43,38 @@
                 color: #0315ff;
             }
         </style>
+                <link href="../css/pace/blue/pace-theme-corner-indicator.css" rel="stylesheet" type="text/css"/>
+        <script>
+            paceOptions = {
+                elements: false,
+                restartOnRequestAfter: false
+            };
+        </script>
+        <script src="../js/pace/pace.js"></script>
+        <script>
+            function load(time) {
+                var x = new XMLHttpRequest();
+                x.open('GET', "http://localhost:8084/Essence/" + time, true);
+                x.send();
+            }
+            ;
 
+            load(20);
+            load(100);
+            load(500);
+            load(2000);
+            load(3000);
+
+            setTimeout(function () {
+                Pace.ignore(function () {
+                    load(3100);
+                });
+            }, 4000);
+
+            Pace.on('hide', function () {
+                console.log('done');
+            });
+        </script>
     </head>
     <body>
         <jsp:include page="header.jsp"/>
@@ -57,7 +89,7 @@
                             <c:forEach var="rows" items="${shop_title}">
                                 <h2>${rows.name}</h2>
                             </c:forEach>
-                            <h2>${shop_title_search_result}${ao_search_result}${quan_search_result}${phukien_search_result}</h2>
+                            <h2>${sale}</h2>
                         </div>
                     </div>
                 </div>
@@ -79,36 +111,21 @@
 
                                 <!--  Catagories  -->
                                 <div class="catagories-menu">
+
                                     <ul id="menu-content2" class="menu-content collapse show">
-                                        <!-- Single Item -->
-                                        <li data-toggle="collapse" data-target="#clothing">
-                                            <a href="#">Thương hiệu</a>
-                                            <ul class="sub-menu collapse show" id="clothing">
-                                                <li><a href="../products/products_selection_thuonghieu.htm">All</a></li>
-                                                    <c:forEach var="rows" items="${listNav_thuonghieu}">
-                                                    <li><a href="<s:url value="../products/${rows.catalogmenuid}.htm"/>">${rows.catalogmenuname}</a></li>
-                                                    </c:forEach>
-                                            </ul>
-                                        </li>
-                                        <!-- Single Item -->
-                                        <li data-toggle="collapse" data-target="#shoes" class="collapsed">
-                                            <a href="#">Linh kiện</a>
-                                            <ul class="sub-menu collapse show" id="shoes">
-                                                <li><a href="../products/products_selection_linhkien.htm">All</a></li>
-                                                    <c:forEach var="rows" items="${listNav_linhkien}">
-                                                    <li><a href="<s:url value="../products/${rows.catalogmenuid}.htm"/>">${rows.catalogmenuname}</a></li>
-                                                    </c:forEach>
-                                            </ul>
-                                        </li>
-                                        <!-- Single Item -->
-                                        <li data-toggle="collapse" data-target="#accessories" class="collapsed">
-                                            <a href="#">Đồng hồ cho giới tính</a>
-                                            <ul class="sub-menu collapse show" id="accessories">
-                                                <c:forEach var="rows" items="${listNav_gioitinh}">
-                                                    <li><a href="<s:url value="../products/${rows.catalogmenuid}.htm"/>">${rows.catalogmenuname}</a></li>
-                                                    </c:forEach>
-                                            </ul>
-                                        </li>
+                                        <c:forEach var="rows" items="${sessionScope.list_Nav}">
+                                            <!-- Single Item -->
+                                            <li data-toggle="collapse" data-target="#clothing${rows.id}">
+                                                <a href="#">${rows.name}</a>
+                                                <ul class="sub-menu collapse show" id="clothing${rows.id}">
+                                                    <c:forEach var="rowss" items="${sessionScope.list_Catalog}">
+                                                        <c:if test="${rows.id == rowss.navid}">
+                                                            <li><a href="<s:url value="../products/${rowss.id}.htm"/>">${rowss.name}</a></li>
+                                                            </c:if>
+                                                        </c:forEach>
+                                                </ul>
+                                            </li>
+                                        </c:forEach>
                                     </ul>
                                 </div>
                             </div>
@@ -198,31 +215,21 @@
 
                                                 <!-- Favourite -->
                                                 <c:if test="${sessionScope.USER != null}">
+                                                    <c:forEach var="rowss" items="${sessionScope.WISHLIST_LIST}">
+                                                        <c:if test="${rowss.productid == rows.id}">
+                                                            <c:set var="productid" value="${rowss.productid}"/>
+                                                            <c:set var="wishlist_id" value="${rowss.id}"/>
+                                                        </c:if>
+                                                    </c:forEach>
                                                     <c:choose>
-                                                        <c:when test="${sessionScope.WISHLIST_SIZE > 0}">
-                                                            <c:forEach var="rowss" items="${sessionScope.WISHLIST_LIST}">
-                                                                <c:if test="${rowss.productid == rows.id}">
-                                                                    <c:set var="productid" value="${rowss.productid}"/>
-                                                                    <c:set var="wishlist_id" value="${rowss.id}"/>
-                                                                </c:if>
-                                                            </c:forEach>
-                                                            <c:choose>
-                                                                <c:when test="${productid == rows.id}">
-                                                                    <div class="product-favourite">
-                                                                        <a href="<s:url value="javascript:void(0)"/>" onclick="$.get('../wishlist/remove/${wishlist_id}.htm');return location.reload();" class="favme fa fa-heart active"></a>
-                                                                    </div>
-                                                                </c:when>
-                                                                <c:otherwise>
-                                                                    <div class="product-favourite">
-                                                                        <a href="<s:url value="javascript:void(0)"/>" onclick="$.get('../wishlist/${rows.id}.htm');return location.reload();" class="favme fa fa-heart"></a>
-                                                                    </div>
-                                                                </c:otherwise>
-                                                            </c:choose>
-
+                                                        <c:when test="${productid == rows.id}">
+                                                            <div class="product-favourite">
+                                                                <a href="<s:url value="../wishlist/remove/${wishlist_id}.htm"/>" onclick="return location.reload();" class="favme fa fa-heart active"></a>
+                                                            </div>
                                                         </c:when>
                                                         <c:otherwise>
                                                             <div class="product-favourite">
-                                                                <a href="<s:url value="javascript:void(0)"/>" onclick="$.get('../wishlist/${rows.id}.htm');return location.reload();" class="favme fa fa-heart"></a>
+                                                                <a href="<s:url value="../wishlist/${rows.id}.htm"/>" onclick="return location.reload();" class="favme fa fa-heart"></a>
                                                             </div>
                                                         </c:otherwise>
                                                     </c:choose>
@@ -245,7 +252,7 @@
                                                     <!-- Add to Cart -->
                                                     <div class="add-to-cart-btn">
                                                         <a href="<s:url value="javascript:void(0)"/>" onclick="$.get('../cartbean/${rows.id}.htm');return location.reload();" class="btn essence-btn">Add to Cart</a>
-                                                        <!--onclick="$.get('../cartbean/${rows.id}.htm');return location.reload();" -->
+
                                                     </div>
                                                 </div>
                                             </div>

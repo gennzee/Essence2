@@ -26,6 +26,38 @@
         <!-- Core Style CSS -->
         <link rel="stylesheet" href="../css/core-style.css">
         <link rel="stylesheet" href="../style.css">
+        <link href="../css/pace/blue/pace-theme-corner-indicator.css" rel="stylesheet" type="text/css"/>
+        <script>
+            paceOptions = {
+                elements: false,
+                restartOnRequestAfter: false
+            };
+        </script>
+        <script src="../js/pace/pace.js"></script>
+        <script>
+            function load(time) {
+                var x = new XMLHttpRequest();
+                x.open('GET', "http://localhost:8084/Essence/" + time, true);
+                x.send();
+            }
+            ;
+
+            load(20);
+            load(100);
+            load(500);
+            load(2000);
+            load(3000);
+
+            setTimeout(function () {
+                Pace.ignore(function () {
+                    load(3100);
+                });
+            }, 4000);
+
+            Pace.on('hide', function () {
+                console.log('done');
+            });
+        </script>
     </head>
     <body>
         <jsp:include page="header.jsp"/>
@@ -54,7 +86,7 @@
                     <div class="col-12 col-sm-6 col-md-4">
                         <div class="single_catagory_area d-flex align-items-center justify-content-center bg-img" style="background-image: url(../img/bg-img/bg-102.jpg);">
                             <div class="catagory-content">
-                                <a href="../products/products_selection_thuonghieu.htm">Watch</a>
+                                <a href="../products/4.htm">Watch</a>
                             </div>
                         </div>
                     </div>
@@ -62,7 +94,7 @@
                     <div class="col-12 col-sm-6 col-md-4">
                         <div class="single_catagory_area d-flex align-items-center justify-content-center bg-img" style="background-image: url(../img/bg-img/bg-99.jpg);">
                             <div class="catagory-content">
-                                <a href="../products/products_selection_linhkien.htm">Accessories</a>
+                                <a href="../products/6.htm">Accessories</a>
                             </div>
                         </div>
                     </div>
@@ -132,33 +164,25 @@
                                         </c:if>
                                         <!-- Favourite -->
                                         <c:if test="${sessionScope.USER != null}">
+                                            <c:forEach var="rowss" items="${sessionScope.WISHLIST_LIST}">
+                                                <c:if test="${rowss.productid == rows.id}">
+                                                    <c:set var="productid" value="${rowss.productid}"/>
+                                                    <c:set var="wishlist_id" value="${rowss.id}"/>
+                                                </c:if>
+                                            </c:forEach>
                                             <c:choose>
-                                                <c:when test="${sessionScope.WISHLIST_SIZE > 0}">
-                                                    <c:forEach var="rowss" items="${sessionScope.WISHLIST_LIST}">
-                                                        <c:if test="${rowss.productid == rows.id}">
-                                                            <c:set var="productid" value="${rowss.productid}"/>
-                                                            <c:set var="wishlist_id" value="${rowss.id}"/>
-                                                        </c:if>
-                                                    </c:forEach>
-                                                    <c:choose>
-                                                        <c:when test="${productid == rows.id}">
-                                                            <div class="product-favourite">
-                                                                <a href="<s:url value="javascript:void(0)"/>" onclick="$.get('../wishlist/remove/${wishlist_id}.htm');return location.reload();" class="favme fa fa-heart active"></a>
-                                                            </div>
-                                                        </c:when>
-                                                        <c:otherwise>
-                                                            <div class="product-favourite">
-                                                                <a href="<s:url value="javascript:void(0)"/>" onclick="$.get('../wishlist/${rows.id}.htm');return location.reload();" class="favme fa fa-heart"></a>
-                                                            </div>
-                                                        </c:otherwise>
-                                                    </c:choose>
-
-                                                </c:when>
-                                                <c:otherwise>
+                                                <c:when test="${productid == rows.id}">
                                                     <div class="product-favourite">
-                                                        <a href="<s:url value="javascript:void(0)"/>" onclick="$.get('../wishlist/${rows.id}.htm');return location.reload();" class="favme fa fa-heart"></a>
+                                                        <a href="<s:url value="javascript:void(0)"/>" onclick="$.get('../wishlist/remove/${wishlist_id}.htm');
+                                                                return location.reload();" class="favme fa fa-heart active"></a>
                                                     </div>
-                                                </c:otherwise>
+                                                </c:when>
+                                                <c:when test="${productid != rows.id}">
+                                                    <div class="product-favourite">
+                                                        <a href="<s:url value="javascript:void(0)"/>" onclick="$.get('../wishlist/${rows.id}.htm');
+                                                                return location.reload();" class="favme fa fa-heart"></a>
+                                                    </div>
+                                                </c:when>
                                             </c:choose>
                                         </c:if>
                                     </div>
@@ -168,7 +192,7 @@
                                         <a href="<s:url value="../product_detail/${rows.id}.htm"/>">
                                             <h6>${rows.name}</h6>
                                         </a>
-                                            <p class="product-price"><fmt:formatNumber type="number" value="${rows.price}"/> &#8363</p>
+                                        <p class="product-price"><fmt:formatNumber type="number" value="${rows.price}"/> &#8363</p>
 
                                         <!-- Hover Content -->
                                         <div class="hover-content">

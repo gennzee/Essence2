@@ -20,12 +20,15 @@ public class SaleDAO {
 
     public SaleDAO() {
     }
-    
-    
-        public List<Products> showSale() {
+
+    public List<Products> showSale() {
         try {
             Connection conn = DBConnection.getConn();
-            String sql = "Select * from Product where Discount > 0";
+            String sql = "  select p.Id, p.Name, p.Detail, p.Price, p.Discount, sum(i.Quantity) as Quantity, p.Brand, p.Img1, p.Img2, p.CatalogID\n"
+                    + "  from Product p\n"
+                    + "  inner join InvoiceDetail i on i.ProductID = p.Id\n"
+                    + "  where p.Discount > '0'\n"
+                    + "  group by p.Id, p.Name, p.Detail, p.Price, p.Discount, p.Brand, p.Img1, p.Img2, p.CatalogID";
             Statement st = conn.createStatement();
             ResultSet rs = st.executeQuery(sql);
             List<Products> list = new ArrayList<Products>();
@@ -40,8 +43,7 @@ public class SaleDAO {
                 String img1 = rs.getString(8);
                 String img2 = rs.getString(9);
                 int catalogid = rs.getInt(10);
-                int supplierid = rs.getInt(11);
-                Products a = new Products(id, name, detail, price, discount, quantity, brand, img1, img2, catalogid, supplierid);
+                Products a = new Products(id, name, detail, price, discount, quantity, brand, img1, img2, catalogid);
                 list.add(a);
             }
             return list;
@@ -51,6 +53,5 @@ public class SaleDAO {
         }
         return null;
     }
-    
-    
+
 }

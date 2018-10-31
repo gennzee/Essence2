@@ -10,6 +10,7 @@ package model;
  * @author nxanh
  */
 public class Users {
+
     private String id;
     private String username;
     private String password;
@@ -19,11 +20,12 @@ public class Users {
     private String imageuser;
     private String phone;
     private String address;
+    private String createddate;
 
     public Users() {
     }
 
-    public Users(String id, String username, String password, String name, String email, int roleid, String imageuser, String phone, String address) {
+    public Users(String id, String username, String password, String name, String email, int roleid, String imageuser, String phone, String address, String createddate) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -33,9 +35,10 @@ public class Users {
         this.imageuser = imageuser;
         this.phone = phone;
         this.address = address;
+        this.createddate = createddate;
     }
 
-    public Users(String username, String password, String name, String email, String imageuser, String phone, String address) {
+    public Users(String username, String password, String name, String email, String imageuser, String phone, String address, String createddate) {
         this.username = username;
         this.password = password;
         this.name = name;
@@ -43,6 +46,7 @@ public class Users {
         this.imageuser = imageuser;
         this.phone = phone;
         this.address = address;
+        this.createddate = createddate;
     }
 
     public Users(String id, String name, String email, String imageuser, String phone, String address) {
@@ -53,8 +57,6 @@ public class Users {
         this.phone = phone;
         this.address = address;
     }
-    
-    
 
     public String getId() {
         return id;
@@ -128,8 +130,12 @@ public class Users {
         this.address = address;
     }
 
-    
-    
-    
-    
+    public String getCreateddate() {
+        return createddate;
+    }
+
+    public void setCreateddate(String createddate) {
+        this.createddate = createddate;
+    }
+
 }

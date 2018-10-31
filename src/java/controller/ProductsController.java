@@ -7,6 +7,7 @@ package controller;
 
 import DAO.NavigationBarDAO;
 import DAO.ProductsDAO;
+import DAO.SaleDAO;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -56,97 +57,6 @@ public class ProductsController {
         return "index";
     }
 
-    @RequestMapping("shopIndex")
-    public String shopIndex(ModelMap model, HttpServletRequest request) {
-        HttpSession session = request.getSession(false);
-        ProductsDAO products = new ProductsDAO();
-        List<Products> ds = new ArrayList<Products>();
-        ds = products.showProducts();
-        model.addAttribute("shopIndex_size", ds.size());
-        model.addAttribute("listProducts", ds);
-
-        session.getAttribute("list_Nav");
-        session.getAttribute("list_Catalog");
-        session.getAttribute("nav_Size");
-        session.getAttribute("CARTSIZE");
-        session.getAttribute("IMGUSER");
-        session.getAttribute("listUser");
-        session.getAttribute("WISHLIST_SIZE");
-        session.getAttribute("WISHLIST_LIST");
-        session.getAttribute("ORDER_LIST");
-        session.setAttribute("uri", request.getRequestURI().substring(request.getContextPath().length()));
-        return "shop";
-    }
-
-    @RequestMapping("products_selection_thuonghieu")
-    public String products_selection_thuonghieu(ModelMap model, HttpServletRequest request) {
-        HttpSession session = request.getSession(false);
-        ProductsDAO products = new ProductsDAO();
-        List<Products> ds = new ArrayList<Products>();
-        ds = products.showProducts_select(1);
-        model.addAttribute("product_size", ds.size());
-        model.addAttribute("listProducts", ds);
-        model.addAttribute("ao_search_result", "all");
-
-        session.getAttribute("list_Nav");
-        session.getAttribute("list_Catalog");
-        session.getAttribute("nav_Size");
-        session.getAttribute("CARTSIZE");
-        session.getAttribute("IMGUSER");
-        session.getAttribute("listUser");
-        session.getAttribute("WISHLIST_SIZE");
-        session.getAttribute("WISHLIST_LIST");
-        session.getAttribute("ORDER_LIST");
-        session.setAttribute("uri", request.getRequestURI().substring(request.getContextPath().length()));
-        return "shop";
-    }
-
-    @RequestMapping("products_selection_linhkien")
-    public String products_selection_linhkien(ModelMap model, HttpServletRequest request) {
-        HttpSession session = request.getSession(false);
-        ProductsDAO products = new ProductsDAO();
-        List<Products> ds = new ArrayList<Products>();
-        ds = products.showProducts_select(2);
-        model.addAttribute("product_size", ds.size());
-        model.addAttribute("listProducts", ds);
-        model.addAttribute("quan_search_result", "all");
-
-        session.getAttribute("list_Nav");
-        session.getAttribute("list_Catalog");
-        session.getAttribute("nav_Size");
-        session.getAttribute("CARTSIZE");
-        session.getAttribute("IMGUSER");
-        session.getAttribute("listUser");
-        session.getAttribute("WISHLIST_SIZE");
-        session.getAttribute("WISHLIST_LIST");
-        session.getAttribute("ORDER_LIST");
-        session.setAttribute("uri", request.getRequestURI().substring(request.getContextPath().length()));
-        return "shop";
-    }
-
-    @RequestMapping("products_selection_gioitinh")
-    public String products_selection_gioitinh(ModelMap model, HttpServletRequest request) {
-        HttpSession session = request.getSession(false);
-        ProductsDAO products = new ProductsDAO();
-        List<Products> ds = new ArrayList<Products>();
-        ds = products.showProducts_select(3);
-        model.addAttribute("product_size", ds.size());
-        model.addAttribute("listProducts", ds);
-        model.addAttribute("phukien_search_result", "all");
-
-        session.getAttribute("list_Nav");
-        session.getAttribute("list_Catalog");
-        session.getAttribute("nav_Size");
-        session.getAttribute("CARTSIZE");
-        session.getAttribute("IMGUSER");
-        session.getAttribute("listUser");
-        session.getAttribute("WISHLIST_SIZE");
-        session.getAttribute("WISHLIST_LIST");
-        session.getAttribute("ORDER_LIST");
-        session.setAttribute("uri", request.getRequestURI().substring(request.getContextPath().length()));
-        return "shop";
-    }
-
     @RequestMapping("search")
     public String search(ModelMap model, HttpServletRequest request) {
         String txtSearch = request.getParameter("txtSearch");
@@ -174,11 +84,13 @@ public class ProductsController {
     @RequestMapping("{menu2id}")
     public String menu2id(ModelMap model, HttpServletRequest request, @PathVariable int menu2id) {
         HttpSession session = request.getSession(false);
+
         ProductsDAO products = new ProductsDAO();
         List<Products> ds = new ArrayList<Products>();
-        ds = products.findOne_Catalog(menu2id);
+        ds = products.showProducts_select(menu2id);
         List<Catalog> ds2 = new ArrayList<Catalog>();
         ds2 = products.shop_title(menu2id);
+
         model.addAttribute("shop_title", ds2);
         model.addAttribute("shopIndex_size", ds.size());
         model.addAttribute("listProducts", ds);

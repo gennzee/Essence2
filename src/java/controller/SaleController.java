@@ -30,11 +30,12 @@ public class SaleController {
     @RequestMapping(value = "sale")
     public String sale(ModelMap model, HttpServletRequest request) {
         HttpSession session = request.getSession(false);
+        
         SaleDAO sale = new SaleDAO();
         List<Products> ds = new ArrayList<Products>();
         ds = sale.showSale();
         
-        model.addAttribute("sale_size", ds.size());
+        model.addAttribute("shopIndex_size", ds.size());
         model.addAttribute("listProducts", ds);
         model.addAttribute("sale", "sale");
 
@@ -48,7 +49,7 @@ public class SaleController {
         session.getAttribute("WISHLIST_LIST");
         session.getAttribute("ORDER_LIST");
         session.setAttribute("uri", request.getRequestURI().substring(request.getContextPath().length()));
-        return "Sale";
+        return "shop";
     }
 
 }

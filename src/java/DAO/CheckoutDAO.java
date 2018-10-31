@@ -66,11 +66,12 @@ public class CheckoutDAO {
     public boolean add_orderdetail(OrderDetail orderDetail) {
         try {
             Connection conn = DBConnection.getConn();
-            String sql = "insert into OrderDetail values (?,?,?)";
+            String sql = "insert into OrderDetail values (?,?,?,?)";
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setInt(1, orderDetail.getQuantity());
             ps.setInt(2, orderDetail.getOrderid());
             ps.setInt(3, orderDetail.getProductid());
+            ps.setInt(4, orderDetail.getPrice());
             int rs = ps.executeUpdate();
             if (rs > 0) {
                 return true;

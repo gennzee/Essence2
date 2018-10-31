@@ -40,8 +40,7 @@ public class ProductDetailDAO {
                 String img1 = rs.getString(8);
                 String img2 = rs.getString(9);
                 int catalogid = rs.getInt(10);
-                int supplierid = rs.getInt(11);
-                Products a = new Products(id, name, detail, price, discount, quantity, brand, img1, img2, catalogid, supplierid);
+                Products a = new Products(id, name, detail, price, discount, quantity, brand, img1, img2, catalogid);
                 list.add(a);
             }
             return list;

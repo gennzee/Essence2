@@ -5,18 +5,16 @@
  */
 package controller;
 
-import DAO.NavigationBarDAO;
 import DAO.OrderDAO;
-import DAO.ProductsDAO;
 import DAO.UsersDAO;
 import DAO.WishlistDAO;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import model.Orders;
-import model.Products;
 import model.Users;
 import model.Wishlist;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +24,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.portlet.ModelAndView;
 import service.RandomString;
 
 /**
@@ -118,7 +115,8 @@ public class LoginController {
         String image = request.getParameter("txtImage");
         String phone = request.getParameter("txtPhone");
         String address = request.getParameter("txtAddress");
-        Users a = new Users(username, password, name, email, image, phone, address);
+        LocalDate now = LocalDate.now();
+        Users a = new Users(username, password, name, email, image, phone, address, now.toString());
         UsersDAO user = new UsersDAO();
         user.Insert(a);
 

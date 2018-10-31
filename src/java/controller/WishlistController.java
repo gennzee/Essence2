@@ -37,6 +37,7 @@ public class WishlistController {
         WishlistDAO wishlist = new WishlistDAO();
         List<Wishlist> ds3 = new ArrayList<Wishlist>();
         ds3 = wishlist.showWishlist(session.getAttribute("USER_ID").toString());
+        
         session.setAttribute("WISHLIST_SIZE", ds3.size());
         session.setAttribute("WISHLIST_LIST", ds3);
 
@@ -52,8 +53,10 @@ public class WishlistController {
         WishlistDAO wishlist = new WishlistDAO();
         List<Wishlist> ds3 = new ArrayList<Wishlist>();
         ds3 = wishlist.showWishlist(session.getAttribute("USER_ID").toString());
+        
         session.setAttribute("WISHLIST_SIZE", ds3.size());
         session.setAttribute("WISHLIST_LIST", ds3);
+        
         return "redirect:" + session.getAttribute("uri").toString();
     }
 

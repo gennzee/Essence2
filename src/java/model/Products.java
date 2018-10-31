@@ -23,12 +23,11 @@ public class Products {
     private String img1;
     private String img2;
     private int catalogid;
-    private int supplierid;
 
     public Products() {
     }
 
-    public Products(int id, String name, String detail, int price, int discount, int quantity, String brand, String img1, String img2, int catalogid, int supplierid) {
+    public Products(int id, String name, String detail, int price, int discount, int quantity, String brand, String img1, String img2, int catalogid) {
         this.id = id;
         this.name = name;
         this.detail = detail;
@@ -39,7 +38,6 @@ public class Products {
         this.img1 = img1;
         this.img2 = img2;
         this.catalogid = catalogid;
-        this.supplierid = supplierid;
     }
 
     public int getId() {
@@ -123,13 +121,6 @@ public class Products {
         this.catalogid = catalogid;
     }
 
-    public int getSupplierid() {
-        return supplierid;
-    }
-
-    public void setSupplierid(int supplierid) {
-        this.supplierid = supplierid;
-    }
 
     
     

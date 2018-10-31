@@ -74,7 +74,7 @@ public class CheckoutController {
 
         CartBean cartBean = (CartBean) session.getAttribute("SHOP");
         for (ProductDTO productDTO : cartBean.values()) {
-            OrderDetail orderdetail = new OrderDetail(productDTO.getQuantity(), list.select_id_just_added_to_order(), productDTO.getSanpham().getId());
+            OrderDetail orderdetail = new OrderDetail(productDTO.getQuantity(), list.select_id_just_added_to_order(), productDTO.getSanpham().getId(), productDTO.getSanpham().getPrice());
             list.add_orderdetail(orderdetail);
         }
 

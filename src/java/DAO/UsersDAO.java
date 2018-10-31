@@ -66,7 +66,8 @@ public class UsersDAO {
                 String imageuser = rs.getString(7);
                 String phone = rs.getString(8);
                 String address = rs.getString(9);
-                Users a = new Users(id, username, pass, name, email, roleid, imageuser, phone, address);
+                String createddate = rs.getString(10);
+                Users a = new Users(id, username, pass, name, email, roleid, imageuser, phone, address, createddate);
                 list.add(a);
             }
             return list;
@@ -94,7 +95,8 @@ public class UsersDAO {
                 String imageuser = rs.getString(7);
                 String phone = rs.getString(8);
                 String address = rs.getString(9);
-                Users a = new Users(id, username, pass, name, email, roleid, imageuser, phone, address);
+                String createddate = rs.getString(10);
+                Users a = new Users(id, username, pass, name, email, roleid, imageuser, phone, address, createddate);
                 list.add(a);
             }
             return list;
@@ -108,7 +110,7 @@ public class UsersDAO {
     public boolean Insert(Users users) {
         try {
             Connection conn = DBConnection.getConn();
-            String sql = "Insert into Users values(?,?,?,?,?,?,?,?)";
+            String sql = "Insert into Users values(?,?,?,?,?,?,?,?,?)";
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setString(1, users.getUsername());
             ps.setString(2, users.getPassword());
@@ -118,6 +120,7 @@ public class UsersDAO {
             ps.setString(6, users.getImageuser());
             ps.setString(7, users.getPhone());
             ps.setString(8, users.getAddress());
+            ps.setString(9, users.getCreateddate());
             int rs = ps.executeUpdate();
             if (rs > 0) {
                 return true;

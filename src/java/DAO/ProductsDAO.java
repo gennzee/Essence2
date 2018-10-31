@@ -26,7 +26,10 @@ public class ProductsDAO {
     public List<Products> showProducts() {
         try {
             Connection conn = DBConnection.getConn();
-            String sql = "Select * from Product";
+            String sql = "  select p.Id, p.Name, p.Detail, p.Price, p.Discount, sum(i.Quantity) as Quantity, p.Brand, p.Img1, p.Img2, p.CatalogID\n"
+                    + "  from Product p\n"
+                    + "  inner join InvoiceDetail i on i.ProductID = p.Id\n"
+                    + "  group by p.Id, p.Name, p.Detail, p.Price, p.Discount, p.Brand, p.Img1, p.Img2, p.CatalogID";
             Statement st = conn.createStatement();
             ResultSet rs = st.executeQuery(sql);
             List<Products> list = new ArrayList<Products>();
@@ -41,8 +44,7 @@ public class ProductsDAO {
                 String img1 = rs.getString(8);
                 String img2 = rs.getString(9);
                 int catalogid = rs.getInt(10);
-                int supplierid = rs.getInt(11);
-                Products a = new Products(id, name, detail, price, discount, quantity, brand, img1, img2, catalogid, supplierid);
+                Products a = new Products(id, name, detail, price, discount, quantity, brand, img1, img2, catalogid);
                 list.add(a);
             }
             return list;
@@ -52,31 +54,30 @@ public class ProductsDAO {
         }
         return null;
     }
-    
 
     public List<Products> showProducts_select(int idd) {
         try {
             Connection conn = DBConnection.getConn();
-            String sql = "select Catalog.Id, Catalog.Name, Product.*\n"
-                    + "from Product \n"
-                    + "inner join Catalog on Product.CatalogID=Catalog.Id\n"
-                    + "where Catalog.Id like '" + idd + "'";
+            String sql = "  select p.Id, p.Name, p.Detail, p.Price, p.Discount, sum(i.Quantity) as Quantity, p.Brand, p.Img1, p.Img2, p.CatalogID\n"
+                    + "  from Product p\n"
+                    + "  inner join InvoiceDetail i on i.ProductID = p.Id\n"
+                    + "  where p.CatalogID like " + idd + "\n"
+                    + "  group by p.Id, p.Name, p.Detail, p.Price, p.Discount, p.Brand, p.Img1, p.Img2, p.CatalogID";
             Statement st = conn.createStatement();
             ResultSet rs = st.executeQuery(sql);
             List<Products> list = new ArrayList<Products>();
             while (rs.next()) {
-                int id = rs.getInt(3);
-                String name = rs.getString(4);
-                String detail = rs.getString(5);
-                int price = rs.getInt(6);
-                int discount = rs.getInt(7);
-                int quantity = rs.getInt(8);
-                String brand = rs.getString(9);
-                String img1 = rs.getString(10);
-                String img2 = rs.getString(11);
-                int catalogid = rs.getInt(12);
-                int supplierid = rs.getInt(13);
-                Products a = new Products(id, name, detail, price, discount, quantity, brand, img1, img2, catalogid, supplierid);
+                int id = rs.getInt(1);
+                String name = rs.getString(2);
+                String detail = rs.getString(3);
+                int price = rs.getInt(4);
+                int discount = rs.getInt(5);
+                int quantity = rs.getInt(6);
+                String brand = rs.getString(7);
+                String img1 = rs.getString(8);
+                String img2 = rs.getString(9);
+                int catalogid = rs.getInt(10);
+                Products a = new Products(id, name, detail, price, discount, quantity, brand, img1, img2, catalogid);
                 list.add(a);
             }
             return list;
@@ -90,7 +91,11 @@ public class ProductsDAO {
     public List<Products> Search(String txtName) {
         try {
             Connection conn = DBConnection.getConn();
-            String sql = "Select * from Product where Name like '%" + txtName + "%'";
+            String sql = "  select p.Id, p.Name, p.Detail, p.Price, p.Discount, sum(i.Quantity) as Quantity, p.Brand, p.Img1, p.Img2, p.CatalogID\n"
+                    + "  from Product p\n"
+                    + "  inner join InvoiceDetail i on i.ProductID = p.Id\n"
+                    + "  where p.Name like '%" + txtName + "%'\n"
+                    + "  group by p.Id, p.Name, p.Detail, p.Price, p.Discount, p.Brand, p.Img1, p.Img2, p.CatalogID";
             Statement st = conn.createStatement();
             ResultSet rs = st.executeQuery(sql);
             List<Products> list = new ArrayList<Products>();
@@ -105,43 +110,12 @@ public class ProductsDAO {
                 String img1 = rs.getString(8);
                 String img2 = rs.getString(9);
                 int catalogid = rs.getInt(10);
-                int supplierid = rs.getInt(11);
-                Products a = new Products(id, name, detail, price, discount, quantity, brand, img1, img2, catalogid, supplierid);
+                Products a = new Products(id, name, detail, price, discount, quantity, brand, img1, img2, catalogid);
                 list.add(a);
             }
             return list;
         } catch (Exception e) {
             System.out.println("Search(ProductsDAO)");
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-    public List<Products> findOne_Catalog(int idd) {
-        try {
-            Connection conn = DBConnection.getConn();
-            String sql = "Select * from Product where CatalogID like '" + idd + "'";
-            Statement st = conn.createStatement();
-            ResultSet rs = st.executeQuery(sql);
-            List<Products> list = new ArrayList<Products>();
-            while (rs.next()) {
-                int id = rs.getInt(1);
-                String name = rs.getString(2);
-                String detail = rs.getString(3);
-                int price = rs.getInt(4);
-                int discount = rs.getInt(5);
-                int quantity = rs.getInt(6);
-                String brand = rs.getString(7);
-                String img1 = rs.getString(8);
-                String img2 = rs.getString(9);
-                int catalogid = rs.getInt(10);
-                int supplierid = rs.getInt(11);
-                Products a = new Products(id, name, detail, price, discount, quantity, brand, img1, img2, catalogid, supplierid);
-                list.add(a);
-            }
-            return list;
-        } catch (Exception e) {
-            System.out.println("findOne_Catalog(ProductsDAO)");
             e.printStackTrace();
         }
         return null;

@@ -26,7 +26,7 @@ public class OrderDetailDAO {
     public List<OrderDetailWithId> listOrderDetail(int idd) {
         try {
             Connection conn = DBConnection.getConn();
-            String sql = "select OrderDetail.OrderID, Product.Id, Product.Name, Product.Quantity, Product.Discount, Product.Discount\n"
+            String sql = "select OrderDetail.OrderID, Product.Id, Product.Name, Product.Quantity, Product.Discount, Product.Price\n"
                     + "from OrderDetail\n"
                     + "inner join Product on OrderDetail.ProductID = Product.Id\n"
                     + "where OrderID = '" + idd + "'";
@@ -67,9 +67,8 @@ public class OrderDetailDAO {
                 int shipperid = rs.getInt(2);
                 String shippername = rs.getString(3);
                 String shipperphone = rs.getString(4);
-                String shippercompany = rs.getString(5);
-                int paymentstatus = rs.getInt(6);
-                ShipperWithOrder a = new ShipperWithOrder(orderid, shipperid, shippername, shipperphone, shippercompany, paymentstatus);
+                int paymentstatus = rs.getInt(5);
+                ShipperWithOrder a = new ShipperWithOrder(orderid, shipperid, shippername, shipperphone, paymentstatus);
                 list.add(a);
             }
             return list;

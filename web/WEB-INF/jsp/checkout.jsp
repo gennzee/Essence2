@@ -28,6 +28,38 @@
         <!-- Core Style CSS -->
         <link rel="stylesheet" href="../css/core-style.css">
         <link rel="stylesheet" href="../style.css">
+                <link href="../css/pace/blue/pace-theme-corner-indicator.css" rel="stylesheet" type="text/css"/>
+        <script>
+            paceOptions = {
+                elements: false,
+                restartOnRequestAfter: false
+            };
+        </script>
+        <script src="../js/pace/pace.js"></script>
+        <script>
+            function load(time) {
+                var x = new XMLHttpRequest();
+                x.open('GET', "http://localhost:8084/Essence/" + time, true);
+                x.send();
+            }
+            ;
+
+            load(20);
+            load(100);
+            load(500);
+            load(2000);
+            load(3000);
+
+            setTimeout(function () {
+                Pace.ignore(function () {
+                    load(3100);
+                });
+            }, 4000);
+
+            Pace.on('hide', function () {
+                console.log('done');
+            });
+        </script>
     </head>
     <body>
         <!--header-->

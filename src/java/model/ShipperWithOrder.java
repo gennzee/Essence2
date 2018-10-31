@@ -14,18 +14,16 @@ public class ShipperWithOrder {
     private int shipperid;
     private String shippername;
     private String shipperphone;
-    private String shippercompany;
     private int paymentstatus;
 
     public ShipperWithOrder() {
     }
 
-    public ShipperWithOrder(int orderid, int shipperid, String shippername, String shipperphone, String shippercompany, int paymentstatus) {
+    public ShipperWithOrder(int orderid, int shipperid, String shippername, String shipperphone, int paymentstatus) {
         this.orderid = orderid;
         this.shipperid = shipperid;
         this.shippername = shippername;
         this.shipperphone = shipperphone;
-        this.shippercompany = shippercompany;
         this.paymentstatus = paymentstatus;
     }
 
@@ -59,14 +57,6 @@ public class ShipperWithOrder {
 
     public void setShipperphone(String shipperphone) {
         this.shipperphone = shipperphone;
-    }
-
-    public String getShippercompany() {
-        return shippercompany;
-    }
-
-    public void setShippercompany(String shippercompany) {
-        this.shippercompany = shippercompany;
     }
 
     public int getPaymentstatus() {

@@ -14,21 +14,24 @@ public class OrderDetail {
     private int quantity;
     private int orderid;
     private int productid;
+    private int price;
 
     public OrderDetail() {
     }
 
-    public OrderDetail(int id, int quantity, int orderid, int productid) {
+    public OrderDetail(int id, int quantity, int orderid, int productid, int price) {
         this.id = id;
         this.quantity = quantity;
         this.orderid = orderid;
         this.productid = productid;
+        this.price = price;
     }
 
-    public OrderDetail(int quantity, int orderid, int productid) {
+    public OrderDetail(int quantity, int orderid, int productid, int price) {
         this.quantity = quantity;
         this.orderid = orderid;
         this.productid = productid;
+        this.price = price;
     }
 
     public int getId() {
@@ -62,6 +65,16 @@ public class OrderDetail {
     public void setProductid(int productid) {
         this.productid = productid;
     }
+
+    public int getPrice() {
+        return price;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
+    }
+
+
     
     
     
