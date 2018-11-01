@@ -58,6 +58,60 @@ public class Users {
         this.address = address;
     }
 
+    public Users(String username, String password, String name, String email, int roleid, String imageuser, String phone, String address) {
+        this.username = username;
+        this.password = password;
+        this.name = name;
+        this.email = email;
+        this.roleid = roleid;
+        this.imageuser = imageuser;
+        this.phone = phone;
+        this.address = address;
+    }
+
+    public Users(String username, String password, String name, String email, int roleid, String phone, String address) {
+        this.username = username;
+        this.password = password;
+        this.name = name;
+        this.email = email;
+        this.roleid = roleid;
+        this.phone = phone;
+        this.address = address;
+    }
+
+    public Users(String username, String name, String email, int roleid, String imageuser, String phone, String address) {
+        this.username = username;
+        this.name = name;
+        this.email = email;
+        this.roleid = roleid;
+        this.imageuser = imageuser;
+        this.phone = phone;
+        this.address = address;
+    }
+
+    public Users(String username, String name, String email, int roleid, String phone, String address) {
+        this.username = username;
+        this.name = name;
+        this.email = email;
+        this.roleid = roleid;
+        this.phone = phone;
+        this.address = address;
+    }
+
+    public Users(String username, String password, String name, String email, int roleid, String imageuser, String phone, String address, String createddate) {
+        this.username = username;
+        this.password = password;
+        this.name = name;
+        this.email = email;
+        this.roleid = roleid;
+        this.imageuser = imageuser;
+        this.phone = phone;
+        this.address = address;
+        this.createddate = createddate;
+    }
+    
+    
+    
     public String getId() {
         return id;
     }

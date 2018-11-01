@@ -16,11 +16,11 @@
                 </li>
 
                 <li class="submenu">
-                    <a href="../admin/form.htm"><i class="fa fa-fw fa-file-text-o"></i><span> Text-Editor </span> </a>
+                    <a href="../admin/nav.htm"><i class="fa fa-fw fa-area-chart"></i><span> Navigate Menu </span> </a>
                 </li>
 
                 <li class="submenu">
-                    <a href="../admin/nav.htm"><i class="fa fa-fw fa-area-chart"></i><span> Navigate Menu </span> </a>
+                    <a href="../admin/news.htm"><i class="fa fa-fw fa-area-chart"></i><span> News </span> </a>
                 </li>
 
                 <li class="submenu">

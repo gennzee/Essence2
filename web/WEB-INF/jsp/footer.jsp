@@ -2,6 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 <%@taglib uri="http://www.springframework.org/tags" prefix="s"%>
+<script src="../js/validation-form/validation.js"></script>
 <!-- ##### Footer Area Start ##### -->
 <footer class="footer_area clearfix">
     <div class="container">
@@ -89,17 +90,21 @@
                 <h4 class="modal-title">Login</h4>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
-            <form action="../login/loginIndex.htm" method="post">
+            <form name="loginForm" onsubmit="return loginForms()" action="../login/loginIndex.htm" method="post">
                 <!-- Modal body -->
                 <div class="modal-body">
                     <div>
                         <div class="col-12 mb-3">
                             <label for="city">Username </label>
+                            <p id="txt_username" style="color: red;"></p>
                             <input type="text" name="txtUser" class="form-control" value="">
+                            
                         </div>
                         <div class="col-12 mb-3">
                             <label for="state">Password </label>
+                            <p id="txt_password" style="color: red;"></p>
                             <input type="password" name="txtPass" class="form-control" value="">
+                            
                         </div>
                         <div class="col-12 mb-3">
                             <label for="state">Đăng ký tài khoản <a href="#" style="font-size: 14px;" data-toggle="modal" data-target="#user_register">tại đây </a> </label>
@@ -217,7 +222,8 @@
                         </div>
                         <div class="col-12 mb-3">
                             <label for="state">Email </label>
-                            <input type="email" name="txtEmail" class="form-control" value="">
+                            <p id="txt_email" style="color: red"></p>
+                            <input type="text" name="txtEmail" class="form-control" value="">
                         </div>
                         <div class="col-12 mb-3">
                             <label for="state">Name </label>

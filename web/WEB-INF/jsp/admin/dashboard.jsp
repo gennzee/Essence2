@@ -566,7 +566,7 @@
                     responsive: true,
                     scales: {
                         xAxes: [{
-                                stacked: true,
+                                stacked: true
                             }],
                         yAxes: [{
                                 stacked: true

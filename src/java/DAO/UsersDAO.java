@@ -132,6 +132,31 @@ public class UsersDAO {
         return false;
     }
 
+    public boolean Insert_with_admin_page(Users users) {
+        try {
+            Connection conn = DBConnection.getConn();
+            String sql = "Insert into Users values(?,?,?,?,?,?,?,?,?)";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, users.getUsername());
+            ps.setString(2, users.getPassword());
+            ps.setString(3, users.getName());
+            ps.setString(4, users.getEmail());
+            ps.setInt(5, users.getRoleid());
+            ps.setString(6, users.getImageuser());
+            ps.setString(7, users.getPhone());
+            ps.setString(8, users.getAddress());
+            ps.setString(9, users.getCreateddate());
+            int rs = ps.executeUpdate();
+            if (rs > 0) {
+                return true;
+            }
+        } catch (Exception e) {
+            System.out.println("insertUSER(DAO)");
+            e.printStackTrace();
+        }
+        return false;
+    }
+
     public boolean Update(Users users) {
         try {
             Connection conn = DBConnection.getConn();
@@ -143,6 +168,94 @@ public class UsersDAO {
             ps.setString(4, users.getPhone());
             ps.setString(5, users.getAddress());
             ps.setString(6, users.getId());
+            int rs = ps.executeUpdate();
+            if (rs > 0) {
+                return true;
+            }
+        } catch (Exception e) {
+        }
+        return false;
+    }
+
+    public boolean Update_user_with_password_and_image_is_not_null(Users users, String id) {
+        try {
+            Connection conn = DBConnection.getConn();
+            String sql = "update Users set Name = ?, Email = ?, ImageUser = ?, Phone = ?, Address = ?, Password = ?, RoleID = ?, Username = ? where Id = ? ";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, users.getName());
+            ps.setString(2, users.getEmail());
+            ps.setString(3, users.getImageuser());
+            ps.setString(4, users.getPhone());
+            ps.setString(5, users.getAddress());
+            ps.setString(6, users.getPassword());
+            ps.setInt(7, users.getRoleid());
+            ps.setString(8, users.getUsername());
+            ps.setString(9, id);
+            int rs = ps.executeUpdate();
+            if (rs > 0) {
+                return true;
+            }
+        } catch (Exception e) {
+        }
+        return false;
+    }
+
+    public boolean Update_user_with_image_is_null(Users users, String id) {
+        try {
+            Connection conn = DBConnection.getConn();
+            String sql = "update Users set Name = ?, Email = ?, Phone = ?, Address = ?, Password = ?, RoleID = ?, Username = ? where Id = ? ";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, users.getName());
+            ps.setString(2, users.getEmail());
+            ps.setString(3, users.getPhone());
+            ps.setString(4, users.getAddress());
+            ps.setString(5, users.getPassword());
+            ps.setInt(6, users.getRoleid());
+            ps.setString(7, users.getUsername());
+            ps.setString(8, id);
+            int rs = ps.executeUpdate();
+            if (rs > 0) {
+                return true;
+            }
+        } catch (Exception e) {
+        }
+        return false;
+    }
+
+    public boolean Update_user_with_password_is_null(Users users, String id) {
+        try {
+            Connection conn = DBConnection.getConn();
+            String sql = "update Users set Name = ?, Email = ?, ImageUser = ?, Phone = ?, Address = ?, RoleID = ?, Username = ? where Id = ? ";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, users.getName());
+            ps.setString(2, users.getEmail());
+            ps.setString(3, users.getImageuser());
+            ps.setString(4, users.getPhone());
+            ps.setString(5, users.getAddress());
+            ps.setInt(6, users.getRoleid());
+            ps.setString(7, users.getUsername());
+            ps.setString(8, id);
+            int rs = ps.executeUpdate();
+            if (rs > 0) {
+                return true;
+            }
+        } catch (Exception e) {
+        }
+        return false;
+    }
+
+    public boolean Update_user_with_password_and_image_is_null(Users users, String id) {
+        try {
+            Connection conn = DBConnection.getConn();
+            String sql = "update Users set Name = ?, Email = ?, Phone = ?, Address = ?, RoleID = ?, Username = ? where Id = ? ";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, users.getName());
+            ps.setString(2, users.getEmail());
+            ps.setString(3, users.getPhone());
+            ps.setString(4, users.getAddress());
+            ps.setInt(5, users.getRoleid());
+            ps.setString(6, users.getUsername());
+            ps.setString(7, id);
             int rs = ps.executeUpdate();
             if (rs > 0) {
                 return true;
@@ -194,6 +307,22 @@ public class UsersDAO {
             }
         } catch (Exception e) {
             System.out.println(e);
+        }
+        return false;
+    }
+
+    public boolean Delete(int id) {
+        try {
+            Connection conn = DBConnection.getConn();
+            String sql = "Delete from Users where Id like " + id + "";
+            Statement st = conn.createStatement();
+            int rs = st.executeUpdate(sql);
+            if (rs > 0) {
+                return true;
+            }
+        } catch (Exception e) {
+            System.out.println("DeleteUsers(DAO)");
+            e.printStackTrace();
         }
         return false;
     }

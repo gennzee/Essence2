@@ -40,7 +40,7 @@ public class CartBeanController {
         }
         ProductDetailDAO productsDetail = new ProductDetailDAO();
         List<Products> ds = new ArrayList<Products>();
-        ds = productsDetail.findOne_Id_of_Product(products_id);
+        ds = productsDetail.findOne_Id_of_Product(products_id);// need to edit
         String name = ds.get(0).getName();
         String detail = ds.get(0).getDetail();
         int price = ds.get(0).getPrice();

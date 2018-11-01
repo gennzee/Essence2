@@ -5,6 +5,9 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@taglib uri="http://www.springframework.org/tags" prefix="s"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -62,9 +65,6 @@
                         </div>
                         <!-- end row -->
 
-
-
-
                         <div class="row">
 
                             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">						
@@ -72,13 +72,15 @@
                                 <div class="card mb-3">
 
                                     <div class="card-header">
-                                        <span class="pull-right"><button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modal_add_category"><i class="fa fa-plus" aria-hidden="true"></i> Add new category</button></span>
+                                        <span class="pull-right">
+                                            <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modal_add_category"><i class="fa fa-plus" aria-hidden="true"></i> Add new category</button>
+                                            <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#new_sub_catagory"><i class="fa fa-plus" aria-hidden="true"></i> Add new sub-category</button>
+                                        </span>
                                         <div class="modal fade custom-modal" tabindex="-1" role="dialog" aria-hidden="true" id="modal_add_category">
                                             <div class="modal-dialog">
                                                 <div class="modal-content">
 
-                                                    <form action="#" method="post">
-
+                                                    <form action="../admin/new_category.htm" method="post">
 
                                                         <div class="modal-header">
                                                             <h5 class="modal-title">Add new category</h5>
@@ -90,38 +92,17 @@
                                                             <div class="row">
                                                                 <div class="col-lg-12">
                                                                     <div class="form-group">
-                                                                        <label>Category title (required)</label>
-                                                                        <input class="form-control" name="title" type="text" required />
+                                                                        <label>Category title </label>
+                                                                        <input class="form-control" name="txtCategory" type="text" required placeholder="Enter your new Category's name here" value="" />
                                                                     </div>
                                                                 </div>
                                                             </div>
 
-                                                            <div class="row">
-                                                                <div class="col-lg-12">
-                                                                    <div class="form-group">
-                                                                        <label>Description (optional)</label>
-                                                                        <textarea class="form-control" name="description" rows="5"></textarea>
-                                                                    </div>
-                                                                </div>  
-                                                            </div>
-
-                                                            <div class="row">					                
-                                                                <div class="col-lg-6">
-                                                                    <div class="form-group">
-                                                                        <label>Active</label>
-                                                                        <select name="active" class="form-control">
-                                                                            <option value="1">YES</option>
-                                                                            <option value="0">NO</option>
-                                                                        </select>
-                                                                    </div>
-                                                                </div>
-
-                                                            </div>
 
                                                         </div>             
 
                                                         <div class="modal-footer">
-                                                            <button type="button" class="btn btn-primary">Add category</button>
+                                                            <button type="submit" class="btn btn-primary">Add category</button>
                                                         </div>
 
                                                     </form>	
@@ -129,94 +110,165 @@
                                                 </div>
                                             </div>
                                         </div> 
-                                        <h3><i class="fa fa-sitemap"></i> All categories (2 categories)</h3>								
+                                        <div class="modal fade custom-modal" tabindex="-1" role="dialog" aria-hidden="true" id="new_sub_catagory">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+
+                                                    <form action="../admin/new_catalog.htm" method="post">
+
+
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title">Add new sub-category.</h5>
+                                                            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>          	
+                                                        </div>
+
+                                                        <div class="modal-body">                
+
+                                                            <div class="row">
+                                                                <div class="col-lg-12">
+                                                                    <div class="form-group">
+                                                                        <label>Sub-category title </label>
+                                                                        <input class="form-control" name="txtSubcategory" type="text" value="" required placeholder="Enter you new Sub-category's name here."/>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="row">					                
+                                                                <div class="col-lg-12">
+                                                                    <div class="form-group">
+                                                                        <label>From category</label>
+                                                                        <select name="txtNavid" class="form-control">
+                                                                            <c:forEach var="rows" items="${sessionScope.list_Nav}">
+                                                                                <option value="${rows.id}">${rows.name}</option>
+                                                                            </c:forEach>
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                        </div>             
+
+                                                        <div class="modal-footer">
+                                                            <button type="submit" class="btn btn-primary">Add sub-category</button>
+                                                        </div>
+
+                                                    </form>	
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <h3><i class="fa fa-sitemap"></i> All categories (${nav_Size} categories)</h3>								
                                     </div>
                                     <!-- end card-header -->	
 
                                     <div class="card-body">
 
 
+                                        <c:forEach var="rows" items="${sessionScope.list_Nav}">
+                                            <table class="table table-bordered" style="border: 3px solid gainsboro;">
+                                                <thead>
+                                                    <tr>
+                                                        <th style="font-size: 22px;">${rows.name}
+                                                            <span style="float: right;">
+                                                                <a href="#" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modal_edit_category_${rows.id}"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                                                                <div class="modal fade custom-modal" tabindex="-1" role="dialog" aria-hidden="true" id="modal_edit_category_${rows.id}">
+                                                                    <div class="modal-dialog">
+                                                                        <div class="modal-content">
 
-                                        <table class="table table-bordered">
-                                            <thead>
-                                                <tr>
-                                                    <th>Category details</th>
-                                                    <th style="width:150px">Articles</th>
-                                                    <th style="width:120px">Actions</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-
-                                                <tr >
-                                                    <td>
-                                                        <strong>News</strong><br>
-                                                        <small>Latest news about our company</small>
-                                                    </td>
-                                                    <td>6</td>
-                                                    <td>
-                                                        <a href="#" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modal_edit_category_6"><i class="fa fa-pencil" aria-hidden="true"></i></a>
-                                                        <div class="modal fade custom-modal" tabindex="-1" role="dialog" aria-hidden="true" id="modal_edit_category_6">
-                                                            <div class="modal-dialog">
-                                                                <div class="modal-content">
-
-                                                                    <form action="#" method="post">
+                                                                            <form action="../admin/edit_category.htm" method="post">
 
 
-                                                                        <div class="modal-header">
-                                                                            <h5 class="modal-title">Edit category</h5>
-                                                                            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>          	
-                                                                        </div>
-
-                                                                        <div class="modal-body">                
-
-                                                                            <div class="row">
-                                                                                <div class="col-lg-12">
-                                                                                    <div class="form-group">
-                                                                                        <label>Category title (required)</label>
-                                                                                        <input class="form-control" name="title" type="text" value="News" required />
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-
-                                                                            <div class="row">
-                                                                                <div class="col-lg-12">
-                                                                                    <div class="form-group">
-                                                                                        <label>Description (optional)</label>
-                                                                                        <textarea class="form-control" name="description" rows="5">Latest news about our company</textarea>
-                                                                                    </div>
-                                                                                </div>  
-                                                                            </div>
-
-                                                                            <div class="row">					                
-                                                                                <div class="col-lg-6">
-                                                                                    <div class="form-group">
-                                                                                        <label>Active</label>
-                                                                                        <select name="active" class="form-control">
-                                                                                            <option selected="selected" value="1">YES</option>
-                                                                                            <option  value="0">NO</option>
-                                                                                        </select>
-                                                                                    </div>
+                                                                                <div class="modal-header">
+                                                                                    <h5 class="modal-title">Edit category</h5>
+                                                                                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>          	
                                                                                 </div>
 
-                                                                            </div>
+                                                                                <div class="modal-body">                
 
-                                                                        </div>             
+                                                                                    <div class="row">
+                                                                                        <div class="col-lg-12">
+                                                                                            <div class="form-group">
+                                                                                                <label>Category title </label>
+                                                                                                <input class="form-control" name="txtCategory" type="text" value="${rows.name}" required />
+                                                                                                <input type="text" hidden="true" value="${rows.id}" name="txtCategoryid"/>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
 
-                                                                        <div class="modal-footer">
-                                                                            <button type="button" class="btn btn-primary">Edit category</button>
+                                                                                </div>             
+
+                                                                                <div class="modal-footer">
+                                                                                    <button type="submit" class="btn btn-primary">Edit Category</button>
+                                                                                </div>
+
+                                                                            </form>	
+
                                                                         </div>
+                                                                    </div>
+                                                                </div> 
+                                                                <a href="<s:url value="../admin/remove_category/${rows.id}.htm"/>" class="btn btn-danger btn-sm" data-placement="top" data-toggle="tooltip" data-title="Delete"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+                                                            </span>
+                                                        </th>
+                                                        <th style="width:150px">ID</th>
+                                                        <th style="width:120px">Actions</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <c:forEach var="rowss" items="${sessionScope.list_Catalog}">
+                                                        <c:if test="${rows.id == rowss.navid}">
+                                                            <tr>
+                                                                <td>
+                                                                    <strong>${rowss.name}</strong><br>
+                                                                    <small><a href="<s:url value="../admin/products/${rowss.id}.htm"/>">Go to manage product</a></small>
+                                                                </td>
+                                                                <td>${rowss.id}</td>
+                                                                <td>
+                                                                    <a href="#" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modal_edit_sub_category_${rowss.id}"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                                                                    <div class="modal fade custom-modal" tabindex="-1" role="dialog" aria-hidden="true" id="modal_edit_sub_category_${rowss.id}">
+                                                                        <div class="modal-dialog">
+                                                                            <div class="modal-content">
 
-                                                                    </form>	
+                                                                                <form action="../admin/edit_catalog.htm" method="post">
 
-                                                                </div>
-                                                            </div>
-                                                        </div> 
-                                                        <a href="#" class="btn btn-danger btn-sm" data-placement="top" data-toggle="tooltip" data-title="Delete"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
 
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
+                                                                                    <div class="modal-header">
+                                                                                        <h5 class="modal-title">Edit sub-category</h5>
+                                                                                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>          	
+                                                                                    </div>
+
+                                                                                    <div class="modal-body">                
+
+                                                                                        <div class="row">
+                                                                                            <div class="col-lg-12">
+                                                                                                <div class="form-group">
+                                                                                                    <label>Sub-category title </label>
+                                                                                                    <input class="form-control" name="txtSubcategory" type="text" value="${rowss.name}" required />
+                                                                                                    <input type="text" hidden="true" value="${rowss.id}" name="txtSubcategoryid"/>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+
+                                                                                    </div>             
+
+                                                                                    <div class="modal-footer">
+                                                                                        <button type="submit" class="btn btn-primary">Edit sub-category</button>
+                                                                                    </div>
+
+                                                                                </form>	
+
+                                                                            </div>
+                                                                        </div>
+                                                                    </div> 
+                                                                    <a href="<s:url value="../admin/remove_catalog/${rowss.id}.htm"/>" class="btn btn-danger btn-sm" data-placement="top" data-toggle="tooltip" data-title="Delete"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+
+                                                                </td>
+                                                            </tr>
+                                                        </c:if>
+
+                                                    </c:forEach>
+                                                </tbody>
+                                            </table><br>
+                                        </c:forEach>
 
                                     </div>	
                                     <!-- end card-body -->								

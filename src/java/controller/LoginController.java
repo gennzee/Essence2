@@ -72,7 +72,7 @@ public class LoginController {
             session.setAttribute("ORDER_LIST", order);
             // List order of user - end
 
-            model.addAttribute("login_success", "Đăng nhập thành công.");
+            
 
             return "redirect:" + session.getAttribute("uri").toString();
         } else if (users.Login(username, password) == "admin") {

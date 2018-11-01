@@ -43,7 +43,7 @@ public class ProductsController {
         List<Catalog> catalog = new ArrayList<>();
         List<NavigationBarr> nav = new ArrayList<>();
         catalog = navigation.showCatalog();
-        nav = navigation.showNav2();
+        nav = navigation.showNav();
         session.setAttribute("list_Nav", nav);
         session.setAttribute("list_Catalog", catalog);
         session.setAttribute("nav_Size", nav.size());

@@ -6,6 +6,7 @@
 package DAO;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -14,6 +15,7 @@ import java.util.List;
 import java.util.Set;
 import model.Catalog;
 import model.NavigationBarr;
+import model.Users;
 
 /**
  *
@@ -24,8 +26,7 @@ public class NavigationBarDAO {
     public NavigationBarDAO() {
     }
 
-
-    public List<NavigationBarr> showNav2() {
+    public List<NavigationBarr> showNav() {
         try {
             Connection conn = DBConnection.getConn();
             String sql = "select * from NavMenu";
@@ -66,5 +67,107 @@ public class NavigationBarDAO {
             e.printStackTrace();
         }
         return null;
+    }
+
+    //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+    public boolean UpdateNav(String name, int id) {
+        try {
+            Connection conn = DBConnection.getConn();
+            String sql = "update NavMenu set Name = ? where Id = ? ";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, name);
+            ps.setInt(2, id);
+            int rs = ps.executeUpdate();
+            if (rs > 0) {
+                return true;
+            }
+        } catch (Exception e) {
+        }
+        return false;
+    }
+
+    public boolean UpdateCatalog(String name, int id) {
+        try {
+            Connection conn = DBConnection.getConn();
+            String sql = "update Catalog set Name = ? where Id = ? ";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, name);
+            ps.setInt(2, id);
+            int rs = ps.executeUpdate();
+            if (rs > 0) {
+                return true;
+            }
+        } catch (Exception e) {
+        }
+        return false;
+    }
+
+    //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+    public boolean DeleteNav(int id) {
+        try {
+            Connection conn = DBConnection.getConn();
+            String sql = "Delete from NavMenu where Id like " + id + "";
+            Statement st = conn.createStatement();
+            int rs = st.executeUpdate(sql);
+            if (rs > 0) {
+                return true;
+            }
+        } catch (Exception e) {
+            System.out.println("DeleteNav(DAO)");
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public boolean DeleteCatalog(int id) {
+        try {
+            Connection conn = DBConnection.getConn();
+            String sql = "Delete from Catalog where Id like " + id + "";
+            Statement st = conn.createStatement();
+            int rs = st.executeUpdate(sql);
+            if (rs > 0) {
+                return true;
+            }
+        } catch (Exception e) {
+            System.out.println("DeleteCatalog(DAO)");
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+    public boolean InsertNav(String name) {
+        try {
+            Connection conn = DBConnection.getConn();
+            String sql = "insert into NavMenu values(?)";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, name);
+            int rs = ps.executeUpdate();
+            if (rs > 0) {
+                return true;
+            }
+        } catch (Exception e) {
+            System.out.println("InsertNav(DAO)");
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public boolean InsertCatalog(String name, int navid) {
+        try {
+            Connection conn = DBConnection.getConn();
+            String sql = "insert into Catalog values(?,?)";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, name);
+            ps.setInt(2, navid);
+            int rs = ps.executeUpdate();
+            if (rs > 0) {
+                return true;
+            }
+        } catch (Exception e) {
+            System.out.println("InsertCatalog(DAO)");
+            e.printStackTrace();
+        }
+        return false;
     }
 }
