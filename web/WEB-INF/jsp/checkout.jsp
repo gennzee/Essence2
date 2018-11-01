@@ -116,16 +116,6 @@
                                                     <label for="note">Notes </label>
                                                     <textarea style="height: 20vh;" rows="10" cols="50" class="form-control" id="note" name="note" ></textarea>
                                                 </div>
-                                                <div class="col-12">
-                                                    <div class="custom-control custom-checkbox d-block mb-2">
-                                                        <input type="checkbox" class="custom-control-input" id="customCheck1">
-                                                        <label class="custom-control-label" for="customCheck1">Terms and conitions</label>
-                                                    </div>
-                                                    <div class="custom-control custom-checkbox d-block mb-2">
-                                                        <input type="checkbox" class="custom-control-input" id="customCheck2">
-                                                        <label class="custom-control-label" for="customCheck2">Create an accout</label>
-                                                    </div>
-                                                </div>
                                             </c:forEach>
                                         </div>
                                         <c:set var="shop2" value="${sessionScope.SHOP}"/>

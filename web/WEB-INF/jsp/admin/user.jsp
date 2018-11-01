@@ -31,8 +31,9 @@
         <link href="../admin/assets/css/style.css" rel="stylesheet" type="text/css" />		
 
         <!-- BEGIN CSS for this page -->
-        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css"/>
         <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.dataTables.min.css"/>
+        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/css/bootstrap.css"/>
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css"/>
         <style>	
             td.details-control {
                 background: url('../admin/assets/plugins/datatables/img/details_open.png') no-repeat center center;
@@ -364,6 +365,7 @@
         <!-- dataTable child row -->
         <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
         <script src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
+        <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
         <script>
             $(document).ready(function () {
                 $('#user').DataTable({
