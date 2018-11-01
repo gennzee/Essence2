@@ -1,3 +1,7 @@
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@taglib uri="http://www.springframework.org/tags" prefix="s"%>
 <!-- top bar navigation -->
 <div class="headerbar">
 
@@ -112,12 +116,13 @@
 
             <li class="list-inline-item dropdown notif">
                 <a class="nav-link dropdown-toggle nav-user" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
-                    <img src="../admin/assets/images/avatars/admin.png" alt="Profile image" class="avatar-rounded">
+                    <img src="../img/users-img/${sessionScope.IMGUSER}" alt="Profile image" class="avatar-rounded">
                 </a>
                 <div class="dropdown-menu dropdown-menu-right profile-dropdown ">
+                    <c:forEach var="rows" items="${user_items}">
                     <!-- item-->
                     <div class="dropdown-item noti-title">
-                        <h5 class="text-overflow"><small>Hello, admin</small> </h5>
+                        <h5 class="text-overflow"><small>Hello, ${rows.name}</small> </h5>
                     </div>
 
                     <!-- item-->
@@ -134,6 +139,7 @@
                     <a target="_blank" href="https://www.pikeadmin.com" class="dropdown-item notify-item">
                         <i class="fa fa-external-link"></i> <span>Pike Admin</span>
                     </a>
+                    </c:forEach>
                 </div>
             </li>
 

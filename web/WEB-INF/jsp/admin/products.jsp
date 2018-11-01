@@ -19,16 +19,16 @@
         <meta name="author" content="Pike Web Development - https://www.pikephp.com">
 
         <!-- Favicon -->
-        <link rel="shortcut icon" href="../../admin/assets/images/favicon.ico">
+        <link rel="shortcut icon" href="../admin/assets/images/favicon.ico">
 
         <!-- Bootstrap CSS -->
-        <link href="../../admin/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+        <link href="../admin/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
 
         <!-- Font Awesome CSS -->
-        <link href="../../admin/assets/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+        <link href="../admin/assets/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
 
         <!-- Custom CSS -->
-        <link href="../../admin/assets/css/style.css" rel="stylesheet" type="text/css" />		
+        <link href="../admin/assets/css/style.css" rel="stylesheet" type="text/css" />		
 
         <!-- BEGIN CSS for this page -->
         <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.dataTables.min.css"/>
@@ -36,11 +36,11 @@
         <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css"/>
         <style>	
             td.details-control {
-                background: url('../../admin/assets/plugins/datatables/img/details_open.png') no-repeat center center;
+                background: url('../admin/assets/plugins/datatables/img/details_open.png') no-repeat center center;
                 cursor: pointer;
             }
             tr.shown td.details-control {
-                background: url('../../admin/assets/plugins/datatables/img/details_close.png') no-repeat center center;
+                background: url('../admin/assets/plugins/datatables/img/details_close.png') no-repeat center center;
             }
         </style>		
         <!-- END CSS for this page -->
@@ -305,8 +305,8 @@
                                                             <td>${rows.discount}</td>
                                                             <td>${rows.quantity}</td>
                                                             <td>${rows.brand}</td>
-                                                            <td><img src="../../img/product-img/${rows.img1}" style="width: 65px"/></td>
-                                                            <td><img src="../../img/product-img/${rows.img2}" style="width: 65px"/></td>
+                                                            <td><img src="../img/product-img/${rows.img1}" style="width: 65px"/></td>
+                                                            <td><img src="../img/product-img/${rows.img2}" style="width: 65px"/></td>
                                                         </tr>
                                                     </c:forEach>
                                                 </tbody>
@@ -339,17 +339,17 @@
         <!-- dataTable child row -->
         <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
         <!-- dataTable child row -->
-        <script src="../../admin/assets/js/modernizr.min.js"></script>
-        <script src="../../admin/assets/js/moment.min.js"></script>
-        <script src="../../admin/assets/js/popper.min.js"></script>
-        <script src="../../admin/assets/js/bootstrap.min.js"></script>
-        <script src="../../admin/assets/js/detect.js"></script>
-        <script src="../../admin/assets/js/fastclick.js"></script>
-        <script src="../../admin/assets/js/jquery.blockUI.js"></script>
-        <script src="../../admin/assets/js/jquery.nicescroll.js"></script>
+        <script src="../admin/assets/js/modernizr.min.js"></script>
+        <script src="../admin/assets/js/moment.min.js"></script>
+        <script src="../admin/assets/js/popper.min.js"></script>
+        <script src="../admin/assets/js/bootstrap.min.js"></script>
+        <script src="../admin/assets/js/detect.js"></script>
+        <script src="../admin/assets/js/fastclick.js"></script>
+        <script src="../admin/assets/js/jquery.blockUI.js"></script>
+        <script src="../admin/assets/js/jquery.nicescroll.js"></script>
 
         <!-- App js -->
-        <script src="../../admin/assets/js/pikeadmin.js"></script>
+        <script src="../admin/assets/js/pikeadmin.js"></script>
 
         <!-- dataTable child row -->
         <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>

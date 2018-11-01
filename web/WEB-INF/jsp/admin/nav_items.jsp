@@ -219,7 +219,7 @@
                                                             <tr>
                                                                 <td>
                                                                     <strong>${rowss.name}</strong><br>
-                                                                    <small><a href="<s:url value="../admin/products/${rowss.id}.htm"/>">Go to manage product</a></small>
+                                                                    <small><a href="<s:url value="../products/${rowss.id}.htm"/>">Go to manage product</a></small>
                                                                 </td>
                                                                 <td>${rowss.id}</td>
                                                                 <td>

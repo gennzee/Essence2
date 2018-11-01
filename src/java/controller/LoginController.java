@@ -72,13 +72,18 @@ public class LoginController {
             session.setAttribute("ORDER_LIST", order);
             // List order of user - end
 
-            
-
             return "redirect:" + session.getAttribute("uri").toString();
         } else if (users.Login(username, password) == "admin") {
             session.setAttribute("USER", username);
             session.setAttribute("PASS", password);
             session.setAttribute("ROLE", users.Login(username, password));
+
+            List<Users> ds2 = new ArrayList<Users>();
+            ds2 = users.showUsers(username);
+
+            session.setAttribute("IMGUSER", ds2.get(0).getImageuser());
+
+            session.setAttribute("user_items", ds2);
 
             return "admin/dashboard";
         } else {

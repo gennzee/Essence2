@@ -85,27 +85,38 @@ public class ProductsController {
     public String menu2id(ModelMap model, HttpServletRequest request, @PathVariable int menu2id) {
         HttpSession session = request.getSession(false);
 
-        ProductsDAO products = new ProductsDAO();
-        List<Products> ds = new ArrayList<Products>();
-        ds = products.showProducts_select(menu2id);
-        List<Catalog> ds2 = new ArrayList<Catalog>();
-        ds2 = products.shop_title(menu2id);
+        if (session.getAttribute("ROLE").toString().equals("admin")) {
+            
+            ProductsDAO products = new ProductsDAO();
+            List<Products> ds = new ArrayList<Products>();
+            ds = products.showProducts_select(menu2id);
 
-        model.addAttribute("shop_title", ds2);
-        model.addAttribute("shopIndex_size", ds.size());
-        model.addAttribute("listProducts", ds);
+            model.addAttribute("listProducts", ds);
+            
+            return "admin/products";
+        } else {
+            ProductsDAO products = new ProductsDAO();
+            List<Products> ds = new ArrayList<Products>();
+            ds = products.showProducts_select(menu2id);
+            List<Catalog> ds2 = new ArrayList<Catalog>();
+            ds2 = products.shop_title(menu2id);
 
-        session.getAttribute("list_Nav");
-        session.getAttribute("list_Catalog");
-        session.getAttribute("nav_Size");
-        session.getAttribute("CARTSIZE");
-        session.getAttribute("IMGUSER");
-        session.getAttribute("listUser");
-        session.getAttribute("WISHLIST_SIZE");
-        session.getAttribute("WISHLIST_LIST");
-        session.getAttribute("ORDER_LIST");
-        session.setAttribute("uri", request.getRequestURI().substring(request.getContextPath().length()));
-        return "shop";
+            model.addAttribute("shop_title", ds2);
+            model.addAttribute("shopIndex_size", ds.size());
+            model.addAttribute("listProducts", ds);
+
+            session.getAttribute("list_Nav");
+            session.getAttribute("list_Catalog");
+            session.getAttribute("nav_Size");
+            session.getAttribute("CARTSIZE");
+            session.getAttribute("IMGUSER");
+            session.getAttribute("listUser");
+            session.getAttribute("WISHLIST_SIZE");
+            session.getAttribute("WISHLIST_LIST");
+            session.getAttribute("ORDER_LIST");
+            session.setAttribute("uri", request.getRequestURI().substring(request.getContextPath().length()));
+            return "shop";
+        }
     }
 
 }
