@@ -330,7 +330,7 @@ public class AdminTemplate {
                 Products a = new Products(Integer.parseInt(id), name, detail, Integer.parseInt(price), Integer.parseInt(discount), brand, img1, oldimg2, Integer.parseInt(catalogid));
                 ProductsDAO products = new ProductsDAO();
                 products.Update_product_with_2_img(a);
-            } else if (img1.equalsIgnoreCase("") && img2.equalsIgnoreCase("")) {
+            } else {
                 Products a = new Products(Integer.parseInt(id), name, detail, Integer.parseInt(price), Integer.parseInt(discount), brand, oldimg1, oldimg2, Integer.parseInt(catalogid));
                 ProductsDAO products = new ProductsDAO();
                 products.Update_product_with_2_img(a);

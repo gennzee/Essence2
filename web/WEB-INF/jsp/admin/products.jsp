@@ -34,6 +34,10 @@
         <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.dataTables.min.css"/>
         <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/css/bootstrap.css"/>
         <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css"/>
+        <link rel="stylesheet" href="../admin/assets/plugins/trumbowyg/ui/trumbowyg.min.css">
+        <link rel="stylesheet" href="../admin/assets/plugins/trumbowyg/ui/trumbowyg.css">
+        <link rel="stylesheet" href="../admin/assets/plugins/trumbowyg/plugins/colors/ui/trumbowyg.colors.css">
+        <link rel="stylesheet" href="../admin/assets/plugins/trumbowyg/plugins/table/ui/trumbowyg.table.css">
         <style>	
             td.details-control {
                 background: url('../admin/assets/plugins/datatables/img/details_open.png') no-repeat center center;
@@ -153,7 +157,7 @@
                                                                 <div class="col-lg-12">
                                                                     <div class="form-group">
                                                                         <label>Detail</label><br>
-                                                                        <textarea name="txtDetail" cols="63" rows="5"></textarea>
+                                                                        <textarea name="txtDetail" class="form-control editor" rows="3">${rows.detail}</textarea>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -279,7 +283,7 @@
                                                                                         <div class="col-lg-12">
                                                                                             <div class="form-group">
                                                                                                 <label>Detail</label><br>
-                                                                                                <textarea name="txtDetail" cols="63" rows="5">${rows.detail}</textarea>
+                                                                                                <textarea name="txtDetail" class="form-control editor" rows="3">${rows.detail}</textarea>
                                                                                             </div>
                                                                                         </div>
                                                                                     </div>
@@ -365,6 +369,15 @@
         <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
         <script src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
         <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
+        <script>window.jQuery || document.write('<script src="../admin/assets/plugins/trumbowyg/jquery-3.2.1.min"><\/script>');</script>
+        <script src="../admin/assets/plugins/trumbowyg/trumbowyg.js"></script>
+
+        <script src="../admin/assets/plugins/trumbowyg/trumbowyg.min.js"></script>
+        <script src="../admin/assets/plugins/trumbowyg/plugins/base64/trumbowyg.base64.js"></script>
+        <script src="../admin/assets/plugins/trumbowyg/plugins/colors/trumbowyg.colors.js"></script>
+        <script src="../admin/assets/plugins/trumbowyg/plugins/fontsize/trumbowyg.fontsize.js"></script>
+        <script src="../admin/assets/plugins/trumbowyg/plugins/table/trumbowyg.table.js"></script>
+        <script src="../admin/assets/plugins/trumbowyg/plugins/lineheight/trumbowyg.lineheight.js"></script>
         <script>
             $(document).ready(function () {
                 $('#user').DataTable({
@@ -382,7 +395,41 @@
                     order: [1, 'asc']
                 });
             });
-        </script>	
+        </script>
+        <script>
+            $(document).ready(function () {
+                $('.editor')
+                        .trumbowyg({
+                            btnsDef: {
+                                // Create a new dropdown
+                                image: {
+                                    dropdown: ['insertImage', 'base64'],
+                                    ico: 'insertImage'
+                                }
+                            },
+                            // Redefine the button pane
+                            btns: [
+                                ['viewHTML'],
+                                ['fontsize'],
+                                ['foreColor', 'backColor'],
+                                ['table'],
+                                ['undo'],
+                                ['redo'],
+                                ['formatting'],
+                                ['strong', 'em', 'del'],
+                                ['superscript', 'subscript'],
+                                ['link'],
+                                ['image'], // Our fresh created dropdown
+                                ['justifyLeft', 'justifyCenter', 'justifyRight', 'justifyFull'],
+                                ['unorderedList', 'orderedList'],
+                                ['horizontalRule'],
+                                ['removeformat'],
+                                ['fullscreen']
+                            ]
+                        });
+            });
+
+        </script>
         <!-- dataTable child row -->
 
 
