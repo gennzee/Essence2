@@ -30,6 +30,7 @@ public class ProductDetailController {
 
     @RequestMapping("{products_id}")
     public String products_id(ModelMap model, HttpServletRequest request, @PathVariable int products_id) {
+        
         HttpSession session = request.getSession(false);
         ProductDetailDAO productsDetail = new ProductDetailDAO();
         List<Products> ds = new ArrayList<Products>();

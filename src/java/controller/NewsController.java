@@ -56,7 +56,7 @@ public class NewsController {
     public String news_detail(ModelMap model, HttpServletRequest request, @PathVariable int id) {
         HttpSession session = request.getSession(false);
 
-        if (session.getAttribute("ROLE").toString().equalsIgnoreCase("admin")) {
+        if (session.getAttribute("ROLE") != null && session.getAttribute("ROLE").toString().equalsIgnoreCase("admin")) {
             NewsDAO news = new NewsDAO();
             List<News> ds = new ArrayList<>();
             ds = news.show_single_news(id);

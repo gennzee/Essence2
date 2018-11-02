@@ -25,7 +25,7 @@ public class ProductDetailDAO {
     public List<Products> findOne_Id_of_Product(int idd) {
         try {
             Connection conn = DBConnection.getConn();
-            String sql = "Select * from Product where Id like +'" + idd + "'";
+            String sql = "Select * from Product where Id like +" + idd + "";
             Statement st = conn.createStatement();
             ResultSet rs = st.executeQuery(sql);
             List<Products> list = new ArrayList<Products>();
@@ -35,12 +35,11 @@ public class ProductDetailDAO {
                 String detail = rs.getString(3);
                 int price = rs.getInt(4);
                 int discount = rs.getInt(5);
-                int quantity = rs.getInt(6);
-                String brand = rs.getString(7);
-                String img1 = rs.getString(8);
-                String img2 = rs.getString(9);
-                int catalogid = rs.getInt(10);
-                Products a = new Products(id, name, detail, price, discount, quantity, brand, img1, img2, catalogid);
+                String brand = rs.getString(6);
+                String img1 = rs.getString(7);
+                String img2 = rs.getString(8);
+                int catalogid = rs.getInt(9);
+                Products a = new Products(id, name, detail, price, discount, brand, img1, img2, catalogid);
                 list.add(a);
             }
             return list;

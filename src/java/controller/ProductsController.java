@@ -85,7 +85,7 @@ public class ProductsController {
     public String menu2id(ModelMap model, HttpServletRequest request, @PathVariable int menu2id) {
         HttpSession session = request.getSession(false);
 
-        if (session.getAttribute("ROLE").toString().equalsIgnoreCase("admin")) {
+        if (session.getAttribute("ROLE") != null && session.getAttribute("ROLE").toString().equalsIgnoreCase("admin")) {
 
             ProductsDAO products = new ProductsDAO();
             List<Products> ds = new ArrayList<Products>();
