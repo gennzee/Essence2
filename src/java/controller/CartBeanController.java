@@ -45,12 +45,11 @@ public class CartBeanController {
         String detail = ds.get(0).getDetail();
         int price = ds.get(0).getPrice();
         int discount = ds.get(0).getDiscount();
-        int quantity = ds.get(0).getQuantity();
         String brand = ds.get(0).getBrand();
         String img1 = ds.get(0).getImg1();
         String img2 = ds.get(0).getImg2();
         int catalogid = ds.get(0).getCatalogid();
-        Products s = new Products(products_id, name, detail, price, discount, quantity, brand, img1, img2, catalogid);
+        Products s = new Products(products_id, name, detail, price, discount, brand, img1, img2, catalogid);
         ProductDTO sanpham = new ProductDTO(s);
         a.addSanPham(sanpham);
         
