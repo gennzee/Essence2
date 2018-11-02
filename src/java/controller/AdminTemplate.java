@@ -10,10 +10,14 @@ import DAO.NewsDAO;
 import DAO.ProductDetailDAO;
 import DAO.ProductsDAO;
 import DAO.UsersDAO;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import model.Catalog;
 import model.NavigationBarr;
@@ -232,40 +236,122 @@ public class AdminTemplate {
         ds = news.showListNews();
         model.addAttribute("listNews", ds);
         model.addAttribute("listNews_size", ds.size());
+
+        session.setAttribute("uri", request.getRequestURI().substring(request.getContextPath().length()));
         return "admin/news";
     }
 
     @RequestMapping(value = "news_add")
-    public String news_add() {
+    public String news_add(ModelMap model, HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
 
         return "admin/news_add";
     }
 
-    @RequestMapping(value = "news_edit/{id}")
+    @RequestMapping(value = "news_edit")
+    public String news_edit(ModelMap model, HttpServletRequest request){
+        HttpSession session = request.getSession(false);
+
+        String id = request.getParameter("txtId");
+        String title = request.getParameter("txtTitle");
+        String imagetitle = request.getParameter("txtImg");
+        String content = request.getParameter("txtContent");
+        LocalDate now = LocalDate.now();
+
+        String oldimgtitle = request.getParameter("txtOldimg");
+
+        if (imagetitle.equalsIgnoreCase("")) {
+            NewsDAO a = new NewsDAO();
+            a.Update_news(title, oldimgtitle, content, session.getAttribute("NAME").toString(), now.toString(), Integer.parseInt(id));
+        } else {
+            NewsDAO a = new NewsDAO();
+            a.Update_news(title, imagetitle, content, session.getAttribute("NAME").toString(), now.toString(), Integer.parseInt(id));
+        }
+
+        return "redirect:" + session.getAttribute("uri").toString();
+    }
+
+    @RequestMapping(value = "remove_news/{id}")
     public String news_edit(ModelMap model, HttpServletRequest request, @PathVariable int id) {
         HttpSession session = request.getSession(false);
 
-        NewsDAO news = new NewsDAO();
-        List<News> ds = new ArrayList<>();
-        ds = news.show_single_news(id);
+        if (id > 0) {
+            NewsDAO a = new NewsDAO();
+            a.Delete_news(id);
+        }
 
-        model.addAttribute("listNews", ds);
-        model.addAttribute("listNews_size", ds.size());
-
-        return "admin/news_add";
+        return "redirect:" + session.getAttribute("uri").toString();
     }
 
     //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-    @RequestMapping(value = "products/{id}")
-    public String products(ModelMap model, HttpSession session, HttpServletRequest request, @PathVariable int id) {
+    @RequestMapping(value = "add_new_product")
+    public String add_new_product(ModelMap model, HttpSession session, HttpServletRequest request) {
         session = request.getSession(false);
 
-        ProductsDAO products = new ProductsDAO();
-        List<Products> ds = new ArrayList<Products>();
-        ds = products.showProducts_select(id);
-        
-        model.addAttribute("listProducts", ds);
+        String name = request.getParameter("txtProductname");
+        String detail = request.getParameter("txtDetail");
+        String price = request.getParameter("txtPrice");
+        String discount = request.getParameter("txtDiscount");
+        String brand = request.getParameter("txtBrand");
+        String img1 = request.getParameter("txtImage1");
+        String img2 = request.getParameter("txtImage2");
+        String catalogid = request.getParameter("txtSubcategory");
 
-        return "admin/products";
+        Products a = new Products(name, detail, Integer.parseInt(price), Integer.parseInt(discount), brand, img1, img2, Integer.parseInt(catalogid));
+        ProductsDAO products = new ProductsDAO();
+        products.InsertProduct(a);
+
+        return "redirect:" + session.getAttribute("uri").toString();
+    }
+
+    @RequestMapping(value = "edit_product")
+    public String edit_product(ModelMap model, HttpSession session, HttpServletRequest request) {
+        session = request.getSession(false);
+
+        String id = request.getParameter("txtId");
+        String name = request.getParameter("txtProductname");
+        String detail = request.getParameter("txtDetail");
+        String price = request.getParameter("txtPrice");
+        String discount = request.getParameter("txtDiscount");
+        String brand = request.getParameter("txtBrand");
+        String img1 = request.getParameter("txtImage1");
+        String img2 = request.getParameter("txtImage2");
+        String catalogid = request.getParameter("txtSubcategory");
+
+        String oldimg1 = request.getParameter("txtOldimg1");
+        String oldimg2 = request.getParameter("txtOldimg2");
+
+        if (img1.equalsIgnoreCase("") || img2.equalsIgnoreCase("")) {
+            if (img1.equalsIgnoreCase("")) {
+                Products a = new Products(Integer.parseInt(id), name, detail, Integer.parseInt(price), Integer.parseInt(discount), brand, oldimg1, img2, Integer.parseInt(catalogid));
+                ProductsDAO products = new ProductsDAO();
+                products.Update_product_with_2_img(a);
+            } else if (img2.equalsIgnoreCase("")) {
+                Products a = new Products(Integer.parseInt(id), name, detail, Integer.parseInt(price), Integer.parseInt(discount), brand, img1, oldimg2, Integer.parseInt(catalogid));
+                ProductsDAO products = new ProductsDAO();
+                products.Update_product_with_2_img(a);
+            } else if (img1.equalsIgnoreCase("") && img2.equalsIgnoreCase("")) {
+                Products a = new Products(Integer.parseInt(id), name, detail, Integer.parseInt(price), Integer.parseInt(discount), brand, oldimg1, oldimg2, Integer.parseInt(catalogid));
+                ProductsDAO products = new ProductsDAO();
+                products.Update_product_with_2_img(a);
+            }
+        } else {
+            Products a = new Products(Integer.parseInt(id), name, detail, Integer.parseInt(price), Integer.parseInt(discount), brand, img1, img2, Integer.parseInt(catalogid));
+            ProductsDAO products = new ProductsDAO();
+            products.Update_product_with_2_img(a);
+        }
+        return "redirect:" + session.getAttribute("uri").toString();
+    }
+
+    @RequestMapping(value = "remove_product/{id}")
+    public String remove_product(ModelMap model, HttpServletRequest request, HttpSession session, @PathVariable int id) {
+        session = request.getSession(false);
+
+        if (id > 0) {
+            ProductsDAO products = new ProductsDAO();
+            products.Delete_product(id);
+        }
+
+        return "redirect:" + session.getAttribute("uri").toString();
     }
 }

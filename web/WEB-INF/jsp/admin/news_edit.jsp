@@ -83,69 +83,70 @@
                                 <div class="card mb-3">
 
                                     <div class="card-body">
-                                        
-                                        <form action="#" method="get">	
-                                            
+
+                                        <form action="../admin/news_edit.htm" method="post">	
+                                            <c:forEach var="rows" items="${news_item}">
                                                 <div class="row">
 
                                                     <div class="form-group col-xl-9 col-md-8 col-sm-12">
                                                         <div class="form-group">
                                                             <label>News title</label>
-                                                            <input class="form-control" name="title" type="text" required>
-                                                        </div>
-
-                                                        <div class="form-group">
-                                                            <label>Article content</label>
-                                                            <textarea rows="3" class="form-control editor" name="content"></textarea>
+                                                            <input type="text" hidden="true" value="${rows.id}" name="txtId"/>
+                                                            <input class="form-control" name="txtTitle" type="text" required value="${rows.title}">
                                                         </div>
 
                                                         <div class="form-group">
                                                             <label>Thumbnail image</label><br />
-                                                            <input type="file" name="image">
+                                                            <img src="../img/bg-img/${rows.imagetitle}" style="width: 150px"/>
+                                                            <input type="text" hidden="true" value="${rows.imagetitle}" name="txtOldimg"/>
+                                                            <input type="file" name="txtImg">
                                                         </div>
 
                                                         <div class="form-group">
-                                                            <button type="submit" class="btn btn-primary">Add article</button>
+                                                            <label>News content</label>
+                                                            <textarea rows="3" class="form-control editor" name="txtContent">${rows.content}</textarea>
+                                                        </div>
+
+
+
+                                                        <div class="form-group">
+                                                            <button type="submit" class="btn btn-primary">Edit article</button>
+                                                            <a href="../admin/news.htm" class="btn btn-primary">Cancel edit</a>
                                                         </div>
                                                     </div>
 
                                                     <div class="form-group col-xl-3 col-md-4 col-sm-12 border-left">
                                                         <div class="form-group">
-                                                            <label>Meta title</label>
-                                                            <input type="text" class="form-control" name="meta_title">    
+                                                            <label>Created by</label>
+                                                            <input type="text" disabled="true" class="form-control" value="${rows.createdby}">    
                                                         </div>
 
                                                         <div class="form-group">
-                                                            <label>Meta description</label>
-                                                            <input type="text" class="form-control" name="meta_description">    
+                                                            <label>Created date</label>
+                                                            <input type="text" disabled="true" class="form-control" value="${rows.createddate}">    
                                                         </div>
 
                                                         <div class="form-group">
-                                                            <label>Tags</label>
-                                                            <input type="text" class="form-control" name="keywords" id="tags" value="">    
+                                                            <label>Editing by</label>
+                                                            <input type="text" disabled="true" class="form-control" value="${sessionScope.NAME}">    
                                                         </div>
 
                                                         <div class="form-group">
-                                                            <label>Article status</label>
-                                                            <select name="status" class="form-control">
-                                                                <option value="active">Active (published)</option>
-                                                                <option value="draft">Save draft</option>
-                                                                <option value="inactive">Inactive</option>
-                                                            </select>
-                                                        </div>
-
-                                                        <div class="form-group">
-                                                            <label>Select category</label>
-                                                            <select name="categ_id" class="form-control" required>
-                                                                <option value="">- select -</option>
-                                                                <option value="10">Blog</option>
-                                                                <option value="6">News</option>
-                                                            </select>
+                                                            <label>Editing date</label>
+                                                            <input id="dateediting" type="text" disabled="true" class="form-control"> 
+                                                            <script>
+                                                                n = new Date();
+                                                                y = n.getFullYear();
+                                                                m = n.getMonth() + 1;
+                                                                d = n.getDate();
+                                                                document.getElementById("dateediting").value = y+"/"+m+"/"+d;
+                                                            </script>
                                                         </div>
 
                                                     </div>
 
                                                 </div><!-- end row -->	
+                                            </c:forEach>
                                         </form>
 
                                     </div>	
@@ -200,37 +201,37 @@
         <script src="../admin/assets/plugins/trumbowyg/plugins/table/trumbowyg.table.js"></script>
         <script src="../admin/assets/plugins/trumbowyg/plugins/lineheight/trumbowyg.lineheight.js"></script>
         <script>
-            $(document).ready(function () {
-                $('.editor')
-                        .trumbowyg({
-                            btnsDef: {
-                                // Create a new dropdown
-                                image: {
-                                    dropdown: ['insertImage', 'base64'],
-                                    ico: 'insertImage'
-                                }
-                            },
-                            // Redefine the button pane
-                            btns: [
-                                ['viewHTML'],
-                                ['fontsize'],
-                                ['foreColor', 'backColor'],
-                                ['table'],
-                                ['undo'],
-                                ['redo'],
-                                ['formatting'],
-                                ['strong', 'em', 'del'],
-                                ['superscript', 'subscript'],
-                                ['link'],
-                                ['image'], // Our fresh created dropdown
-                                ['justifyLeft', 'justifyCenter', 'justifyRight', 'justifyFull'],
-                                ['unorderedList', 'orderedList'],
-                                ['horizontalRule'],
-                                ['removeformat'],
-                                ['fullscreen']
-                            ]
-                        });
-            });
+                                                                $(document).ready(function () {
+                                                                    $('.editor')
+                                                                            .trumbowyg({
+                                                                                btnsDef: {
+                                                                                    // Create a new dropdown
+                                                                                    image: {
+                                                                                        dropdown: ['insertImage', 'base64'],
+                                                                                        ico: 'insertImage'
+                                                                                    }
+                                                                                },
+                                                                                // Redefine the button pane
+                                                                                btns: [
+                                                                                    ['viewHTML'],
+                                                                                    ['fontsize'],
+                                                                                    ['foreColor', 'backColor'],
+                                                                                    ['table'],
+                                                                                    ['undo'],
+                                                                                    ['redo'],
+                                                                                    ['formatting'],
+                                                                                    ['strong', 'em', 'del'],
+                                                                                    ['superscript', 'subscript'],
+                                                                                    ['link'],
+                                                                                    ['image'], // Our fresh created dropdown
+                                                                                    ['justifyLeft', 'justifyCenter', 'justifyRight', 'justifyFull'],
+                                                                                    ['unorderedList', 'orderedList'],
+                                                                                    ['horizontalRule'],
+                                                                                    ['removeformat'],
+                                                                                    ['fullscreen']
+                                                                                ]
+                                                                            });
+                                                                });
 
         </script>
         <!-- END Java Script for this page -->

@@ -56,25 +56,34 @@ public class NewsController {
     public String news_detail(ModelMap model, HttpServletRequest request, @PathVariable int id) {
         HttpSession session = request.getSession(false);
 
-        NewsDAO news = new NewsDAO();
-        List<News> ds = new ArrayList<>();
-        ds = news.show_single_news(id);
-        model.addAttribute("news_item", ds);
+        if (session.getAttribute("ROLE").toString().equalsIgnoreCase("admin")) {
+            NewsDAO news = new NewsDAO();
+            List<News> ds = new ArrayList<>();
+            ds = news.show_single_news(id);
+            model.addAttribute("news_item", ds);
+            
+            return "admin/news_edit";
+        } else {
+            NewsDAO news = new NewsDAO();
+            List<News> ds = new ArrayList<>();
+            ds = news.show_single_news(id);
+            model.addAttribute("news_item", ds);
 
-        ds = news.showListNews();
-        model.addAttribute("listNews", ds);
+            ds = news.showListNews();
+            model.addAttribute("listNews", ds);
 
-        session.getAttribute("list_Nav");
-        session.getAttribute("list_Catalog");
-        session.getAttribute("nav_Size");
-        session.getAttribute("CARTSIZE");
-        session.getAttribute("IMGUSER");
-        session.getAttribute("listUser");
-        session.getAttribute("WISHLIST_SIZE");
-        session.getAttribute("WISHLIST_LIST");
-        session.getAttribute("ORDER_LIST");
-        session.setAttribute("uri", request.getRequestURI().substring(request.getContextPath().length()));
-        return "new_detail";
+            session.getAttribute("list_Nav");
+            session.getAttribute("list_Catalog");
+            session.getAttribute("nav_Size");
+            session.getAttribute("CARTSIZE");
+            session.getAttribute("IMGUSER");
+            session.getAttribute("listUser");
+            session.getAttribute("WISHLIST_SIZE");
+            session.getAttribute("WISHLIST_LIST");
+            session.getAttribute("ORDER_LIST");
+            session.setAttribute("uri", request.getRequestURI().substring(request.getContextPath().length()));
+            return "new_detail";
+        }
     }
 
     @RequestMapping(value = "add_news", method = RequestMethod.POST)
@@ -86,11 +95,11 @@ public class NewsController {
         String createdby = session.getAttribute("USER").toString();
         LocalDate now = LocalDate.now();
         String createddate = now.toString();
-        
+
         News a = new News(title, content, createdby, createddate, "");
         NewsDAO news = new NewsDAO();
         news.add_news(a);
-        
+
         return "admin/form";
 
     }

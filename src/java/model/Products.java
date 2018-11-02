@@ -9,10 +9,10 @@ package model;
  *
  * @author tanks
  */
-
 import java.sql.Date;
 
 public class Products {
+
     private int id;
     private String name;
     private String detail;
@@ -34,6 +34,29 @@ public class Products {
         this.price = price;
         this.discount = discount;
         this.quantity = quantity;
+        this.brand = brand;
+        this.img1 = img1;
+        this.img2 = img2;
+        this.catalogid = catalogid;
+    }
+
+    public Products(String name, String detail, int price, int discount, String brand, String img1, String img2, int catalogid) {
+        this.name = name;
+        this.detail = detail;
+        this.price = price;
+        this.discount = discount;
+        this.brand = brand;
+        this.img1 = img1;
+        this.img2 = img2;
+        this.catalogid = catalogid;
+    }
+    
+        public Products(int id, String name, String detail, int price, int discount, String brand, String img1, String img2, int catalogid) {
+        this.id = id;
+        this.name = name;
+        this.detail = detail;
+        this.price = price;
+        this.discount = discount;
         this.brand = brand;
         this.img1 = img1;
         this.img2 = img2;
@@ -80,7 +103,6 @@ public class Products {
         this.discount = discount;
     }
 
-
     public int getQuantity() {
         return quantity;
     }
@@ -121,8 +143,4 @@ public class Products {
         this.catalogid = catalogid;
     }
 
-
-    
-    
-    
 }

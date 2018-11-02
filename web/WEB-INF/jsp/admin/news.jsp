@@ -114,8 +114,8 @@
                                                         <tr >
                                                             <td></td>
                                                             <td>
-                                                                <a href="#" class="btn btn-primary btn-sm" data-placement="top" data-toggle="tooltip" data-title="Edit"><i class="fa fa-pencil" aria-hidden="true"></i></a>								
-                                                                <a href="#" class="btn btn-danger btn-sm" data-placement="top" data-toggle="tooltip" data-title="Delete"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+                                                                <a href="../news/${rows.id}.htm" class="btn btn-primary btn-sm" data-placement="top" data-toggle="tooltip" data-title="Edit"><i class="fa fa-pencil" aria-hidden="true"></i></a>								
+                                                                <a href="../admin/remove_news/${rows.id}.htm" class="btn btn-danger btn-sm" data-placement="top" data-toggle="tooltip" data-title="Delete"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
                                                             </td>
                                                             <td>
                                                                 <span style="float: left; margin-right:10px;"><img alt="image" style="max-width:140px; height:auto;" src="../img/bg-img/${rows.imagetitle}" /></span>

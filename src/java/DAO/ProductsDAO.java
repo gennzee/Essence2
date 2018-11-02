@@ -7,6 +7,7 @@ package DAO;
 
 import java.sql.Connection;
 import java.sql.Date;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -141,6 +142,69 @@ public class ProductsDAO {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public boolean InsertProduct(Products products) {
+        try {
+            Connection conn = DBConnection.getConn();
+            String sql = "insert into Product values(?,?,?,?,?,?,?,?)";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, products.getName());
+            ps.setString(2, products.getDetail());
+            ps.setInt(3, products.getPrice());
+            ps.setInt(4, products.getDiscount());
+            ps.setString(5, products.getBrand());
+            ps.setString(6, products.getImg1());
+            ps.setString(7, products.getImg2());
+            ps.setInt(8, products.getCatalogid());
+            int rs = ps.executeUpdate();
+            if (rs > 0) {
+                return true;
+            }
+        } catch (Exception e) {
+            System.out.println("InsertProduct(DAO)");
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public boolean Update_product_with_2_img(Products products) {
+        try {
+            Connection conn = DBConnection.getConn();
+            String sql = "update Product set Name = ?, Detail = ?, Price = ?, Discount = ?, Brand = ?, Img1 = ?, Img2 = ?, CatalogID = ? where Id = ? ";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, products.getName());
+            ps.setString(2, products.getDetail());
+            ps.setInt(3, products.getPrice());
+            ps.setInt(4, products.getDiscount());
+            ps.setString(5, products.getBrand());
+            ps.setString(6, products.getImg1());
+            ps.setString(7, products.getImg2());
+            ps.setInt(8, products.getCatalogid());
+            ps.setInt(9, products.getId());
+            int rs = ps.executeUpdate();
+            if (rs > 0) {
+                return true;
+            }
+        } catch (Exception e) {
+        }
+        return false;
+    }
+
+    public boolean Delete_product(int id) {
+        try {
+            Connection conn = DBConnection.getConn();
+            String sql = "Delete from Product where Id like " + id + "";
+            Statement st = conn.createStatement();
+            int rs = st.executeUpdate(sql);
+            if (rs > 0) {
+                return true;
+            }
+        } catch (Exception e) {
+            System.out.println("Delete_product(DAO)");
+            e.printStackTrace();
+        }
+        return false;
     }
 
 }

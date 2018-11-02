@@ -99,5 +99,40 @@ public class NewsDAO {
         return false;
     }
 
+    public boolean Update_news(String title, String img, String content, String editby, String editdate, int id) {
+        try {
+            Connection conn = DBConnection.getConn();
+            String sql = "update News set Title = ?, Content = ?, ImageTitle = ?, Editedby = ?, EditedDate = ? where Id = ? ";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, title);
+            ps.setString(2, content);
+            ps.setString(3, img);
+            ps.setString(4, editby);
+            ps.setString(5, editdate);
+            ps.setInt(6, id);
+            int rs = ps.executeUpdate();
+            if (rs > 0) {
+                return true;
+            }
+        } catch (Exception e) {
+        }
+        return false;
+    }
+    
+        public boolean Delete_news(int id) {
+        try {
+            Connection conn = DBConnection.getConn();
+            String sql = "Delete from News where Id like " + id + "";
+            Statement st = conn.createStatement();
+            int rs = st.executeUpdate(sql);
+            if (rs > 0) {
+                return true;
+            }
+        } catch (Exception e) {
+            System.out.println("Delete_news(DAO)");
+            e.printStackTrace();
+        }
+        return false;
+    }
 
 }

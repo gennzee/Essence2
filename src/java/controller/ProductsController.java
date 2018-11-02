@@ -85,14 +85,19 @@ public class ProductsController {
     public String menu2id(ModelMap model, HttpServletRequest request, @PathVariable int menu2id) {
         HttpSession session = request.getSession(false);
 
-        if (session.getAttribute("ROLE").toString().equals("admin")) {
-            
+        if (session.getAttribute("ROLE").toString().equalsIgnoreCase("admin")) {
+
             ProductsDAO products = new ProductsDAO();
             List<Products> ds = new ArrayList<Products>();
             ds = products.showProducts_select(menu2id);
+            List<Catalog> ds2 = new ArrayList<Catalog>();
+            ds2 = products.shop_title(menu2id);
 
+            model.addAttribute("shop_title", ds2);
             model.addAttribute("listProducts", ds);
+            model.addAttribute("product_size", ds.size());
             
+            session.setAttribute("uri", request.getRequestURI().substring(request.getContextPath().length()));
             return "admin/products";
         } else {
             ProductsDAO products = new ProductsDAO();

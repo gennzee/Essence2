@@ -53,6 +53,11 @@
 
             <div class="content-page">
 
+                <c:forEach var="rows" items="${shop_title}">
+                    <c:set var="title_id" value="${rows.id}"/>
+                    <c:set var="title_name" value="${rows.name}"/>
+                </c:forEach>
+
                 <!-- Start content -->
                 <div class="content">
 
@@ -63,10 +68,11 @@
                         <div class="row">
                             <div class="col-xl-12">
                                 <div class="breadcrumb-holder">
-                                    <h1 class="main-title float-left">Data Tables</h1>
+                                    <h1 class="main-title float-left">Product in ${title_name}</h1>
                                     <ol class="breadcrumb float-right">
                                         <li class="breadcrumb-item">Home</li>
-                                        <li class="breadcrumb-item active">Data Tables</li>
+                                        <li class="breadcrumb-item">Categories</li>
+                                        <li class="breadcrumb-item active">Product in ${title_name}</li>
                                     </ol>
                                     <div class="clearfix"></div>
                                 </div>
@@ -84,15 +90,15 @@
                             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6" style="flex: 0 0 100%;max-width: 100%;">						
                                 <div class="card mb-3">
                                     <div class="card-header">
-                                        <span class="pull-right"><button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modal_add_user"><i class="fa fa-user-plus" aria-hidden="true"></i> Add new user</button></span>
-                                        <div class="modal fade custom-modal" tabindex="-1" role="dialog" aria-labelledby="modal_add_user" aria-hidden="true" id="modal_add_user">
+                                        <span class="pull-right"><button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modal_add_product"><i class="fa fa-user-plus" aria-hidden="true"></i> Add new product</button></span>
+                                        <div class="modal fade custom-modal" tabindex="-1" role="dialog" aria-labelledby="modal_add_product" aria-hidden="true" id="modal_add_product">
                                             <div class="modal-dialog">
                                                 <div class="modal-content">
 
-                                                    <form action="#" method="post">
+                                                    <form action="../admin/add_new_product.htm" method="post">
 
                                                         <div class="modal-header">
-                                                            <h5 class="modal-title">Add new user</h5>
+                                                            <h5 class="modal-title">Add product</h5>
                                                             <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>          	
                                                         </div>
 
@@ -100,10 +106,17 @@
 
                                                             <div class="row">
 
-                                                                <div class="col-lg-12">
+                                                                <div class="col-lg-6">
                                                                     <div class="form-group">
-                                                                        <label>Username</label>
-                                                                        <input class="form-control" name="txtUsername" type="text" required value="" />
+                                                                        <label>Product Name</label>
+                                                                        <input class="form-control" name="txtProductname" type="text" required value="" />
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-lg-6">
+                                                                    <div class="form-group">
+                                                                        <label>Price </label>
+                                                                        <input class="form-control" name="txtPrice" type="number" required value="0" />
+                                                                        <div style="position: absolute;top: 40px;right: 48px;">&#8363</div>
                                                                     </div>
                                                                 </div>
 
@@ -112,63 +125,54 @@
                                                             <div class="row">
                                                                 <div class="col-lg-6">
                                                                     <div class="form-group">
-                                                                        <label>Full name</label>
-                                                                        <input class="form-control" name="txtName" type="text" required value="" />
+                                                                        <label>Discount </label>
+                                                                        <input class="form-control" name="txtDiscount" type="number" required value="0" />
+                                                                        <div style="position: absolute;top: 40px;right: 48px;">&#8363</div>
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-lg-6">
                                                                     <div class="form-group">
-                                                                        <label>Role</label>
-                                                                        <select name="txtRole" class="form-control" required>
-                                                                            <option value="1">Admin</option>
-                                                                            <option selected="selected" value="2">Nhân viên</option>
-                                                                        </select>
+                                                                        <label>Brand</label>
+                                                                        <input class="form-control" name="txtBrand" type="text" required value="" />
                                                                     </div>
                                                                 </div>	
                                                             </div>
 
                                                             <div class="row">
-                                                                <div class="col-lg-6">
+                                                                <div class="col-lg-12">
                                                                     <div class="form-group">
-                                                                        <label>Valid Email </label>
-                                                                        <input class="form-control" name="txtEmail" type="email" required value="" />
+                                                                        <label>Sub-category</label>
+                                                                        <select name="txtSubcategory" class="form-control" required>
+                                                                            <option value="${title_id}">${title_name}</option>
+                                                                        </select>
                                                                     </div>
-                                                                </div>  
-
-                                                                <div class="col-lg-6">
-                                                                    <div class="form-group">
-                                                                        <label>Password </label>
-                                                                        <input class="form-control" name="txtPass" type="text" value=""/>
-                                                                    </div>
-                                                                </div>  
+                                                                </div>
                                                             </div>
 
                                                             <div class="row">
-
-                                                                <div class="col-lg-6">
+                                                                <div class="col-lg-12">
                                                                     <div class="form-group">
-                                                                        <label>Address </label>
-                                                                        <input class="form-control" name="txtAddress" type="text" value="" />
+                                                                        <label>Detail</label><br>
+                                                                        <textarea name="txtDetail" cols="63" rows="5"></textarea>
                                                                     </div>
-                                                                </div>  
-                                                                <div class="col-lg-6">
-                                                                    <div class="form-group">
-                                                                        <label>Phone Number </label>
-                                                                        <input class="form-control" name="txtPhone" type="text" value="" />
-                                                                    </div>
-                                                                </div> 
+                                                                </div>
                                                             </div>
 
                                                             <div class="form-group">
-                                                                <label>Change avatar :</label> <br />
+                                                                <label>Image product 1 :</label> <br />
 
-                                                                <input type="file" name="txtImage">
+                                                                <input type="file" name="txtImage1">
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label>Image product 2 :</label> <br />
+
+                                                                <input type="file" name="txtImage2">
                                                             </div>
 
-                                                        </div>             
+                                                        </div>
 
                                                         <div class="modal-footer">
-                                                            <button type="submit" class="btn btn-primary">Edit user</button>
+                                                            <button type="submit" class="btn btn-primary">Add product</button>
                                                         </div>
 
                                                     </form>	
@@ -176,7 +180,7 @@
                                                 </div>
                                             </div>
                                         </div> 
-                                        <h3><i class="fa fa-user"></i> All users (${list_users_admin_size} users)</h3>								
+                                        <h3><i class="fa fa-user"></i> All products (${product_size} products)</h3>								
                                     </div>
                                     <!-- end card-header -->	
 
@@ -208,11 +212,10 @@
                                                                     <div class="modal-dialog">
                                                                         <div class="modal-content">
 
-                                                                            <form action="#" method="post">
-
+                                                                            <form action="../admin/edit_product.htm" method="post">
 
                                                                                 <div class="modal-header">
-                                                                                    <h5 class="modal-title">Edit user</h5>
+                                                                                    <h5 class="modal-title">Edit product</h5>
                                                                                     <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>          	
                                                                                 </div>
 
@@ -220,11 +223,18 @@
 
                                                                                     <div class="row">
 
-                                                                                        <input name="txtID" hidden="true" type="text" value="${rows.id}" />
-                                                                                        <div class="col-lg-12">
+                                                                                        <div class="col-lg-6">
                                                                                             <div class="form-group">
-                                                                                                <label>Username</label>
-                                                                                                <input class="form-control" name="txtUsername" type="text" required value="" />
+                                                                                                <label>Product Name</label>
+                                                                                                <input class="form-control" name="txtProductname" type="text" required value="${rows.name}" />
+                                                                                                <input hidden="true" type="text" value="${rows.id}" name="txtId"/>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div class="col-lg-6">
+                                                                                            <div class="form-group">
+                                                                                                <label>Price </label>
+                                                                                                <input class="form-control" name="txtPrice" type="number" required value="${rows.price}" />
+                                                                                                <div style="position: absolute;top: 40px;right: 48px;">&#8363</div>
                                                                                             </div>
                                                                                         </div>
 
@@ -233,71 +243,71 @@
                                                                                     <div class="row">
                                                                                         <div class="col-lg-6">
                                                                                             <div class="form-group">
-                                                                                                <label>Full name</label>
-                                                                                                <input class="form-control" name="txtName" type="text" required value="" />
+                                                                                                <label>Discount </label>
+                                                                                                <input class="form-control" name="txtDiscount" type="number" required value="${rows.discount}" />
+                                                                                                <div style="position: absolute;top: 40px;right: 48px;">&#8363</div>
                                                                                             </div>
                                                                                         </div>
                                                                                         <div class="col-lg-6">
                                                                                             <div class="form-group">
-                                                                                                <label>Role</label>
-                                                                                                <select name="txtRole" class="form-control" required>
-                                                                                                    <option selected="selected" value="1">Admin</option>
-                                                                                                    <option value="2">Nhân viên</option>
-                                                                                                </select>
+                                                                                                <label>Brand</label>
+                                                                                                <input class="form-control" name="txtBrand" type="text" required value="${rows.brand}" />
                                                                                             </div>
                                                                                         </div>	
                                                                                     </div>
 
                                                                                     <div class="row">
-                                                                                        <div class="col-lg-6">
+                                                                                        <div class="col-lg-12">
                                                                                             <div class="form-group">
-                                                                                                <label>Valid Email </label>
-                                                                                                <input class="form-control" name="txtEmail" type="email" required value="" />
+                                                                                                <label>Sub-category</label>
+                                                                                                <select name="txtSubcategory" class="form-control" required>
+                                                                                                    <c:forEach var="nav" items="${sessionScope.list_Nav}">
+                                                                                                        <optgroup label="${nav.name}">
+                                                                                                            <c:forEach var="catalog" items="${sessionScope.list_Catalog}">
+                                                                                                                <c:if test="${catalog.navid == nav.id}">
+                                                                                                                    <option value="${catalog.id}">${catalog.name}</option>
+                                                                                                                </c:if>
+                                                                                                            </c:forEach>
+                                                                                                        </optgroup>
+                                                                                                    </c:forEach>
+                                                                                                </select>
                                                                                             </div>
-                                                                                        </div>  
-
-                                                                                        <div class="col-lg-6">
-                                                                                            <div class="form-group">
-                                                                                                <label>Password </label>
-                                                                                                <input class="form-control" name="txtPass" type="text" value=""/>
-                                                                                            </div>
-                                                                                        </div>  
+                                                                                        </div>
                                                                                     </div>
 
                                                                                     <div class="row">
-
-                                                                                        <div class="col-lg-6">
+                                                                                        <div class="col-lg-12">
                                                                                             <div class="form-group">
-                                                                                                <label>Address </label>
-                                                                                                <input class="form-control" name="txtAddress" type="text" value="" />
+                                                                                                <label>Detail</label><br>
+                                                                                                <textarea name="txtDetail" cols="63" rows="5">${rows.detail}</textarea>
                                                                                             </div>
-                                                                                        </div>  
-                                                                                        <div class="col-lg-6">
-                                                                                            <div class="form-group">
-                                                                                                <label>Phone Number </label>
-                                                                                                <input class="form-control" name="txtPhone" type="text" value="" />
-                                                                                            </div>
-                                                                                        </div> 
+                                                                                        </div>
                                                                                     </div>
 
                                                                                     <div class="form-group">
-                                                                                        <label>Change avatar :</label> <br />
-                                                                                        <img src="#" width="150" height="auto"/>
-                                                                                        <input type="file" name="txtImage">
+                                                                                        <label>Image product 1 :</label> <br />
+                                                                                        <img src="../img/product-img/${rows.img1}" style="width: 65px"/>
+                                                                                        <input type="text" hidden="true" value="${rows.img1}" name="txtOldimg1"/>
+                                                                                        <input type="file" name="txtImage1">
+                                                                                    </div>
+                                                                                    <div class="form-group">
+                                                                                        <label>Image product 2 :</label> <br />
+                                                                                        <img src="../img/product-img/${rows.img2}" style="width: 65px"/>
+                                                                                        <input type="text" hidden="true" value="${rows.img2}" name="txtOldimg2"/>
+                                                                                        <input type="file" name="txtImage2">
                                                                                     </div>
 
-                                                                                </div>             
-
-                                                                                <div class="modal-footer">
-                                                                                    <button type="submit" class="btn btn-primary">Edit user</button>
                                                                                 </div>
 
+                                                                                <div class="modal-footer">
+                                                                                    <button type="submit" class="btn btn-primary">Edit product</button>
+                                                                                </div>
                                                                             </form>	
 
                                                                         </div>
                                                                     </div>
                                                                 </div> 
-                                                                <a href="#" class="btn btn-danger btn-sm" data-placement="top" data-toggle="tooltip" data-title="Delete"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+                                                                <a href="<s:url value="../admin/remove_product/${rows.id}.htm"/>" class="btn btn-danger btn-sm" data-placement="top" data-toggle="tooltip" data-title="Delete"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
                                                             </td>
                                                             <td>${rows.id}</td>
                                                             <td>${rows.name}</td>

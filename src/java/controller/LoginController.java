@@ -77,10 +77,12 @@ public class LoginController {
             session.setAttribute("USER", username);
             session.setAttribute("PASS", password);
             session.setAttribute("ROLE", users.Login(username, password));
+            
 
             List<Users> ds2 = new ArrayList<Users>();
             ds2 = users.showUsers(username);
 
+            session.setAttribute("NAME", ds2.get(0).getName());
             session.setAttribute("IMGUSER", ds2.get(0).getImageuser());
 
             session.setAttribute("user_items", ds2);
