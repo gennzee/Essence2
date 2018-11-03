@@ -10,6 +10,7 @@ import DAO.NavigationBarDAO;
 import DAO.NewsDAO;
 import DAO.ProductDetailDAO;
 import DAO.ProductsDAO;
+import DAO.SupplierDAO;
 import DAO.UsersDAO;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -25,6 +26,7 @@ import model.Contact;
 import model.NavigationBarr;
 import model.News;
 import model.Products;
+import model.Supplier;
 import model.Users;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -398,10 +400,89 @@ public class AdminTemplate {
         String address = request.getParameter("txtAddress");
         String phone = request.getParameter("txtPhone");
         String email = request.getParameter("txtEmail");
-        
+
         Contact a = new Contact(googlemap, title, content, address, phone, email);
         ContactDAO b = new ContactDAO();
         b.editContact(a);
+
+        return "redirect:" + session.getAttribute("uri").toString();
+    }
+
+    //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+    @RequestMapping(value = "supplier")
+    public String supplier(ModelMap model, HttpServletRequest request, HttpSession session) {
+        session = request.getSession(false);
+
+        List<Supplier> ds = new ArrayList<Supplier>();
+        SupplierDAO a = new SupplierDAO();
+        ds = a.showSupplier();
+
+        model.addAttribute("list_supplier", ds);
+        model.addAttribute("list_supplier_size", ds.size());
+
+        List<Supplier> ds2 = new ArrayList<Supplier>();
+        ds2 = a.show_hided_supplier();
+
+        model.addAttribute("list_supplier_hided", ds2);
+        model.addAttribute("list_supplier_size_hided", ds2.size());
+
+        session.setAttribute("uri", request.getRequestURI().substring(request.getContextPath().length()));
+        return "admin/supplier";
+    }
+
+    @RequestMapping(value = "hided_supplier/{id}")
+    public String hided_supplier(ModelMap model, HttpServletRequest request, HttpSession session, @PathVariable int id) {
+        session = request.getSession(false);
+
+        SupplierDAO a = new SupplierDAO();
+        a.hide_supplier(0, id);
+
+        return "redirect:" + session.getAttribute("uri").toString();
+    }
+
+    @RequestMapping(value = "add_supplier")
+    public String add_supplier(ModelMap model, HttpServletRequest request, HttpSession session) {
+        session = request.getSession(false);
+
+        String name = request.getParameter("txtSuppliername");
+        String address = request.getParameter("txtAddress");
+        String phone = request.getParameter("txtPhone");
+        String email = request.getParameter("txtEmail");
+        String company = request.getParameter("txtCompany");
+        String status = request.getParameter("txtStatus");
+
+        Supplier a = new Supplier(name, address, phone, email, company, status);
+        SupplierDAO b = new SupplierDAO();
+        b.add_supplier(a);
+
+        return "redirect:" + session.getAttribute("uri").toString();
+    }
+
+    @RequestMapping(value = "revert_supplier/{id}")
+    public String revert_supplier(ModelMap model, HttpServletRequest request, HttpSession session, @PathVariable int id) {
+        session = request.getSession(false);
+
+        SupplierDAO a = new SupplierDAO();
+        a.hide_supplier(1, id);
+
+        return "redirect:" + session.getAttribute("uri").toString();
+    }
+
+    @RequestMapping(value = "edit_supplier")
+    public String edit_supplier(ModelMap model, HttpServletRequest request, HttpSession session) {
+        session = request.getSession(false);
+
+        int id = Integer.parseInt(request.getParameter("txtId"));
+        String name = request.getParameter("txtSuppliername");
+        String address = request.getParameter("txtAddress");
+        String phone = request.getParameter("txtPhone");
+        String email = request.getParameter("txtEmail");
+        String company = request.getParameter("txtCompany");
+        String status = request.getParameter("txtStatus");
+
+        Supplier a = new Supplier(id, name, address, phone, email, company, status);
+        SupplierDAO b = new SupplierDAO();
+        b.edit_supplier(a);
 
         return "redirect:" + session.getAttribute("uri").toString();
     }

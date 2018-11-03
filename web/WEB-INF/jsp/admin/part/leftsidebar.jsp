@@ -28,6 +28,10 @@
                 </li>
 
                 <li class="submenu">
+                    <a href="../admin/supplier.htm"><i class="fa fa-fw fa-area-chart"></i><span> Supplier </span> </a>
+                </li>
+
+                <li class="submenu">
                     <a href="#"><i class="fa fa-fw fa-table"></i> <span> Tables </span> <span class="menu-arrow"></span></a>
                     <ul class="list-unstyled">
                         <li><a href="tables-basic.html">Basic Tables</a></li>
