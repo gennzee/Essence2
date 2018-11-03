@@ -26,7 +26,7 @@ public class OrderDetailDAO {
     public List<OrderDetailWithId> listOrderDetail(int idd) {
         try {
             Connection conn = DBConnection.getConn();
-            String sql = "select OrderDetail.OrderID, Product.Id, Product.Name, Product.Quantity, Product.Discount, Product.Price\n"
+            String sql = "select OrderDetail.OrderID, Product.Id, Product.Name, OrderDetail.Quantity, Product.Discount, Product.Price\n"
                     + "from OrderDetail\n"
                     + "inner join Product on OrderDetail.ProductID = Product.Id\n"
                     + "where OrderID = '" + idd + "'";
