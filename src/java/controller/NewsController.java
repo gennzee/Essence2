@@ -86,21 +86,5 @@ public class NewsController {
         }
     }
 
-    @RequestMapping(value = "add_news", method = RequestMethod.POST)
-    public String add_news(ModelMap model, HttpServletRequest request) {
-        HttpSession session = request.getSession(false);
 
-        String title = request.getParameter("txtTitle");
-        String content = request.getParameter("txtContent");
-        String createdby = session.getAttribute("USER").toString();
-        LocalDate now = LocalDate.now();
-        String createddate = now.toString();
-
-        News a = new News(title, content, createdby, createddate, "");
-        NewsDAO news = new NewsDAO();
-        news.add_news(a);
-
-        return "admin/form";
-
-    }
 }

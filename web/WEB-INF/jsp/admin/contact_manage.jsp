@@ -84,56 +84,51 @@
 
                                     <div class="card-body">
                                         
-                                        <form action="../admin/add_news.htm" method="post">	
-                                            
+                                        <form action="../admin/contact_edit.htm" method="post">	
+                                            <c:forEach var="rows" items="${contact}">
                                                 <div class="row">
 
                                                     <div class="form-group col-xl-9 col-md-8 col-sm-12">
                                                         <div class="form-group">
-                                                            <label>News title</label>
-                                                            <input class="form-control" name="txtTitle" type="text" required value="">
+                                                            <label>Contact Title</label>
+                                                            <input class="form-control" name="txtTitle" type="text" required value="${rows.title}">
                                                         </div>
 
                                                         <div class="form-group">
-                                                            <label>Thumbnail image</label><br />
-                                                            <input type="file" name="txtImg">
+                                                            <label>Google Map</label>
+                                                            <input class="form-control" name="txtGooglemap" type="text" required value="${rows.googlemap}">
                                                         </div>
 
                                                         <div class="form-group">
-                                                            <label>News content</label>
-                                                            <textarea rows="3" class="form-control editor" name="txtContent"></textarea>
+                                                            <label>Content</label>
+                                                            <textarea rows="3" class="form-control editor" name="txtContent">${rows.content}</textarea>
                                                         </div>
 
-
-
                                                         <div class="form-group">
-                                                            <button type="submit" class="btn btn-primary">Add article</button>
-                                                            <a href="../admin/news.htm" class="btn btn-primary">Cancel </a>
+                                                            <button type="submit" class="btn btn-primary">Edit Contact page</button>
+                                                            <a href="../admin/dashboard.htm" class="btn btn-primary">Cancel </a>
                                                         </div>
                                                     </div>
 
                                                     <div class="form-group col-xl-3 col-md-4 col-sm-12 border-left">
                                                         <div class="form-group">
-                                                            <label>Creating by</label>
-                                                            <input type="text" disabled="true" class="form-control" value="${sessionScope.NAME}">    
+                                                            <label>Address</label>
+                                                            <input type="text" class="form-control" name="txtAddress" value="${rows.address}">    
                                                         </div>
 
                                                         <div class="form-group">
-                                                            <label>Creating date</label>
-                                                            <input type="text" disabled="true" class="form-control" id="datecreating">    
-                                                            <script>
-                                                                n = new Date();
-                                                                y = n.getFullYear();
-                                                                m = n.getMonth() + 1;
-                                                                d = n.getDate();
-                                                                document.getElementById("datecreating").value = y+"/"+m+"/"+d;
-                                                            </script>
+                                                            <label>Phone</label>
+                                                            <input type="text" class="form-control" name="txtPhone" value="${rows.phone}">    
                                                         </div>
 
+                                                        <div class="form-group">
+                                                            <label>Email</label>
+                                                            <input type="text" class="form-control" name="txtEmail" value="${rows.email}">    
+                                                        </div>
                                                     </div>
 
                                                 </div><!-- end row -->	
-                                            
+                                            </c:forEach>
                                         </form>
 
                                     </div>	

@@ -2,7 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 <%@taglib uri="http://www.springframework.org/tags" prefix="s"%>
-<script src="../js/validation-form/validation.js"></script>
+
 <!-- ##### Footer Area Start ##### -->
 <footer class="footer_area clearfix">
     <div class="container">
@@ -98,13 +98,13 @@
                             <label for="city">Username </label>
                             <p id="txt_username" style="color: red;"></p>
                             <input type="text" name="txtUser" class="form-control" value="">
-                            
+
                         </div>
                         <div class="col-12 mb-3">
                             <label for="state">Password </label>
                             <p id="txt_password" style="color: red;"></p>
                             <input type="password" name="txtPass" class="form-control" value="">
-                            
+
                         </div>
                         <div class="col-12 mb-3">
                             <label for="state">Đăng ký tài khoản <a href="#" style="font-size: 14px;" data-toggle="modal" data-target="#user_register">tại đây </a> </label>
@@ -365,6 +365,7 @@
                             </div>
                         </div>
                     </form>
+
                 </div>
             </div>
         </div>
@@ -575,3 +576,22 @@
 <script src="../js/classy-nav.min.js"></script>
 <!-- Active js -->
 <script src="../js/active.js"></script>
+
+
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#loginclick').click(function () {
+            $.ajax({
+                type: 'GET',
+                url: '/Essence/validation/users.htm',
+                success: function (data) {
+                        $('#txt_username').text(data);
+                }
+            });
+            return false;
+        });
+    });
+</script>

@@ -24,7 +24,7 @@
                 </li>
 
                 <li class="submenu">
-                    <a href="charts.html"><i class="fa fa-fw fa-area-chart"></i><span> Charts </span> </a>
+                    <a href="../admin/contact.htm"><i class="fa fa-fw fa-area-chart"></i><span> Contact Manage </span> </a>
                 </li>
 
                 <li class="submenu">

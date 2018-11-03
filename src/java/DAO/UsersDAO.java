@@ -55,7 +55,7 @@ public class UsersDAO {
             String sql = "select * from Users where Username like '" + usernamee + "'";
             Statement st = conn.createStatement();
             ResultSet rs = st.executeQuery(sql);
-            List<Users> list = new ArrayList<Users>();
+            List<Users> list = new ArrayList<>();
             while (rs.next()) {
                 String id = rs.getString(1);
                 String username = rs.getString(2);
@@ -76,6 +76,23 @@ public class UsersDAO {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public boolean showUsers_validation(String usernamee) {
+        //test validation
+        try {
+            Connection conn = DBConnection.getConn();
+            String sql = "select * from Users where Username like '" + usernamee + "'";
+            Statement st = conn.createStatement();
+            ResultSet rs = st.executeQuery(sql);
+            while (rs.next()) {
+                return false;
+            }
+        } catch (Exception e) {
+            System.out.println("showUsers_validation(DAO)");
+            e.printStackTrace();
+        }
+        return true;
     }
 
     public List<Users> showList_users_admin() {

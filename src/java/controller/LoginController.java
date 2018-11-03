@@ -77,7 +77,6 @@ public class LoginController {
             session.setAttribute("USER", username);
             session.setAttribute("PASS", password);
             session.setAttribute("ROLE", users.Login(username, password));
-            
 
             List<Users> ds2 = new ArrayList<Users>();
             ds2 = users.showUsers(username);
@@ -99,17 +98,31 @@ public class LoginController {
     public String logout(ModelMap model, HttpServletRequest request) {
         HttpSession session = request.getSession(false);
 
-        session.getAttribute("CARTSIZE");
+        if (session.getAttribute("ROLE") != null && session.getAttribute("ROLE").toString().equalsIgnoreCase("admin")) {
+            session.getAttribute("CARTSIZE");
 
-        session.removeAttribute("USER");
-        session.removeAttribute("PASS");
-        session.removeAttribute("ROLE");
-        session.removeAttribute("IMGUSER");
-        session.removeAttribute("WISHLIST_SIZE");
-        session.removeAttribute("WISHLIST_LIST");
-        session.removeAttribute("ORDER_LIST");
+            session.removeAttribute("USER");
+            session.removeAttribute("PASS");
+            session.removeAttribute("ROLE");
+            session.removeAttribute("IMGUSER");
+            session.removeAttribute("WISHLIST_SIZE");
+            session.removeAttribute("WISHLIST_LIST");
+            session.removeAttribute("ORDER_LIST");
+            return "index";
+        } else {
+            session.getAttribute("CARTSIZE");
 
-        return "redirect:" + session.getAttribute("uri").toString();
+            session.removeAttribute("USER");
+            session.removeAttribute("PASS");
+            session.removeAttribute("ROLE");
+            session.removeAttribute("IMGUSER");
+            session.removeAttribute("WISHLIST_SIZE");
+            session.removeAttribute("WISHLIST_LIST");
+            session.removeAttribute("ORDER_LIST");
+
+            return "redirect:" + session.getAttribute("uri").toString();
+        }
+
     }
 
     @RequestMapping(value = "register", method = RequestMethod.POST)

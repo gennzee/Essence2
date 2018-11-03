@@ -91,7 +91,7 @@
                                 <div class="card mb-3">
 
                                     <div class="card-header">
-                                        <span class="pull-right"><a href="../admin/news_add.htm" class="btn btn-primary btn-sm"><i class="fa fa-plus" aria-hidden="true"></i> Add new article</a></span>
+                                        <span class="pull-right"><a href="../admin/view_add_news.htm" class="btn btn-primary btn-sm"><i class="fa fa-plus" aria-hidden="true"></i> Add new article</a></span>
                                         <h3><i class="fa fa-file-text-o"></i> All articles (${listNews_size} articles)</h3>								
                                     </div>
                                     <!-- end card-header -->	

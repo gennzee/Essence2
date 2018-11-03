@@ -76,18 +76,16 @@ public class NewsDAO {
         return null;
     }
 
-    public boolean add_news(News news) {
+    public boolean add_news(String title, String content, String createdby, String createddate, String imagetitle) {
         try {
             Connection conn = DBConnection.getConn();
-            String sql = "insert into news values(?,?,?,?,?,?,?)";
+            String sql = "insert into news(Title,Content,CreatedBy,CreatedDate,ImageTitle) values(?,?,?,?,?)";
             PreparedStatement ps = conn.prepareStatement(sql);
-            ps.setString(1, news.getTitle());
-            ps.setString(2, news.getContent());
-            ps.setString(3, news.getCreatedby());
-            ps.setString(4, news.getEditedby());
-            ps.setString(5, news.getCreateddate());
-            ps.setString(6, news.getEditeddate());
-            ps.setString(7, news.getImagetitle());
+            ps.setString(1, title);
+            ps.setString(2, content);
+            ps.setString(3, createdby);
+            ps.setString(4, createddate);
+            ps.setString(5, imagetitle);
             int rs = ps.executeUpdate();
             if (rs > 0) {
                 return true;
@@ -118,8 +116,8 @@ public class NewsDAO {
         }
         return false;
     }
-    
-        public boolean Delete_news(int id) {
+
+    public boolean Delete_news(int id) {
         try {
             Connection conn = DBConnection.getConn();
             String sql = "Delete from News where Id like " + id + "";

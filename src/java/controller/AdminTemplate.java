@@ -5,6 +5,7 @@
  */
 package controller;
 
+import DAO.ContactDAO;
 import DAO.NavigationBarDAO;
 import DAO.NewsDAO;
 import DAO.ProductDetailDAO;
@@ -20,6 +21,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import model.Catalog;
+import model.Contact;
 import model.NavigationBarr;
 import model.News;
 import model.Products;
@@ -241,15 +243,31 @@ public class AdminTemplate {
         return "admin/news";
     }
 
-    @RequestMapping(value = "news_add")
-    public String news_add(ModelMap model, HttpServletRequest request) {
+    @RequestMapping(value = "view_add_news")
+    public String view_add_news(ModelMap model, HttpServletRequest request) {
         HttpSession session = request.getSession(false);
 
         return "admin/news_add";
     }
 
+    @RequestMapping(value = "add_news")
+    public String add_news(ModelMap model, HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
+
+        String title = request.getParameter("txtTitle");
+        String imagetitle = request.getParameter("txtImg");
+        String content = request.getParameter("txtContent");
+        LocalDate now = LocalDate.now();
+
+        NewsDAO a = new NewsDAO();
+        a.add_news(title, content, session.getAttribute("NAME").toString(), now.toString(), imagetitle);
+
+        return "redirect:" + session.getAttribute("uri").toString();
+
+    }
+
     @RequestMapping(value = "news_edit")
-    public String news_edit(ModelMap model, HttpServletRequest request){
+    public String news_edit(ModelMap model, HttpServletRequest request) {
         HttpSession session = request.getSession(false);
 
         String id = request.getParameter("txtId");
@@ -351,6 +369,39 @@ public class AdminTemplate {
             ProductsDAO products = new ProductsDAO();
             products.Delete_product(id);
         }
+
+        return "redirect:" + session.getAttribute("uri").toString();
+    }
+
+    //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+    @RequestMapping(value = "contact")
+    public String contact(ModelMap model, HttpServletRequest request, HttpSession session) {
+        session = request.getSession(false);
+
+        List<Contact> ds = new ArrayList<>();
+        ContactDAO a = new ContactDAO();
+        ds = a.showContact();
+
+        model.addAttribute("contact", ds);
+
+        session.setAttribute("uri", request.getRequestURI().substring(request.getContextPath().length()));
+        return "admin/contact_manage";
+    }
+
+    @RequestMapping(value = "contact_edit")
+    public String contact_edit(ModelMap model, HttpServletRequest request, HttpSession session) {
+        session = request.getSession(false);
+
+        String title = request.getParameter("txtTitle");
+        String googlemap = request.getParameter("txtGooglemap");
+        String content = request.getParameter("txtContent");
+        String address = request.getParameter("txtAddress");
+        String phone = request.getParameter("txtPhone");
+        String email = request.getParameter("txtEmail");
+        
+        Contact a = new Contact(googlemap, title, content, address, phone, email);
+        ContactDAO b = new ContactDAO();
+        b.editContact(a);
 
         return "redirect:" + session.getAttribute("uri").toString();
     }
