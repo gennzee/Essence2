@@ -98,7 +98,7 @@ public class UsersDAO {
     public List<Users> showList_users_admin() {
         try {
             Connection conn = DBConnection.getConn();
-            String sql = "  select * from Users where RoleID = 1 OR RoleID = 2";
+            String sql = "  select * from Users where RoleID = 2";
             Statement st = conn.createStatement();
             ResultSet rs = st.executeQuery(sql);
             List<Users> list = new ArrayList<Users>();

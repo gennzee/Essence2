@@ -120,7 +120,6 @@
                                                                     <div class="form-group">
                                                                         <label>Role</label>
                                                                         <select name="txtRole" class="form-control" required>
-                                                                            <option value="1">Admin</option>
                                                                             <option selected="selected" value="2">Nhân viên</option>
                                                                         </select>
                                                                     </div>
@@ -241,7 +240,6 @@
                                                                                             <div class="form-group">
                                                                                                 <label>Role</label>
                                                                                                 <select name="txtRole" class="form-control" required>
-                                                                                                    <option selected="selected" value="1">Admin</option>
                                                                                                     <option value="2">Nhân viên</option>
                                                                                                 </select>
                                                                                             </div>

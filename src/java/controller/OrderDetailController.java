@@ -32,27 +32,53 @@ public class OrderDetailController {
     @RequestMapping(value = "{idd}")
     public String view(ModelMap model, HttpServletRequest request, @PathVariable int idd) {
         HttpSession session = request.getSession(false);
-        List<OrderDetailWithId> ds = new ArrayList<>();
-        OrderDetailDAO orderdetailwithid = new OrderDetailDAO();
-        ds = orderdetailwithid.listOrderDetail(idd);
-
-        List<ShipperWithOrder> ds2 = new ArrayList<>();
-        ds2 = orderdetailwithid.get_shipper(idd);
-
-        model.addAttribute("list_order_detail_items", ds);
-        model.addAttribute("shipper_info", ds2);
         
-        session.getAttribute("list_Nav");
-        session.getAttribute("list_Catalog");
-        session.getAttribute("nav_Size");
-        session.getAttribute("CARTSIZE");
-        session.getAttribute("IMGUSER");
-        session.getAttribute("listUser");
-        session.getAttribute("WISHLIST_SIZE");
-        session.getAttribute("WISHLIST_LIST");
-        session.getAttribute("ORDER_LIST");
-        session.setAttribute("uri", request.getRequestURI().substring(request.getContextPath().length()));
-        return "order_status";
+        if (session.getAttribute("ROLE") == null) {
+            List<OrderDetailWithId> ds = new ArrayList<>();
+            OrderDetailDAO orderdetailwithid = new OrderDetailDAO();
+            ds = orderdetailwithid.listOrderDetail(idd);
+
+            List<ShipperWithOrder> ds2 = new ArrayList<>();
+            ds2 = orderdetailwithid.get_shipper(idd);
+
+            model.addAttribute("list_order_detail_items", ds);
+            model.addAttribute("shipper_info", ds2);
+
+            session.getAttribute("list_Nav");
+            session.getAttribute("list_Catalog");
+            session.getAttribute("nav_Size");
+            session.getAttribute("CARTSIZE");
+            session.getAttribute("IMGUSER");
+            session.getAttribute("listUser");
+            session.getAttribute("WISHLIST_SIZE");
+            session.getAttribute("WISHLIST_LIST");
+            session.getAttribute("ORDER_LIST");
+            session.setAttribute("uri", request.getRequestURI().substring(request.getContextPath().length()));
+            return "redirect:/products/productsIndex.htm";
+        } else {
+            List<OrderDetailWithId> ds = new ArrayList<>();
+            OrderDetailDAO orderdetailwithid = new OrderDetailDAO();
+            ds = orderdetailwithid.listOrderDetail(idd);
+
+            List<ShipperWithOrder> ds2 = new ArrayList<>();
+            ds2 = orderdetailwithid.get_shipper(idd);
+
+            model.addAttribute("list_order_detail_items", ds);
+            model.addAttribute("shipper_info", ds2);
+
+            session.getAttribute("list_Nav");
+            session.getAttribute("list_Catalog");
+            session.getAttribute("nav_Size");
+            session.getAttribute("CARTSIZE");
+            session.getAttribute("IMGUSER");
+            session.getAttribute("listUser");
+            session.getAttribute("WISHLIST_SIZE");
+            session.getAttribute("WISHLIST_LIST");
+            session.getAttribute("ORDER_LIST");
+            session.setAttribute("uri", request.getRequestURI().substring(request.getContextPath().length()));
+            return "order_status";
+        }
+
     }
 
 }
