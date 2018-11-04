@@ -51,7 +51,6 @@ public class AdminTemplate {
         return "admin/dashboard";
     }
 
-
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
     @RequestMapping(value = "nav")
     public String nav(ModelMap model, HttpSession session, HttpServletRequest request) {
@@ -342,16 +341,16 @@ public class AdminTemplate {
         String oldimg2 = request.getParameter("txtOldimg2");
 
         if (img1.equalsIgnoreCase("") || img2.equalsIgnoreCase("")) {
-            if (img1.equalsIgnoreCase("")) {
+            if (img1.equalsIgnoreCase("") && img2.equalsIgnoreCase("")) {
+                Products a = new Products(Integer.parseInt(id), name, detail, Integer.parseInt(price), Integer.parseInt(discount), brand, oldimg1, oldimg2, Integer.parseInt(catalogid));
+                ProductsDAO products = new ProductsDAO();
+                products.Update_product_with_2_img(a);
+            } else if (img1.equalsIgnoreCase("") && img2.equalsIgnoreCase(img2)) {
                 Products a = new Products(Integer.parseInt(id), name, detail, Integer.parseInt(price), Integer.parseInt(discount), brand, oldimg1, img2, Integer.parseInt(catalogid));
                 ProductsDAO products = new ProductsDAO();
                 products.Update_product_with_2_img(a);
-            } else if (img2.equalsIgnoreCase("")) {
+            } else if (img2.equalsIgnoreCase("") && img1.equalsIgnoreCase(img1)) {
                 Products a = new Products(Integer.parseInt(id), name, detail, Integer.parseInt(price), Integer.parseInt(discount), brand, img1, oldimg2, Integer.parseInt(catalogid));
-                ProductsDAO products = new ProductsDAO();
-                products.Update_product_with_2_img(a);
-            } else {
-                Products a = new Products(Integer.parseInt(id), name, detail, Integer.parseInt(price), Integer.parseInt(discount), brand, oldimg1, oldimg2, Integer.parseInt(catalogid));
                 ProductsDAO products = new ProductsDAO();
                 products.Update_product_with_2_img(a);
             }

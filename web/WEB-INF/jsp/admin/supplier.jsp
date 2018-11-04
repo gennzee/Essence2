@@ -324,10 +324,10 @@
                                                         <th>Actions</th>
                                                         <th>ID</th>
                                                         <th>Supplier Name</th>
-                                                        <th>Address</th>
                                                         <th>Phone</th>
                                                         <th>Email</th>
                                                         <th>Company</th>
+                                                        <th>Address</th>
                                                         <th>Status</th>
                                                     </tr>
                                                 </thead>
@@ -423,10 +423,10 @@
                                                                 <strong>${rows.name}</strong><br>
                                                                 <small><a href="<s:url value="../admin/invoice_with_id/${rows.id}.htm"/>">See invoice.</a></small>
                                                             </td>
-                                                            <td>${rows.address}</td>
                                                             <td>${rows.phone}</td>
                                                             <td>${rows.email}</td>
                                                             <td>${rows.company}</td>
+                                                            <td>${rows.address}</td>
                                                             <c:choose>
                                                                 <c:when test="${rows.status == 1}">
                                                                     <td>Active</td>
