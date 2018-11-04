@@ -6,6 +6,7 @@
 package DAO;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -72,5 +73,44 @@ public class InvoiceDAO {
             e.printStackTrace();
         }
         return null;
+    }
+    
+    public boolean add_invoice(int total, String date, int supplierid){
+        try {
+            Connection conn = DBConnection.getConn();
+            String sql = "insert into Invoice values(?,?,?)";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1, total);
+            ps.setString(2, date);
+            ps.setInt(3, supplierid);
+            int rs = ps.executeUpdate();
+            if(rs > 0){
+                return true;
+            }
+        } catch (Exception e) {
+            System.out.println("add_invoice(DAO)");
+            e.printStackTrace();
+        }
+        return false;
+    }
+    
+    public boolean edit_invoice(int id, int total, String date, int supplierid){
+        try {
+            Connection conn = DBConnection.getConn();
+            String sql = "update Invoice set Total = ?, Date = ?, SupplierID = ? where Id = ?";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1, total);
+            ps.setString(2, date);
+            ps.setInt(3, supplierid);
+            ps.setInt(4, id);
+            int rs = ps.executeUpdate();
+            if(rs > 0){
+                return true;
+            }
+        } catch (Exception e) {
+            System.out.println("edit_invoice(DAO)");
+            e.printStackTrace();
+        }
+        return false;
     }
 }

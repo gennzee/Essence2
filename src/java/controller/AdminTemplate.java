@@ -495,9 +495,15 @@ public class AdminTemplate {
         InvoiceDAO a = new InvoiceDAO();
         ds = a.showInvoice();
 
+        List<Supplier> ds2 = new ArrayList<>();
+        SupplierDAO b = new SupplierDAO();
+        ds2 = b.showSupplier();
+
         model.addAttribute("listInvoice", ds);
         model.addAttribute("listInvoice_size", ds.size());
+        model.addAttribute("listSupplier", ds2);
 
+        session.setAttribute("uri", request.getRequestURI().substring(request.getContextPath().length()));
         return "admin/invoice";
     }
 
@@ -509,9 +515,16 @@ public class AdminTemplate {
         InvoiceDAO a = new InvoiceDAO();
         ds = a.showInvoice_with_ID(id);
 
+        List<Supplier> ds2 = new ArrayList<>();
+        SupplierDAO b = new SupplierDAO();
+        ds2 = b.showSupplier();
+
         model.addAttribute("listInvoice", ds);
         model.addAttribute("listInvoice_size", ds.size());
+        model.addAttribute("listSupplier", ds2);
+        model.addAttribute("supplier_default", id);
 
+        session.setAttribute("uri", request.getRequestURI().substring(request.getContextPath().length()));
         return "admin/invoice_with_id";
     }
 
@@ -526,6 +539,36 @@ public class AdminTemplate {
         model.addAttribute("listInvoice", ds);
         model.addAttribute("listInvoice_size", ds.size());
 
+        session.setAttribute("uri", request.getRequestURI().substring(request.getContextPath().length()));
         return "admin/invoice_detail_with_id";
+    }
+
+    @RequestMapping(value = "add_invoice")
+    public String add_invoice(ModelMap model, HttpServletRequest request, HttpSession session) {
+        session = request.getSession(false);
+
+        int totalprice = Integer.parseInt(request.getParameter("txtTotalprice"));
+        String date = request.getParameter("txtDate");
+        int supplierid = Integer.parseInt(request.getParameter("txtSupplier"));
+
+        InvoiceDAO a = new InvoiceDAO();
+        a.add_invoice(totalprice, date, supplierid);
+
+        return "redirect:" + session.getAttribute("uri").toString();
+    }
+
+    @RequestMapping(value = "edit_invoice")
+    public String edit_invoice(ModelMap model, HttpServletRequest request, HttpSession session) {
+        session = request.getSession(false);
+
+        int id = Integer.parseInt(request.getParameter("txtId"));
+        int totalprice = Integer.parseInt(request.getParameter("txtTotalprice"));
+        String date = request.getParameter("txtDate");
+        int supplierid = Integer.parseInt(request.getParameter("txtSupplier"));
+
+        InvoiceDAO a = new InvoiceDAO();
+        a.edit_invoice(id, totalprice, date, supplierid);
+
+        return "redirect:" + session.getAttribute("uri").toString();
     }
 }
