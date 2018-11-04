@@ -177,10 +177,10 @@
                                                         <th>Actions</th>
                                                         <th>ID</th>
                                                         <th>Supplier Name</th>
-                                                        <th>Address</th>
                                                         <th>Phone</th>
                                                         <th>Email</th>
                                                         <th>Company</th>
+                                                        <th>Address</th>
                                                         <th>Status</th>
                                                     </tr>
                                                 </thead>
@@ -272,11 +272,14 @@
                                                                 <a href="<s:url value="../admin/hided_supplier/${rows.id}.htm"/>" class="btn btn-danger btn-sm" data-placement="top" data-toggle="tooltip" data-title="Delete"><i class="fa fa-eye-slash" aria-hidden="true"></i></a>
                                                             </td>
                                                             <td>${rows.id}</td>
-                                                            <td style="height: 50px;">${rows.name}</td>
-                                                            <td>${rows.address}</td>
+                                                            <td style="height: 50px;">
+                                                                <strong>${rows.name}</strong><br>
+                                                                <small><a href="<s:url value="../admin/invoice_with_id/${rows.id}.htm"/>">See invoice.</a></small>
+                                                            </td>
                                                             <td>${rows.phone}</td>
                                                             <td>${rows.email}</td>
                                                             <td>${rows.company}</td>
+                                                            <td>${rows.address}</td>
                                                             <c:choose>
                                                                 <c:when test="${rows.status == 1}">
                                                                     <td>Active</td>
@@ -416,7 +419,10 @@
                                                                 <a href="<s:url value="../admin/revert_supplier/${rows.id}.htm"/>" class="btn btn-danger btn-sm" data-placement="top" data-toggle="tooltip" data-title="Delete"><i class="fa fa-undo" aria-hidden="true"></i></a>
                                                             </td>
                                                             <td>${rows.id}</td>
-                                                            <td style="height: 50px;">${rows.name}</td>
+                                                            <td style="height: 50px;">
+                                                                <strong>${rows.name}</strong><br>
+                                                                <small><a href="<s:url value="../admin/invoice_with_id/${rows.id}.htm"/>">See invoice.</a></small>
+                                                            </td>
                                                             <td>${rows.address}</td>
                                                             <td>${rows.phone}</td>
                                                             <td>${rows.email}</td>

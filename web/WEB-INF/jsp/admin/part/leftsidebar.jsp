@@ -26,9 +26,13 @@
                 <li class="submenu">
                     <a href="../admin/contact.htm"><i class="fa fa-fw fa-area-chart"></i><span> Contact Manage </span> </a>
                 </li>
-
+                
                 <li class="submenu">
-                    <a href="../admin/supplier.htm"><i class="fa fa-fw fa-area-chart"></i><span> Supplier </span> </a>
+                    <a href="#"><i class="fa fa-fw fa-table"></i> <span> Supplier </span> <span class="menu-arrow"></span></a>
+                    <ul class="list-unstyled">
+                        <li><a href="../admin/supplier.htm">List suppliers</a></li>
+                        <li><a href="../admin/invoice.htm">List invoices</a></li>
+                    </ul>
                 </li>
 
                 <li class="submenu">

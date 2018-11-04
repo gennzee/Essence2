@@ -126,7 +126,7 @@
                                                                 y = n.getFullYear();
                                                                 m = n.getMonth() + 1;
                                                                 d = n.getDate();
-                                                                document.getElementById("datecreating").value = y+"/"+m+"/"+d;
+                                                                document.getElementById("datecreating").value = y+"-"+m+"-"+d;
                                                             </script>
                                                         </div>
 

@@ -6,6 +6,8 @@
 package controller;
 
 import DAO.ContactDAO;
+import DAO.InvoiceDAO;
+import DAO.InvoiceDetailDAO;
 import DAO.NavigationBarDAO;
 import DAO.NewsDAO;
 import DAO.ProductDetailDAO;
@@ -23,6 +25,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import model.Catalog;
 import model.Contact;
+import model.Invoice;
+import model.InvoiceDetail;
 import model.NavigationBarr;
 import model.News;
 import model.Products;
@@ -47,10 +51,6 @@ public class AdminTemplate {
         return "admin/dashboard";
     }
 
-    @RequestMapping(value = "form")
-    public String form() {
-        return "admin/form";
-    }
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
     @RequestMapping(value = "nav")
@@ -485,5 +485,48 @@ public class AdminTemplate {
         b.edit_supplier(a);
 
         return "redirect:" + session.getAttribute("uri").toString();
+    }
+
+    //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+    @RequestMapping(value = "invoice")
+    public String invoice(ModelMap model, HttpServletRequest request, HttpSession session) {
+        session = request.getSession(false);
+
+        List<Invoice> ds = new ArrayList<>();
+        InvoiceDAO a = new InvoiceDAO();
+        ds = a.showInvoice();
+
+        model.addAttribute("listInvoice", ds);
+        model.addAttribute("listInvoice_size", ds.size());
+
+        return "admin/invoice";
+    }
+
+    @RequestMapping(value = "invoice_with_id/{id}")
+    public String invoice_with_id(ModelMap model, HttpServletRequest request, HttpSession session, @PathVariable int id) {
+        session = request.getSession(false);
+
+        List<Invoice> ds = new ArrayList<>();
+        InvoiceDAO a = new InvoiceDAO();
+        ds = a.showInvoice_with_ID(id);
+
+        model.addAttribute("listInvoice", ds);
+        model.addAttribute("listInvoice_size", ds.size());
+
+        return "admin/invoice_with_id";
+    }
+
+    @RequestMapping(value = "invoice_detail_with_id/{id}")
+    public String invoice_detail_with_id(ModelMap model, HttpServletRequest request, HttpSession session, @PathVariable int id) {
+        session = request.getSession(false);
+
+        List<InvoiceDetail> ds = new ArrayList<>();
+        InvoiceDetailDAO a = new InvoiceDetailDAO();
+        ds = a.showInvoiceDetail_with_ID(id);
+
+        model.addAttribute("listInvoice", ds);
+        model.addAttribute("listInvoice_size", ds.size());
+
+        return "admin/invoice_detail_with_id";
     }
 }

@@ -108,7 +108,7 @@ public class LoginController {
             session.removeAttribute("WISHLIST_SIZE");
             session.removeAttribute("WISHLIST_LIST");
             session.removeAttribute("ORDER_LIST");
-            return "index";
+            return "redirect:/products/productsIndex.htm";
         } else {
             session.getAttribute("CARTSIZE");
 

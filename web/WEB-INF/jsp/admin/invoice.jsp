@@ -8,6 +8,7 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@taglib uri="http://www.springframework.org/tags" prefix="s"%>
+<%@taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -175,7 +176,7 @@
                                                 </div>
                                             </div>
                                         </div> 
-                                        <h3><i class="fa fa-user"></i> All users (${list_users_admin_size} users)</h3>								
+                                        <h3><i class="fa fa-user"></i> All users (${listInvoice_size} users)</h3>								
                                     </div>
                                     <!-- end card-header -->	
 
@@ -187,18 +188,14 @@
                                                     <tr>
                                                         <th></th>
                                                         <th>Actions</th>
-                                                        <th>ID</th>
-                                                        <th style="width: 215px;">User Details</th>
-                                                        <th>Username</th>
-                                                        <th>Role</th>
+                                                        <th>Supplier Name</th>
+                                                        <th>Total Price</th>
+                                                        <th>Invoice Date</th>
                                                         <th>Phone</th>
-                                                        <th style="width: 250px">Address</th>
-                                                        <th style="width: 90px">Created Date</th>
-
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <c:forEach var="rows" items="${list_users_admin}">
+                                                    <c:forEach var="rows" items="${listInvoice}">
                                                         <tr>
                                                             <td></td>
                                                             <td>
@@ -207,114 +204,20 @@
                                                                     <div class="modal-dialog">
                                                                         <div class="modal-content">
 
-                                                                            <form action="../admin/edit_user.htm" method="post">
-
-
-                                                                                <div class="modal-header">
-                                                                                    <h5 class="modal-title">Edit user</h5>
-                                                                                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>          	
-                                                                                </div>
-
-                                                                                <div class="modal-body">          
-
-                                                                                    <div class="row">
-
-                                                                                        <input name="txtID" hidden="true" type="text" value="${rows.id}" />
-                                                                                        <div class="col-lg-12">
-                                                                                            <div class="form-group">
-                                                                                                <label>Username</label>
-                                                                                                <input class="form-control" name="txtUsername" type="text" required value="${rows.username}" />
-                                                                                            </div>
-                                                                                        </div>
-
-                                                                                    </div>
-
-                                                                                    <div class="row">
-                                                                                        <div class="col-lg-6">
-                                                                                            <div class="form-group">
-                                                                                                <label>Full name</label>
-                                                                                                <input class="form-control" name="txtName" type="text" required value="${rows.name}" />
-                                                                                            </div>
-                                                                                        </div>
-                                                                                        <div class="col-lg-6">
-                                                                                            <div class="form-group">
-                                                                                                <label>Role</label>
-                                                                                                <select name="txtRole" class="form-control" required>
-                                                                                                    <option value="2">Nhân viên</option>
-                                                                                                </select>
-                                                                                            </div>
-                                                                                        </div>	
-                                                                                    </div>
-
-                                                                                    <div class="row">
-                                                                                        <div class="col-lg-6">
-                                                                                            <div class="form-group">
-                                                                                                <label>Valid Email </label>
-                                                                                                <input class="form-control" name="txtEmail" type="email" required value="${rows.email}" />
-                                                                                            </div>
-                                                                                        </div>  
-
-                                                                                        <div class="col-lg-6">
-                                                                                            <div class="form-group">
-                                                                                                <label>Password </label>
-                                                                                                <input class="form-control" name="txtPass" type="text" placeholder="*********" value=""/>
-                                                                                            </div>
-                                                                                        </div>  
-                                                                                    </div>
-
-                                                                                    <div class="row">
-
-                                                                                        <div class="col-lg-6">
-                                                                                            <div class="form-group">
-                                                                                                <label>Address </label>
-                                                                                                <input class="form-control" name="txtAddress" type="text" value="${rows.address}" />
-                                                                                            </div>
-                                                                                        </div>  
-                                                                                        <div class="col-lg-6">
-                                                                                            <div class="form-group">
-                                                                                                <label>Phone Number </label>
-                                                                                                <input class="form-control" name="txtPhone" type="text" value="${rows.phone}" />
-                                                                                            </div>
-                                                                                        </div> 
-                                                                                    </div>
-
-                                                                                    <div class="form-group">
-                                                                                        <label>Change avatar :</label> <br />
-                                                                                        <img src="../img/users-img/${rows.imageuser}" width="150" height="auto"/>
-                                                                                        <input type="file" name="txtImage">
-                                                                                    </div>
-
-                                                                                </div>             
-
-                                                                                <div class="modal-footer">
-                                                                                    <button type="submit" class="btn btn-primary">Edit user</button>
-                                                                                </div>
-
-                                                                            </form>	
+                                                                            
 
                                                                         </div>
                                                                     </div>
                                                                 </div> 
                                                                 <a href="<s:url value="../admin/remove_user/${rows.id}.htm"/>" class="btn btn-danger btn-sm" data-placement="top" data-toggle="tooltip" data-title="Delete"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
                                                             </td>
-                                                            <td>${rows.id}</td>
-                                                            <td style="height: 50px;">
-                                                                <span style="float: left; margin-right:10px;"><img alt="image" style="width:40px; height:40px; border-radius: 50%" src="../img/users-img/${rows.imageuser}" /></span>
+                                                            <td>
                                                                 <strong>${rows.name}</strong><br>
-                                                                <small>${rows.email}</small>
+                                                                <small><a href="<s:url value="../admin/invoice_detail_with_id/${rows.id}.htm"/>">Go to see invoice detail.</a></small>
                                                             </td>
-                                                            <td>${rows.username}</td>
-                                                            <c:choose>
-                                                                <c:when test="${rows.roleid == 1}">
-                                                                    <td>Admin</td>
-                                                                </c:when>
-                                                                <c:when test="${rows.roleid == 2}">
-                                                                    <td>User</td>
-                                                                </c:when>
-                                                            </c:choose>
+                                                            <td><fmt:formatNumber type="number" value="${rows.total}"/></td>
+                                                            <td>${rows.date}</td>
                                                             <td>${rows.phone}</td>
-                                                            <td>${rows.address}</td>
-                                                            <td>${rows.createddate}</td>
 
                                                         </tr>
                                                     </c:forEach>
