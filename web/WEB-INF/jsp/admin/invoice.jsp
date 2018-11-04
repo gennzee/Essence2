@@ -118,7 +118,7 @@
                                                                         <div class="form-group">
                                                                             <label>Date</label>
                                                                             <div class="input-group date">
-                                                                                <input type="text" class="form-control" id="datepicker" placeholder="YYYY-MM-DD" value="" name="txtDate">
+                                                                                <input type="text" autocomplete="off"  class="form-control" id="datepicker" placeholder="YYYY-MM-DD" value="" name="txtDate">
                                                                             </div>
                                                                         </div>
                                                                     </div>

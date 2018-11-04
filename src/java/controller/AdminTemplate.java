@@ -10,8 +10,10 @@ import DAO.InvoiceDAO;
 import DAO.InvoiceDetailDAO;
 import DAO.NavigationBarDAO;
 import DAO.NewsDAO;
+import DAO.OrderDAO;
 import DAO.ProductDetailDAO;
 import DAO.ProductsDAO;
+import DAO.ShipperDAO;
 import DAO.SupplierDAO;
 import DAO.UsersDAO;
 import java.io.IOException;
@@ -29,7 +31,9 @@ import model.Invoice;
 import model.InvoiceDetail;
 import model.NavigationBarr;
 import model.News;
+import model.Orders;
 import model.Products;
+import model.Shipper;
 import model.Supplier;
 import model.Users;
 import org.springframework.stereotype.Controller;
@@ -620,4 +624,104 @@ public class AdminTemplate {
 
         return "redirect:" + session.getAttribute("uri").toString();
     }
+
+    //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+    @RequestMapping(value = "order_is_processing")
+    public String order_is_processing(ModelMap model, HttpServletRequest request, HttpSession session) {
+        session = request.getSession(false);
+
+        List<Orders> ds = new ArrayList<>();
+        OrderDAO a = new OrderDAO();
+        ds = a.listOrders_is_("Processing");
+
+        List<Shipper> ds2 = new ArrayList<>();
+        ShipperDAO b = new ShipperDAO();
+        ds2 = b.showShipper();
+
+        model.addAttribute("listOrders_processing", ds);
+        model.addAttribute("listShipper", ds2);
+
+        session.setAttribute("uri", request.getRequestURI().substring(request.getContextPath().length()));
+        return "admin/order_processing";
+    }
+
+    @RequestMapping(value = "edit_order_to_delivering")
+    public String edit_order_to_delivering(ModelMap model, HttpServletRequest request, HttpSession session) {
+        session = request.getSession(false);
+
+        try {
+
+            if (request.getParameterValues("chkId") != null) {
+                for (String orderid : request.getParameterValues("chkId")) {
+                    int shipperid = Integer.parseInt(request.getParameter("txtShipper"));
+                    OrderDAO a = new OrderDAO();
+                    a.edit_processing_to_delivering_with_shipper(Integer.parseInt(orderid), 2, shipperid);
+                }
+            }
+
+        } catch (Exception e) {
+            System.out.println("edit_order_to_delivering(AdminTemplate)");
+            e.printStackTrace();
+            return "redirect:" + session.getAttribute("uri").toString();
+        }
+
+        return "redirect:" + session.getAttribute("uri").toString();
+    }
+
+    @RequestMapping(value = "order_is_Delivering")
+    public String order_is_Delivering(ModelMap model, HttpServletRequest request, HttpSession session) {
+        session = request.getSession(false);
+
+        List<Orders> ds = new ArrayList<>();
+        OrderDAO a = new OrderDAO();
+        ds = a.listOrders_is_("Delivering");
+
+        model.addAttribute("listOrders_delivering", ds);
+
+        session.setAttribute("uri", request.getRequestURI().substring(request.getContextPath().length()));
+        return "admin/order_delivering";
+    }
+
+    @RequestMapping(value = "edit_order_to_delivered")
+    public String edit_order_to_delivered(ModelMap model, HttpServletRequest request, HttpSession session) {
+        session = request.getSession(false);
+
+        try {
+
+            if (request.getParameterValues("chkId") != null) {
+                for (String orderid : request.getParameterValues("chkId")) {
+                    OrderDAO a = new OrderDAO();
+                    a.edit_delivering_to_delivered(Integer.parseInt(orderid), 3);
+                }
+            }
+
+        } catch (Exception e) {
+            System.out.println("edit_order_to_delivering(AdminTemplate)");
+            e.printStackTrace();
+            return "redirect:" + session.getAttribute("uri").toString();
+        }
+
+        return "redirect:" + session.getAttribute("uri").toString();
+    }
+
+    @RequestMapping(value = "search_order")
+    public String search_order(ModelMap model, HttpServletRequest request, HttpSession session) {
+        session = request.getSession(false);
+
+        String date = request.getParameter("txtDate");
+        
+        if (date != null) {
+            
+            List<Orders> ds = new ArrayList<>();
+            OrderDAO a = new OrderDAO();
+            ds = a.listOrders_with_date(date);
+            
+            model.addAttribute("listOrders_search", ds);
+            
+            return "admin/search_order";
+        } else {
+            return "admin/search_order";
+        }
+    }
+
 }
