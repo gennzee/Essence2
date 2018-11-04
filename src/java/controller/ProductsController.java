@@ -88,14 +88,19 @@ public class ProductsController {
         if (session.getAttribute("ROLE") != null && session.getAttribute("ROLE").toString().equalsIgnoreCase("admin")) {
 
             ProductsDAO products = new ProductsDAO();
-            List<Products> ds = new ArrayList<Products>();
+            List<Products> ds = new ArrayList<>();
             ds = products.showProducts_select(menu2id);
-            List<Catalog> ds2 = new ArrayList<Catalog>();
+            
+            List<Catalog> ds2 = new ArrayList<>();
             ds2 = products.shop_title(menu2id);
+            
+            List<Products> ds3 = new ArrayList<>();
+            ds3 = products.listProduct_doesnt_have_invoice();
 
             model.addAttribute("shop_title", ds2);
             model.addAttribute("listProducts", ds);
             model.addAttribute("product_size", ds.size());
+            model.addAttribute("listProducts_no_invoice", ds3);
             
             session.setAttribute("uri", request.getRequestURI().substring(request.getContextPath().length()));
             return "admin/products";

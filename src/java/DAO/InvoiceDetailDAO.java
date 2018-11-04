@@ -6,6 +6,7 @@
 package DAO;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -48,5 +49,62 @@ public class InvoiceDetailDAO {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public boolean add_invoice_detail(int productid, int price, int quantity, int invoiceid) {
+        try {
+            Connection conn = DBConnection.getConn();
+            String sql = "insert into InvoiceDetail values(?,?,?,?)";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1, productid);
+            ps.setInt(2, price);
+            ps.setInt(3, quantity);
+            ps.setInt(4, invoiceid);
+            int rs = ps.executeUpdate();
+            if (rs > 0) {
+                return true;
+            }
+        } catch (Exception e) {
+            System.out.println("add_invoice_detail(DAO)");
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public boolean edit_invoice_detail(int id, int productid, int price, int quantity, int invoiceid) {
+        try {
+            Connection conn = DBConnection.getConn();
+            String sql = "update InvoiceDetail set ProductID = ?, Price = ?, Quantity = ?, InvoiceID = ? where Id = ?";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1, productid);
+            ps.setInt(2, price);
+            ps.setInt(3, quantity);
+            ps.setInt(4, invoiceid);
+            ps.setInt(5, id);
+            int rs = ps.executeUpdate();
+            if (rs > 0) {
+                return true;
+            }
+        } catch (Exception e) {
+            System.out.println("edit_invoice_detail(DAO)");
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public boolean delete_invoice_detail(int id) {
+        try {
+            Connection conn = DBConnection.getConn();
+            String sql = "delete from InvoiceDetail where Id like " + id + "";
+            Statement st = conn.createStatement();
+            int rs = st.executeUpdate(sql);
+            if (rs > 0) {
+                return true;
+            }
+        } catch (Exception e) {
+            System.out.println("delete_invoice_detail(DAO)");
+            e.printStackTrace();
+        }
+        return false;
     }
 }

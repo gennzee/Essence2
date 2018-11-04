@@ -374,15 +374,15 @@
                             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6" style="flex: 0 0 100%;max-width: 100%;">						
                                 <div class="card mb-3">
                                     <div class="card-header">
-                                        <span class="pull-right"><button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modal_add_user"><i class="fa fa-user-plus" aria-hidden="true"></i> Add new user</button></span>
-                                        <div class="modal fade custom-modal" tabindex="-1" role="dialog" aria-labelledby="modal_add_user" aria-hidden="true" id="modal_add_user">
+                                        <span class="pull-right"><button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modal_add_new_invoice_product"><i class="fa fa-user-plus" aria-hidden="true"></i> Add product invoice</button></span>
+                                        <div class="modal fade custom-modal" tabindex="-1" role="dialog" aria-labelledby="modal_add_new_invoice_product" aria-hidden="true" id="modal_add_new_invoice_product">
                                             <div class="modal-dialog">
                                                 <div class="modal-content">
 
-                                                    <form action="../admin/add_user.htm" method="post">
+                                                    <form action="../../admin/add_invoice_detail.htm" method="post">
 
                                                         <div class="modal-header">
-                                                            <h5 class="modal-title">Add new user</h5>
+                                                            <h5 class="modal-title">Add product invoice</h5>
                                                             <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>          	
                                                         </div>
 
@@ -392,72 +392,47 @@
 
                                                                 <div class="col-lg-12">
                                                                     <div class="form-group">
-                                                                        <label>Username</label>
-                                                                        <input class="form-control" name="txtUsername" type="text" required value="" />
-                                                                    </div>
-                                                                </div>
-
-                                                            </div>
-
-                                                            <div class="row">
-                                                                <div class="col-lg-6">
-                                                                    <div class="form-group">
-                                                                        <label>Full name</label>
-                                                                        <input class="form-control" name="txtName" type="text" required value="" />
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-lg-6">
-                                                                    <div class="form-group">
-                                                                        <label>Role</label>
-                                                                        <select name="txtRole" class="form-control" required>
-                                                                            <option selected="selected" value="2">Nhân viên</option>
+                                                                        <label>Product name</label>
+                                                                        <select name="txtProductid" class="form-control" required>
+                                                                            <optgroup label="Active product">
+                                                                                <c:forEach var="rowss" items="${listProduct_active}">
+                                                                                    <option value="${rowss.id}">${rowss.name}</option>
+                                                                                </c:forEach>
+                                                                            </optgroup>
+                                                                            <optgroup label="Inactive product">
+                                                                                <c:forEach var="rowss" items="${listProduct_inactive}">
+                                                                                    <option value="${rowss.id}">${rowss.name}</option>
+                                                                                </c:forEach>
+                                                                            </optgroup>
                                                                         </select>
                                                                     </div>
                                                                 </div>	
+
+
                                                             </div>
 
                                                             <div class="row">
                                                                 <div class="col-lg-6">
                                                                     <div class="form-group">
-                                                                        <label>Valid Email </label>
-                                                                        <input class="form-control" name="txtEmail" type="email" required value="" />
+                                                                        <label>Quantity</label>
+                                                                        <input class="form-control" name="txtQuantity" type="number" required value="" />
                                                                     </div>
-                                                                </div>  
-
+                                                                </div>
                                                                 <div class="col-lg-6">
                                                                     <div class="form-group">
-                                                                        <label>Password </label>
-                                                                        <input class="form-control" name="txtPass" type="text" value=""/>
+                                                                        <label>Total price</label>
+                                                                        <input class="form-control" name="txtTotalprice" type="number" required value="" />
+                                                                        <div style="position: absolute;top: 40px;right: 48px;">&#8363</div>
                                                                     </div>
-                                                                </div>  
+                                                                </div>
+                                                                <input type="text" hidden="true" name="txtInvoiceid" value="${invoice_id}"/>
                                                             </div>
 
-                                                            <div class="row">
-
-                                                                <div class="col-lg-6">
-                                                                    <div class="form-group">
-                                                                        <label>Address </label>
-                                                                        <input class="form-control" name="txtAddress" type="text" value="" />
-                                                                    </div>
-                                                                </div>  
-                                                                <div class="col-lg-6">
-                                                                    <div class="form-group">
-                                                                        <label>Phone Number </label>
-                                                                        <input class="form-control" name="txtPhone" type="text" value="" />
-                                                                    </div>
-                                                                </div> 
-                                                            </div>
-
-                                                            <div class="form-group">
-                                                                <label>Change avatar :</label> <br />
-
-                                                                <input type="file" name="txtImage">
-                                                            </div>
-
-                                                        </div>             
+                                                        </div>    
 
                                                         <div class="modal-footer">
-                                                            <button type="submit" class="btn btn-primary">Edit user</button>
+                                                            <button type="submit" class="btn btn-primary">Add</button>
+                                                            <button type="button" class="btn btn-primary" data-dismiss="modal">Cancel</button>
                                                         </div>
 
                                                     </form>	
@@ -465,7 +440,7 @@
                                                 </div>
                                             </div>
                                         </div> 
-                                        <h3><i class="fa fa-user"></i> All users (${listInvoice_size} users)</h3>								
+                                        <h3><i class="fa fa-user"></i> All invoice details (${listInvoice_size} invoices)</h3>								
                                     </div>
                                     <!-- end card-header -->	
 
@@ -481,7 +456,7 @@
                                                         <th>Product Name</th>
                                                         <th>Price</th>
                                                         <th>Quantity</th>
-                                                        
+
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -489,17 +464,81 @@
                                                         <tr>
                                                             <td></td>
                                                             <td>
-                                                                <a href="#" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modal_edit_user_${rows.id}"><i class="fa fa-pencil" aria-hidden="true"></i></a>
-                                                                <div class="modal fade custom-modal" tabindex="-1" role="dialog" aria-hidden="true" id="modal_edit_user_${rows.id}">
+                                                                <a href="#" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modal_edit_product_invoice_${rows.id}"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                                                                <div class="modal fade custom-modal" tabindex="-1" role="dialog" aria-hidden="true" id="modal_edit_product_invoice_${rows.id}">
                                                                     <div class="modal-dialog">
                                                                         <div class="modal-content">
 
+                                                                            <form action="../../admin/edit_invoice_detail.htm" method="post">
 
+                                                                                <div class="modal-header">
+                                                                                    <h5 class="modal-title">Add product invoice</h5>
+                                                                                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>          	
+                                                                                </div>
+
+                                                                                <div class="modal-body">          
+
+                                                                                    <div class="row">
+
+                                                                                        <div class="col-lg-12">
+                                                                                            <div class="form-group">
+                                                                                                <label>Product name</label>
+                                                                                                <select name="txtProductid" class="form-control" required>
+                                                                                                    <optgroup label="Active product">
+                                                                                                        <c:forEach var="rowss" items="${listProduct_active}">
+                                                                                                            <option value="${rowss.id}">${rowss.name}</option>
+                                                                                                        </c:forEach>
+                                                                                                    </optgroup>
+                                                                                                    <optgroup label="Inactive product">
+                                                                                                        <c:forEach var="rowss" items="${listProduct_inactive}">
+                                                                                                            <option value="${rowss.id}">${rowss.name}</option>
+                                                                                                        </c:forEach>
+                                                                                                    </optgroup>
+                                                                                                    <optgroup label="Default">
+                                                                                                        <c:forEach var="active" items="${listProduct_active}">
+                                                                                                            <c:if test="${rows.name == active.name}">
+                                                                                                                <option selected value="${active.id}">${active.name}</option>
+                                                                                                            </c:if>
+                                                                                                        </c:forEach>
+                                                                                                    </optgroup>
+                                                                                                </select>
+                                                                                            </div>
+                                                                                        </div>	
+
+
+                                                                                    </div>
+
+                                                                                    <div class="row">
+                                                                                        <div class="col-lg-6">
+                                                                                            <div class="form-group">
+                                                                                                <label>Quantity</label>
+                                                                                                <input class="form-control" name="txtQuantity" type="number" required value="${rows.quantity}" />
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div class="col-lg-6">
+                                                                                            <div class="form-group">
+                                                                                                <label>Total price</label>
+                                                                                                <input class="form-control" name="txtTotalprice" type="number" required value="${rows.price}" />
+                                                                                                <div style="position: absolute;top: 40px;right: 48px;">&#8363</div>                                                                                                
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <input type="text" hidden="true" name="txtInvoiceid" value="${invoice_id}"/>
+                                                                                        <input type="text" hidden="true" value="${rows.id}" name="txtId"/>
+                                                                                    </div>
+
+                                                                                </div>    
+
+                                                                                <div class="modal-footer">
+                                                                                    <button type="submit" class="btn btn-primary">Edit</button>
+                                                                                    <button type="button" class="btn btn-primary" data-dismiss="modal">Cancel</button>
+                                                                                </div>
+
+                                                                            </form>
 
                                                                         </div>
                                                                     </div>
                                                                 </div> 
-                                                                <a href="<s:url value="../admin/remove_user/${rows.id}.htm"/>" class="btn btn-danger btn-sm" data-placement="top" data-toggle="tooltip" data-title="Delete"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+                                                                <a href="<s:url value="../../admin/delete_invoice_detail/${rows.id}.htm"/>" class="btn btn-danger btn-sm" data-placement="top" data-toggle="tooltip" data-title="Delete"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
                                                             </td>
                                                             <td>${rows.id}</td>
                                                             <td>
@@ -507,7 +546,7 @@
                                                             </td>
                                                             <td><fmt:formatNumber type="number" value="${rows.price}"/></td>
                                                             <td>${rows.quantity}</td>
-                                                            
+
 
                                                         </tr>
                                                     </c:forEach>

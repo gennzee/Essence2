@@ -440,7 +440,7 @@
                                                 </div>
                                             </div>
                                         </div> 
-                                        <h3><i class="fa fa-user"></i> All users (${listInvoice_size} users)</h3>								
+                                        <h3><i class="fa fa-user"></i> All invoices (${listInvoice_size} invoices)</h3>								
                                     </div>
                                     <!-- end card-header -->	
 

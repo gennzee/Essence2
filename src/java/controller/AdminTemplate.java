@@ -536,6 +536,14 @@ public class AdminTemplate {
         InvoiceDetailDAO a = new InvoiceDetailDAO();
         ds = a.showInvoiceDetail_with_ID(id);
 
+        List<Products> ds2 = new ArrayList<>();
+        ProductsDAO b = new ProductsDAO();
+        ds2 = b.showProducts();
+        model.addAttribute("listProduct_active", ds2);
+        ds2 = b.listProduct_doesnt_have_invoice();
+        model.addAttribute("listProduct_inactive", ds2);
+
+        model.addAttribute("invoice_id", id);
         model.addAttribute("listInvoice", ds);
         model.addAttribute("listInvoice_size", ds.size());
 
@@ -568,6 +576,47 @@ public class AdminTemplate {
 
         InvoiceDAO a = new InvoiceDAO();
         a.edit_invoice(id, totalprice, date, supplierid);
+
+        return "redirect:" + session.getAttribute("uri").toString();
+    }
+
+    @RequestMapping(value = "add_invoice_detail")
+    public String add_invoice_detail(ModelMap model, HttpServletRequest request, HttpSession session) {
+        session = request.getSession(false);
+
+        int productid = Integer.parseInt(request.getParameter("txtProductid"));
+        int quantity = Integer.parseInt(request.getParameter("txtQuantity"));
+        int price = Integer.parseInt(request.getParameter("txtTotalprice"));
+        int invoiceid = Integer.parseInt(request.getParameter("txtInvoiceid"));
+
+        InvoiceDetailDAO a = new InvoiceDetailDAO();
+        a.add_invoice_detail(productid, price, quantity, invoiceid);
+
+        return "redirect:" + session.getAttribute("uri").toString();
+    }
+
+    @RequestMapping(value = "edit_invoice_detail")
+    public String edit_invoice_detail(ModelMap model, HttpServletRequest request, HttpSession session) {
+        session = request.getSession(false);
+
+        int productid = Integer.parseInt(request.getParameter("txtProductid"));
+        int quantity = Integer.parseInt(request.getParameter("txtQuantity"));
+        int price = Integer.parseInt(request.getParameter("txtTotalprice"));
+        int invoiceid = Integer.parseInt(request.getParameter("txtInvoiceid"));
+        int id = Integer.parseInt(request.getParameter("txtId"));
+
+        InvoiceDetailDAO a = new InvoiceDetailDAO();
+        a.edit_invoice_detail(id, productid, price, quantity, invoiceid);
+
+        return "redirect:" + session.getAttribute("uri").toString();
+    }
+
+    @RequestMapping(value = "delete_invoice_detail/{id}")
+    public String edit_invoice_detail(ModelMap model, HttpServletRequest request, HttpSession session, @PathVariable int id) {
+        session = request.getSession(false);
+
+        InvoiceDetailDAO a = new InvoiceDetailDAO();
+        a.delete_invoice_detail(id);
 
         return "redirect:" + session.getAttribute("uri").toString();
     }
