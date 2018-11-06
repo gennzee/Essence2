@@ -28,7 +28,7 @@
         <!-- Core Style CSS -->
         <link rel="stylesheet" href="../css/core-style.css">
         <link rel="stylesheet" href="../style.css">
-                <link href="../css/pace/blue/pace-theme-corner-indicator.css" rel="stylesheet" type="text/css"/>
+        <link href="../css/pace/blue/pace-theme-corner-indicator.css" rel="stylesheet" type="text/css"/>
         <script>
             paceOptions = {
                 elements: false,

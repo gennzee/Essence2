@@ -79,7 +79,7 @@
                 <div class="row h-100 align-items-center">
                     <div class="col-12">
                         <div class="page-title text-center">
-                            <h2>News</h2>
+                            <h2>Collections</h2>
                         </div>
                     </div>
                 </div>

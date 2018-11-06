@@ -11,6 +11,7 @@ import DAO.InvoiceDetailDAO;
 import DAO.NavigationBarDAO;
 import DAO.NewsDAO;
 import DAO.OrderDAO;
+import DAO.OrderDetailDAO;
 import DAO.ProductDetailDAO;
 import DAO.ProductsDAO;
 import DAO.ShipperDAO;
@@ -31,6 +32,8 @@ import model.Invoice;
 import model.InvoiceDetail;
 import model.NavigationBarr;
 import model.News;
+import model.OrderDetail;
+import model.OrderDetailWithId;
 import model.Orders;
 import model.Products;
 import model.Shipper;
@@ -70,7 +73,7 @@ public class AdminTemplate {
         session.setAttribute("list_Catalog", catalog);
         session.setAttribute("nav_Size", nav.size());
 
-        session.setAttribute("uri", request.getRequestURI().substring(request.getContextPath().length()));
+        session.setAttribute("urii", request.getRequestURI().substring(request.getContextPath().length()));
         return "admin/nav_items";
     }
 
@@ -83,7 +86,7 @@ public class AdminTemplate {
         NavigationBarDAO a = new NavigationBarDAO();
         a.InsertNav(name);
 
-        return "redirect:" + session.getAttribute("uri").toString();
+        return "redirect:" + session.getAttribute("urii").toString();
     }
 
     @RequestMapping(value = "new_catalog", method = RequestMethod.POST)
@@ -96,7 +99,7 @@ public class AdminTemplate {
         NavigationBarDAO a = new NavigationBarDAO();
         a.InsertCatalog(name, Integer.parseInt(navid));
 
-        return "redirect:" + session.getAttribute("uri").toString();
+        return "redirect:" + session.getAttribute("urii").toString();
     }
 
     @RequestMapping(value = "edit_category", method = RequestMethod.POST)
@@ -109,7 +112,7 @@ public class AdminTemplate {
         NavigationBarDAO a = new NavigationBarDAO();
         a.UpdateNav(name, Integer.parseInt(id));
 
-        return "redirect:" + session.getAttribute("uri").toString();
+        return "redirect:" + session.getAttribute("urii").toString();
     }
 
     @RequestMapping(value = "edit_catalog", method = RequestMethod.POST)
@@ -122,7 +125,7 @@ public class AdminTemplate {
         NavigationBarDAO a = new NavigationBarDAO();
         a.UpdateCatalog(name, Integer.parseInt(id));
 
-        return "redirect:" + session.getAttribute("uri").toString();
+        return "redirect:" + session.getAttribute("urii").toString();
     }
 
     @RequestMapping(value = "remove_category/{id}")
@@ -132,7 +135,7 @@ public class AdminTemplate {
         NavigationBarDAO a = new NavigationBarDAO();
         a.DeleteNav(id);
 
-        return "redirect:" + session.getAttribute("uri").toString();
+        return "redirect:" + session.getAttribute("urii").toString();
     }
 
     @RequestMapping(value = "remove_catalog/{id}")
@@ -142,7 +145,7 @@ public class AdminTemplate {
         NavigationBarDAO a = new NavigationBarDAO();
         a.DeleteCatalog(id);
 
-        return "redirect:" + session.getAttribute("uri").toString();
+        return "redirect:" + session.getAttribute("urii").toString();
     }
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -156,7 +159,7 @@ public class AdminTemplate {
         model.addAttribute("list_users_admin", ds);
         model.addAttribute("list_users_admin_size", ds.size());
 
-        session.setAttribute("uri", request.getRequestURI().substring(request.getContextPath().length()));
+        session.setAttribute("urii", request.getRequestURI().substring(request.getContextPath().length()));
         return "admin/user";
     }
 
@@ -196,7 +199,7 @@ public class AdminTemplate {
             user.Update_user_with_password_and_image_is_not_null(a, id);
         }
 
-        return "redirect:" + session.getAttribute("uri").toString();
+        return "redirect:" + session.getAttribute("urii").toString();
     }
 
     @RequestMapping(value = "remove_user/{id}")
@@ -208,7 +211,7 @@ public class AdminTemplate {
             user.Delete(id);
         }
 
-        return "redirect:" + session.getAttribute("uri").toString();
+        return "redirect:" + session.getAttribute("urii").toString();
     }
 
     @RequestMapping(value = "add_user", method = RequestMethod.POST)
@@ -230,7 +233,7 @@ public class AdminTemplate {
         UsersDAO user = new UsersDAO();
         user.Insert_with_admin_page(a);
 
-        return "redirect:" + session.getAttribute("uri").toString();
+        return "redirect:" + session.getAttribute("urii").toString();
     }
 
     //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -244,7 +247,7 @@ public class AdminTemplate {
         model.addAttribute("listNews", ds);
         model.addAttribute("listNews_size", ds.size());
 
-        session.setAttribute("uri", request.getRequestURI().substring(request.getContextPath().length()));
+        session.setAttribute("urii", request.getRequestURI().substring(request.getContextPath().length()));
         return "admin/news";
     }
 
@@ -267,7 +270,7 @@ public class AdminTemplate {
         NewsDAO a = new NewsDAO();
         a.add_news(title, content, session.getAttribute("NAME").toString(), now.toString(), imagetitle);
 
-        return "redirect:" + session.getAttribute("uri").toString();
+        return "redirect:" + session.getAttribute("urii").toString();
 
     }
 
@@ -291,7 +294,7 @@ public class AdminTemplate {
             a.Update_news(title, imagetitle, content, session.getAttribute("NAME").toString(), now.toString(), Integer.parseInt(id));
         }
 
-        return "redirect:" + session.getAttribute("uri").toString();
+        return "redirect:" + session.getAttribute("urii").toString();
     }
 
     @RequestMapping(value = "remove_news/{id}")
@@ -303,7 +306,7 @@ public class AdminTemplate {
             a.Delete_news(id);
         }
 
-        return "redirect:" + session.getAttribute("uri").toString();
+        return "redirect:" + session.getAttribute("urii").toString();
     }
 
     //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -324,7 +327,7 @@ public class AdminTemplate {
         ProductsDAO products = new ProductsDAO();
         products.InsertProduct(a);
 
-        return "redirect:" + session.getAttribute("uri").toString();
+        return "redirect:" + session.getAttribute("urii").toString();
     }
 
     @RequestMapping(value = "edit_product")
@@ -363,7 +366,7 @@ public class AdminTemplate {
             ProductsDAO products = new ProductsDAO();
             products.Update_product_with_2_img(a);
         }
-        return "redirect:" + session.getAttribute("uri").toString();
+        return "redirect:" + session.getAttribute("urii").toString();
     }
 
     @RequestMapping(value = "remove_product/{id}")
@@ -375,7 +378,7 @@ public class AdminTemplate {
             products.Delete_product(id);
         }
 
-        return "redirect:" + session.getAttribute("uri").toString();
+        return "redirect:" + session.getAttribute("urii").toString();
     }
 
     //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -389,7 +392,7 @@ public class AdminTemplate {
 
         model.addAttribute("contact", ds);
 
-        session.setAttribute("uri", request.getRequestURI().substring(request.getContextPath().length()));
+        session.setAttribute("urii", request.getRequestURI().substring(request.getContextPath().length()));
         return "admin/contact_manage";
     }
 
@@ -408,7 +411,7 @@ public class AdminTemplate {
         ContactDAO b = new ContactDAO();
         b.editContact(a);
 
-        return "redirect:" + session.getAttribute("uri").toString();
+        return "redirect:" + session.getAttribute("urii").toString();
     }
 
     //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -429,7 +432,7 @@ public class AdminTemplate {
         model.addAttribute("list_supplier_hided", ds2);
         model.addAttribute("list_supplier_size_hided", ds2.size());
 
-        session.setAttribute("uri", request.getRequestURI().substring(request.getContextPath().length()));
+        session.setAttribute("urii", request.getRequestURI().substring(request.getContextPath().length()));
         return "admin/supplier";
     }
 
@@ -440,7 +443,7 @@ public class AdminTemplate {
         SupplierDAO a = new SupplierDAO();
         a.hide_supplier(0, id);
 
-        return "redirect:" + session.getAttribute("uri").toString();
+        return "redirect:" + session.getAttribute("urii").toString();
     }
 
     @RequestMapping(value = "add_supplier")
@@ -458,7 +461,7 @@ public class AdminTemplate {
         SupplierDAO b = new SupplierDAO();
         b.add_supplier(a);
 
-        return "redirect:" + session.getAttribute("uri").toString();
+        return "redirect:" + session.getAttribute("urii").toString();
     }
 
     @RequestMapping(value = "revert_supplier/{id}")
@@ -468,7 +471,7 @@ public class AdminTemplate {
         SupplierDAO a = new SupplierDAO();
         a.hide_supplier(1, id);
 
-        return "redirect:" + session.getAttribute("uri").toString();
+        return "redirect:" + session.getAttribute("urii").toString();
     }
 
     @RequestMapping(value = "edit_supplier")
@@ -487,7 +490,7 @@ public class AdminTemplate {
         SupplierDAO b = new SupplierDAO();
         b.edit_supplier(a);
 
-        return "redirect:" + session.getAttribute("uri").toString();
+        return "redirect:" + session.getAttribute("urii").toString();
     }
 
     //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -507,7 +510,7 @@ public class AdminTemplate {
         model.addAttribute("listInvoice_size", ds.size());
         model.addAttribute("listSupplier", ds2);
 
-        session.setAttribute("uri", request.getRequestURI().substring(request.getContextPath().length()));
+        session.setAttribute("urii", request.getRequestURI().substring(request.getContextPath().length()));
         return "admin/invoice";
     }
 
@@ -528,7 +531,7 @@ public class AdminTemplate {
         model.addAttribute("listSupplier", ds2);
         model.addAttribute("supplier_default", id);
 
-        session.setAttribute("uri", request.getRequestURI().substring(request.getContextPath().length()));
+        session.setAttribute("urii", request.getRequestURI().substring(request.getContextPath().length()));
         return "admin/invoice_with_id";
     }
 
@@ -551,7 +554,7 @@ public class AdminTemplate {
         model.addAttribute("listInvoice", ds);
         model.addAttribute("listInvoice_size", ds.size());
 
-        session.setAttribute("uri", request.getRequestURI().substring(request.getContextPath().length()));
+        session.setAttribute("urii", request.getRequestURI().substring(request.getContextPath().length()));
         return "admin/invoice_detail_with_id";
     }
 
@@ -566,7 +569,7 @@ public class AdminTemplate {
         InvoiceDAO a = new InvoiceDAO();
         a.add_invoice(totalprice, date, supplierid);
 
-        return "redirect:" + session.getAttribute("uri").toString();
+        return "redirect:" + session.getAttribute("urii").toString();
     }
 
     @RequestMapping(value = "edit_invoice")
@@ -581,7 +584,7 @@ public class AdminTemplate {
         InvoiceDAO a = new InvoiceDAO();
         a.edit_invoice(id, totalprice, date, supplierid);
 
-        return "redirect:" + session.getAttribute("uri").toString();
+        return "redirect:" + session.getAttribute("urii").toString();
     }
 
     @RequestMapping(value = "add_invoice_detail")
@@ -596,7 +599,7 @@ public class AdminTemplate {
         InvoiceDetailDAO a = new InvoiceDetailDAO();
         a.add_invoice_detail(productid, price, quantity, invoiceid);
 
-        return "redirect:" + session.getAttribute("uri").toString();
+        return "redirect:" + session.getAttribute("urii").toString();
     }
 
     @RequestMapping(value = "edit_invoice_detail")
@@ -612,7 +615,7 @@ public class AdminTemplate {
         InvoiceDetailDAO a = new InvoiceDetailDAO();
         a.edit_invoice_detail(id, productid, price, quantity, invoiceid);
 
-        return "redirect:" + session.getAttribute("uri").toString();
+        return "redirect:" + session.getAttribute("urii").toString();
     }
 
     @RequestMapping(value = "delete_invoice_detail/{id}")
@@ -622,7 +625,7 @@ public class AdminTemplate {
         InvoiceDetailDAO a = new InvoiceDetailDAO();
         a.delete_invoice_detail(id);
 
-        return "redirect:" + session.getAttribute("uri").toString();
+        return "redirect:" + session.getAttribute("urii").toString();
     }
 
     //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -641,7 +644,7 @@ public class AdminTemplate {
         model.addAttribute("listOrders_processing", ds);
         model.addAttribute("listShipper", ds2);
 
-        session.setAttribute("uri", request.getRequestURI().substring(request.getContextPath().length()));
+        session.setAttribute("urii", request.getRequestURI().substring(request.getContextPath().length()));
         return "admin/order_processing";
     }
 
@@ -662,10 +665,10 @@ public class AdminTemplate {
         } catch (Exception e) {
             System.out.println("edit_order_to_delivering(AdminTemplate)");
             e.printStackTrace();
-            return "redirect:" + session.getAttribute("uri").toString();
+            return "redirect:" + session.getAttribute("urii").toString();
         }
 
-        return "redirect:" + session.getAttribute("uri").toString();
+        return "redirect:" + session.getAttribute("urii").toString();
     }
 
     @RequestMapping(value = "order_is_Delivering")
@@ -678,7 +681,7 @@ public class AdminTemplate {
 
         model.addAttribute("listOrders_delivering", ds);
 
-        session.setAttribute("uri", request.getRequestURI().substring(request.getContextPath().length()));
+        session.setAttribute("urii", request.getRequestURI().substring(request.getContextPath().length()));
         return "admin/order_delivering";
     }
 
@@ -698,10 +701,10 @@ public class AdminTemplate {
         } catch (Exception e) {
             System.out.println("edit_order_to_delivering(AdminTemplate)");
             e.printStackTrace();
-            return "redirect:" + session.getAttribute("uri").toString();
+            return "redirect:" + session.getAttribute("urii").toString();
         }
 
-        return "redirect:" + session.getAttribute("uri").toString();
+        return "redirect:" + session.getAttribute("urii").toString();
     }
 
     @RequestMapping(value = "search_order")
@@ -709,19 +712,90 @@ public class AdminTemplate {
         session = request.getSession(false);
 
         String date = request.getParameter("txtDate");
-        
+
         if (date != null) {
-            
+
             List<Orders> ds = new ArrayList<>();
             OrderDAO a = new OrderDAO();
             ds = a.listOrders_with_date(date);
-            
+
             model.addAttribute("listOrders_search", ds);
-            
+
             return "admin/search_order";
         } else {
             return "admin/search_order";
         }
     }
 
+    @RequestMapping(value = "order_detail/{id}")
+    public String order_detail(ModelMap model, HttpServletRequest request, HttpSession session, @PathVariable int id) {
+        session = request.getSession(false);
+
+        List<OrderDetailWithId> ds = new ArrayList<>();
+        OrderDetailDAO a = new OrderDetailDAO();
+        ds = a.listOrderDetail(id);
+
+        model.addAttribute("listOrder_detail", ds);
+        model.addAttribute("orderid", id);
+
+        return "admin/order_detail";
+    }
+
+    //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+    @RequestMapping(value = "profile")
+    public String profile(ModelMap model, HttpServletRequest request, HttpSession session) {
+        session = request.getSession(false);
+
+        String username = session.getAttribute("USER").toString();
+
+        UsersDAO users = new UsersDAO();
+        List<Users> ds2 = new ArrayList<Users>();
+        ds2 = users.showUsers(username);
+
+        model.addAttribute("logged_in_user", ds2);
+
+        session.setAttribute("urii", request.getRequestURI().substring(request.getContextPath().length()));
+        return "admin/profile";
+    }
+
+    @RequestMapping(value = "edit_profile")
+    public String edit_profile(ModelMap model, HttpServletRequest request, HttpSession session) {
+        session = request.getSession(false);
+
+        String username = session.getAttribute("USER").toString();
+        String id = session.getAttribute("ID").toString();
+        String name = request.getParameter("txtName");
+        String role = session.getAttribute("ROLE_ID").toString();
+        String email = request.getParameter("txtEmail");
+        String address = request.getParameter("txtAddress");
+        String image = request.getParameter("txtImage");
+        String phone = request.getParameter("txtPhone");
+
+        String pass = request.getParameter("txtPass");
+        String oldimage = request.getParameter("txtOldimage");
+
+        if (image.equalsIgnoreCase("") || pass.equalsIgnoreCase("")) {
+            UsersDAO user = new UsersDAO();
+            if (image.equalsIgnoreCase("") && pass.equalsIgnoreCase("")) {
+                Users a = new Users(username, name, email, Integer.parseInt(role), phone, address);
+
+                user.Update_user_with_password_and_image_is_null(a, id);
+            } else if (image.equalsIgnoreCase("")) {
+                Users a = new Users(username, pass, name, email, Integer.parseInt(role), phone, address);
+
+                user.Update_user_with_image_is_null(a, id);
+            } else if (pass.equalsIgnoreCase("")) {
+                Users a = new Users(username, name, email, Integer.parseInt(role), image, phone, address);
+
+                user.Update_user_with_password_is_null(a, id);
+            }
+        } else {
+            UsersDAO user = new UsersDAO();
+            Users a = new Users(username, pass, name, email, Integer.parseInt(role), image, phone, address);
+
+            user.Update_user_with_password_and_image_is_not_null(a, id);
+        }
+
+        return "redirect:" + session.getAttribute("urii").toString();
+    }
 }

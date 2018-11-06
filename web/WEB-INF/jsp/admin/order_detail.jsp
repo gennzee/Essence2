@@ -234,7 +234,7 @@
                             </li>
 
                             <li class="submenu">
-                                <a href="#"><i class="fa fa-fw fa-cubes"></i> <span> Order Handler </span> <span class="menu-arrow"></span></a>
+                                <a class="active" href="#"><i class="fa fa-fw fa-cubes"></i> <span> Order Handler </span> <span class="menu-arrow"></span></a>
                                 <ul class="list-unstyled">
                                     <li><a href="../../admin/search_order.htm">Search Order</a></li>
                                     <li><a href="../../admin/order_is_processing.htm">Processing</a></li>
@@ -243,7 +243,7 @@
                             </li>
 
                             <li class="submenu">
-                                <a class="active" href="#"><i class="fa fa-fw fa-paperclip"></i> <span> Supplier </span> <span class="menu-arrow"></span></a>
+                                <a href="#"><i class="fa fa-fw fa-paperclip"></i> <span> Supplier </span> <span class="menu-arrow"></span></a>
                                 <ul class="list-unstyled">
                                     <li><a href="../../admin/supplier.htm">List suppliers</a></li>
                                     <li><a href="../../admin/invoice.htm">List invoices</a></li>
@@ -297,74 +297,10 @@
 
                             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6" style="flex: 0 0 100%;max-width: 100%;">						
                                 <div class="card mb-3">
-                                    <div class="card-header">
-                                        <span class="pull-right"><button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modal_add_invoice"><i class="fa fa-user-plus" aria-hidden="true"></i> Add new invoice</button></span>
-                                        <div class="modal fade custom-modal" tabindex="-1" role="dialog" aria-labelledby="modal_add_invoice" aria-hidden="true" id="modal_add_invoice">
-                                            <div class="modal-dialog">
-                                                <div class="modal-content">
+                                    <div class="card-header">   
+                                        <span class="pull-right"><a href="javascript:void(0)" onclick="window.history.back();" class="btn btn-primary btn-sm"><i class="fa fa-user-plus" aria-hidden="true"></i>Back</a></span>
+                                        <h3><i class="fa fa-user"></i> OrderID ( ${orderid} )</h3>		
 
-                                                    <form action="../../admin/add_invoice.htm" method="post">
-
-                                                        <div class="modal-header">
-                                                            <h5 class="modal-title">Edit invoice </h5>
-                                                            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>          	
-                                                        </div>
-
-                                                        <div class="modal-body">          
-
-                                                            <div class="row">
-
-                                                                <div class="col-lg-12">
-                                                                    <div class="form-group">
-                                                                        <label>Total Price </label>
-                                                                        <input class="form-control" name="txtTotalprice" type="number" required value="${rows.total}" />
-                                                                        <div style="position: absolute;top: 40px;right: 48px;">&#8363</div>
-                                                                        <input type="text" hidden="true" value="${rows.id}" name="txtId"/>
-                                                                    </div>
-                                                                </div>
-
-                                                            </div>
-
-                                                            <div class="row">
-                                                                <div class="col-lg-6">
-                                                                    <div class="form-group">
-                                                                        <div class="form-group">
-                                                                            <label>Date</label>
-                                                                            <div class="input-group date">
-                                                                                <input type="text" class="form-control" id="datepicker" placeholder="YYYY-MM-DD" value="${rows.date}" name="txtDate">
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-lg-6">
-                                                                    <div class="form-group">
-                                                                        <label>Suppliers</label>
-                                                                        <select name="txtSupplier" class="form-control" required>
-                                                                            <optgroup label="Supplier">
-                                                                                <c:forEach var="rowss" items="${listSupplier}">
-                                                                                    <c:if test="${supplier_default == rowss.id}">
-                                                                                        <option value="${rowss.id}">${rowss.name}</option>
-                                                                                    </c:if>
-                                                                                </c:forEach>
-                                                                            </optgroup>
-                                                                        </select>
-                                                                    </div>
-                                                                </div>	
-                                                            </div>
-
-                                                        </div>             
-
-                                                        <div class="modal-footer">
-                                                            <button type="submit" class="btn btn-primary">Edit</button>
-                                                            <button type="button" class="btn btn-primary" data-dismiss="modal">Cancel</button>
-                                                        </div>
-
-                                                    </form>	
-
-                                                </div>
-                                            </div>
-                                        </div> 
-                                        <h3><i class="fa fa-user"></i> All invoices (${listInvoice_size} invoices)</h3>								
                                     </div>
                                     <!-- end card-header -->	
 
@@ -374,102 +310,26 @@
                                             <table id="user" class="table table-bordered table-hover display" style="width: 100%">
                                                 <thead>
                                                     <tr>
-                                                        <th></th>
-                                                        <th>Actions</th>
-                                                        <td>ID</td>
-                                                        <th>Supplier Name</th>
-                                                        <th>Total Price</th>
-                                                        <th>Invoice Date</th>
-                                                        <th>Phone</th>
+                                                        <th></th>                                                        
+                                                        <td>Product ID</td>
+                                                        <th>Product Name</th>
+                                                        <th>Product price</th>
+                                                        <th>Discount</th>
+                                                        <th>Quantity</th>
+
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <c:forEach var="rows" items="${listInvoice}">
+                                                    <c:forEach var="rows" items="${listOrder_detail}">
                                                         <tr>
-                                                            <td></td>
-                                                            <td>
-                                                                <a href="#" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modal_edit_invoice_${rows.id}"><i class="fa fa-pencil" aria-hidden="true"></i></a>
-                                                                <div class="modal fade custom-modal" tabindex="-1" role="dialog" aria-hidden="true" id="modal_edit_invoice_${rows.id}">
-                                                                    <div class="modal-dialog">
-                                                                        <div class="modal-content">
-
-                                                                            <form action="../../admin/edit_invoice.htm" method="post">
-
-                                                                                <div class="modal-header">
-                                                                                    <h5 class="modal-title">Edit invoice </h5>
-                                                                                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>          	
-                                                                                </div>
-
-                                                                                <div class="modal-body">          
-
-                                                                                    <div class="row">
-
-                                                                                        <div class="col-lg-12">
-                                                                                            <div class="form-group">
-                                                                                                <label>Total Price </label>
-                                                                                                <input class="form-control" name="txtTotalprice" type="number" required value="${rows.total}" />
-                                                                                                <div style="position: absolute;top: 40px;right: 48px;">&#8363</div>
-                                                                                                <input type="text" hidden="true" value="${rows.id}" name="txtId"/>
-                                                                                            </div>
-                                                                                        </div>
-
-                                                                                    </div>
-
-                                                                                    <div class="row">
-                                                                                        <div class="col-lg-6">
-                                                                                            <div class="form-group">
-                                                                                                <div class="form-group">
-                                                                                                    <label>Date</label>
-                                                                                                    <div class="input-group date">
-                                                                                                        <input type="text" class="form-control" id="datepicker" placeholder="YYYY-MM-DD" value="${rows.date}" name="txtDate">
-                                                                                                    </div>
-                                                                                                </div>
-                                                                                            </div>
-                                                                                        </div>
-                                                                                        <div class="col-lg-6">
-                                                                                            <div class="form-group">
-                                                                                                <label>Suppliers</label>
-                                                                                                <select name="txtSupplier" class="form-control" required>
-                                                                                                    <optgroup label="Change to other">
-                                                                                                        <c:forEach var="rowss" items="${listSupplier}">
-                                                                                                            <option value="${rowss.id}">${rowss.name}</option>
-                                                                                                        </c:forEach>
-                                                                                                    </optgroup>
-                                                                                                    <c:forEach var="rowss" items="${listSupplier}">
-                                                                                                        <c:if test="${rows.name == rowss.name}">
-                                                                                                            <optgroup label="Default">
-                                                                                                                <option selected value="${rowss.id}">${rowss.name}</option>
-                                                                                                            </optgroup>
-                                                                                                        </c:if>
-                                                                                                    </c:forEach>
-                                                                                                </select>
-                                                                                            </div>
-                                                                                        </div>	
-                                                                                    </div>
-
-                                                                                </div>             
-
-                                                                                <div class="modal-footer">
-                                                                                    <button type="submit" class="btn btn-primary">Edit</button>
-                                                                                    <button type="button" class="btn btn-primary" data-dismiss="modal">Cancel</button>
-                                                                                </div>
-
-                                                                            </form>
-
-                                                                        </div>
-                                                                    </div>
-                                                                </div> 
-
-                                                            </td>
+                                                            <td></td>                                                            
                                                             <td>${rows.id}</td>
                                                             <td>
                                                                 <strong>${rows.name}</strong><br>
-                                                                <small><a href="<s:url value="../../admin/invoice_detail_with_id/${rows.id}.htm"/>">Go to see invoice detail.</a></small>
                                                             </td>
-                                                            <td><fmt:formatNumber type="number" value="${rows.total}"/></td>
-                                                            <td>${rows.date}</td>
-                                                            <td>${rows.phone}</td>
-
+                                                            <td><fmt:formatNumber type="number" value="${rows.price}"/></td>
+                                                            <td><fmt:formatNumber type="number" value="${rows.discount}"/></td>
+                                                            <td>${rows.quantity}</td>
                                                         </tr>
                                                     </c:forEach>
                                                 </tbody>
@@ -515,37 +375,29 @@
         <script src="../../admin/assets/js/pikeadmin.js"></script>
 
         <!-- dataTable child row -->
-        <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/css/bootstrap-datepicker.standalone.min.css" rel="stylesheet"/>
         <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
         <script src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
         <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.min.js"></script>
         <script>
-            $(document).ready(function () {
-                $('#user').DataTable({
-                    responsive: {
-                        details: {
-                            type: 'column',
-                            target: 'tr'
-                        }
-                    },
-                    columnDefs: [{
-                            className: 'control',
-                            orderable: false,
-                            targets: 0
-                        }],
-                    order: [1, 'asc']
-                });
-            });
+                                            $(document).ready(function () {
+                                                $('#user').DataTable({
+                                                    responsive: {
+                                                        details: {
+                                                            type: 'column',
+                                                            target: 'tr'
+                                                        }
+                                                    },
+                                                    columnDefs: [{
+                                                            className: 'control',
+                                                            orderable: false,
+                                                            targets: 0
+                                                        }],
+                                                    order: [1, 'asc']
+                                                });
+                                            });
         </script>	
         <!-- dataTable child row -->
-        <script>
-            $("#datepicker").datepicker({
-                format: "yyyy-mm-dd",
-                startView: "months",
-                minViewMode: "days"
-            });
-        </script>
+
 
     </body>
 </html>

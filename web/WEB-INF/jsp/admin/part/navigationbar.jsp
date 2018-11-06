@@ -126,7 +126,7 @@
                     </div>
 
                     <!-- item-->
-                    <a href="pro-profile.html" class="dropdown-item notify-item">
+                    <a href="../admin/profile.htm" class="dropdown-item notify-item">
                         <i class="fa fa-user"></i> <span>Profile</span>
                     </a>
 
@@ -135,10 +135,6 @@
                         <i class="fa fa-power-off"></i> <span>Logout</span>
                     </a>
 
-                    <!-- item-->
-                    <a target="_blank" href="https://www.pikeadmin.com" class="dropdown-item notify-item">
-                        <i class="fa fa-external-link"></i> <span>Pike Admin</span>
-                    </a>
                     </c:forEach>
                 </div>
             </li>

@@ -104,6 +104,23 @@ public class CheckoutController {
         session.setAttribute("ORDER_LIST", order);
         // List order of user - end
 
-        return "redirect:" + session.getAttribute("uri").toString();
+        return "redirect:/checkout/checkout_success.htm";
+    }
+
+    @RequestMapping(value = "checkout_success")
+    public String checkou_success(HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
+
+        session.getAttribute("list_Nav");
+        session.getAttribute("list_Catalog");
+        session.getAttribute("nav_Size");
+        session.getAttribute("CARTSIZE");
+        session.getAttribute("IMGUSER");
+        session.getAttribute("listUser");
+        session.getAttribute("WISHLIST_SIZE");
+        session.getAttribute("WISHLIST_LIST");
+        session.getAttribute("ORDER_LIST");
+
+        return "checkout_success";
     }
 }

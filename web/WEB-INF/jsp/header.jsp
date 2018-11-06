@@ -46,7 +46,7 @@
                         <li><a href="../sale/sale.htm">Sales</a>
 
                         </li>
-                        <li><a href="../news/news.htm">News</a></li>
+                        <li><a href="../news/news.htm">Collections</a></li>
                         <li><a href="../contact/contact.htm">Contact</a></li>
                         <li><a href="#">Languages</a>
                             <ul class="dropdown">

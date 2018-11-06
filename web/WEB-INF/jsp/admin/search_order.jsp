@@ -65,7 +65,66 @@
     <body class="adminbody">
         <div id="main">
             <jsp:include page="part/navigationbar.jsp"/>
-            <jsp:include page="part/leftsidebar.jsp"/>
+            <!-- Left Sidebar -->
+            <div class="left main-sidebar">
+
+                <div class="sidebar-inner leftscroll">
+
+                    <div id="sidebar-menu">
+
+                        <ul>
+
+                            <li class="submenu">
+                                <a href="../admin/dashboard.htm"><i class="fa fa-fw fa-bars"></i><span> Dashboard </span> </a>
+                            </li>
+
+                            <li class="submenu">
+                                <a href="../admin/users.htm"><i class="fa fa-fw fa-users"></i><span> Users </span> </a>
+                            </li>
+
+                            <li class="submenu">
+                                <a href="../admin/nav.htm"><i class="fa fa-fw fa-indent"></i><span> Navigate Menu </span> </a>
+                            </li>
+
+                            <li class="submenu">
+                                <a href="../admin/news.htm"><i class="fa fa-fw fa-newspaper-o"></i><span> Collections </span> </a>
+                            </li>
+
+                            <li class="submenu">
+                                <a href="../admin/contact.htm"><i class="fa fa-fw fa-address-card-o"></i><span> Contact Manage </span> </a>
+                            </li>
+
+                            <li class="submenu">
+                                <a class="active" href="#"><i class="fa fa-fw fa-cubes"></i> <span> Order Handler </span> <span class="menu-arrow"></span></a>
+                                <ul class="list-unstyled">
+                                    <li><a href="../admin/search_order.htm">Search Order</a></li>
+                                    <li><a href="../admin/order_is_processing.htm">Processing</a></li>
+                                    <li><a href="../admin/order_is_Delivering.htm">Delivering</a></li>
+                                </ul>
+                            </li>
+
+                            <li class="submenu">
+                                <a href="#"><i class="fa fa-fw fa-paperclip"></i> <span> Supplier </span> <span class="menu-arrow"></span></a>
+                                <ul class="list-unstyled">
+                                    <li><a href="../admin/supplier.htm">List suppliers</a></li>
+                                    <li><a href="../admin/invoice.htm">List invoices</a></li>
+                                </ul>
+                            </li>
+
+
+
+                        </ul>
+
+                        <div class="clearfix"></div>
+
+                    </div>
+
+                    <div class="clearfix"></div>
+
+                </div>
+
+            </div>
+            <!-- End Sidebar -->
 
             <div class="content-page">
 
@@ -84,11 +143,10 @@
                         <div class="row">
                             <div class="col-xl-12">
                                 <div class="breadcrumb-holder">
-                                    <h1 class="main-title float-left">Product in ${title_name}</h1>
+                                    <h1 class="main-title float-left">Search order area</h1>
                                     <ol class="breadcrumb float-right">
                                         <li class="breadcrumb-item">Home</li>
-                                        <li class="breadcrumb-item">Categories</li>
-                                        <li class="breadcrumb-item active">Product in ${title_name}</li>
+                                        <li class="breadcrumb-item active">Search Order</li>
                                     </ol>
                                     <div class="clearfix"></div>
                                 </div>
@@ -130,9 +188,9 @@
                                                     <tr>
                                                         <th></th>
                                                         <th>ID</th>
-                                                        <th>Total Price</th>
-                                                        <th>Order Date</th>
                                                         <th>Name</th>
+                                                        <th>Total Price</th>
+                                                        <th>Order Date</th>                                                        
                                                         <th>Phone Number</th>
                                                         <th>Address</th>
                                                         <th>Note</th>
@@ -147,9 +205,12 @@
                                                         <tr>
                                                             <td></td>
                                                             <td>${rows.id}</td>
+                                                            <td style="min-width: 110px">
+                                                                <strong>${rows.name}</strong><br>
+                                                                <small><a href="<s:url value="../admin/order_detail/${rows.id}.htm"/>">See order detail</a></small>
+                                                            </td>
                                                             <td>${rows.total}</td>
-                                                            <td style="min-width: 85px">${rows.orderdate}</td>
-                                                            <td>${rows.name}</td>
+                                                            <td style="min-width: 85px">${rows.orderdate}</td>                                                            
                                                             <td>${rows.phone}</td>
                                                             <td style="min-width: 200px">${rows.address}</td>
                                                             <td>${rows.note}</td>

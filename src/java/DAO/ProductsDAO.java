@@ -92,11 +92,11 @@ public class ProductsDAO {
     public List<Products> Search(String txtName) {
         try {
             Connection conn = DBConnection.getConn();
-            String sql = "  select p.Id, p.Name, p.Detail, p.Price, p.Discount, sum(i.Quantity) as Quantity, p.Brand, p.Img1, p.Img2, p.CatalogID\n"
-                    + "  from Product p\n"
-                    + "  inner join InvoiceDetail i on i.ProductID = p.Id\n"
-                    + "  where p.Name like '%" + txtName + "%'\n"
-                    + "  group by p.Id, p.Name, p.Detail, p.Price, p.Discount, p.Brand, p.Img1, p.Img2, p.CatalogID";
+            String sql = "select p.Id, p.Name, p.Detail, p.Price, p.Discount, sum(i.Quantity) as Quantity, p.Brand, p.Img1, p.Img2, p.CatalogID\n"
+                    + "from Product p\n"
+                    + "inner join InvoiceDetail i on i.ProductID = p.Id\n"
+                    + "where p.Name like '%" + txtName + "%' or p.Brand like '%" + txtName + "%' or p.Price like '%" + txtName + "%'\n"
+                    + "group by p.Id, p.Name, p.Detail, p.Price, p.Discount, p.Brand, p.Img1, p.Img2, p.CatalogID";
             Statement st = conn.createStatement();
             ResultSet rs = st.executeQuery(sql);
             List<Products> list = new ArrayList<Products>();
@@ -239,8 +239,8 @@ public class ProductsDAO {
         }
         return null;
     }
-    
-        public List<Products> listProduct_doesnt_care_invoice() {
+
+    public List<Products> listProduct_doesnt_care_invoice() {
         try {
             Connection conn = DBConnection.getConn();
             String sql = "select p.Id, p.Name, p.Detail, p.Price, p.Discount, sum(i.Quantity) as Quantity, p.Brand, p.Img1, p.Img2, p.CatalogID\n"

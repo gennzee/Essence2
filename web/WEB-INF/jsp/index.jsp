@@ -96,7 +96,7 @@
                     <div class="col-12 col-sm-6 col-md-4">
                         <div class="single_catagory_area d-flex align-items-center justify-content-center bg-img" style="background-image: url(../img/bg-img/bg-100.jpg);">
                             <div class="catagory-content">
-                                <a href="../news/news.htm">News</a>
+                                <a href="../news/news.htm">Collections</a>
                             </div>
                         </div>
                     </div>
@@ -182,7 +182,7 @@
                                     </div>
                                     <!-- Product Description -->
                                     <div class="product-description">
-                                        <span>ABC Company</span>
+                                        <span>${rows.brand}</span>
                                         <a href="<s:url value="../product_detail/${rows.id}.htm"/>">
                                             <h6>${rows.name}</h6>
                                         </a>

@@ -20,7 +20,7 @@
                 </li>
 
                 <li class="submenu">
-                    <a href="../admin/news.htm"><i class="fa fa-fw fa-newspaper-o"></i><span> News </span> </a>
+                    <a href="../admin/news.htm"><i class="fa fa-fw fa-newspaper-o"></i><span> Collections </span> </a>
                 </li>
 
                 <li class="submenu">
@@ -28,7 +28,7 @@
                 </li>
 
                 <li class="submenu">
-                    <a href="#"><i class="fa fa-fw fa-paperclip"></i> <span> Order Handler </span> <span class="menu-arrow"></span></a>
+                    <a href="#"><i class="fa fa-fw fa-cubes"></i> <span> Order Handler </span> <span class="menu-arrow"></span></a>
                     <ul class="list-unstyled">
                         <li><a href="../admin/search_order.htm">Search Order</a></li>
                         <li><a href="../admin/order_is_processing.htm">Processing</a></li>

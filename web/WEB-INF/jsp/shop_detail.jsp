@@ -70,15 +70,15 @@
                 <!-- Single Product Thumb -->
                 <div class="single_product_thumb clearfix">
                     <div class="product_thumbnail_slides owl-carousel">
-                        <img src="../img/product-img/${rows.img1}" alt="">
-                        <img src="../img/product-img/${rows.img2}" alt="">
+                        <img src="../img/product-img/${rows.img1}" alt="" style="width: 50%;height: auto;margin-left: 25%">
+                        <img src="../img/product-img/${rows.img2}" alt="" style="width: 50%;height: auto;margin-left: 25%">
                     </div>
                 </div>
 
                 <!-- Single Product Description -->
 
                 <div class="single_product_desc clearfix">
-                    <span>mango</span>
+                    <span>${rows.brand}</span>
                     <a href="#">
                         <h2>${rows.name}</h2>
                     </a>

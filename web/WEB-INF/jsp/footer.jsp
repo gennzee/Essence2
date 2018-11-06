@@ -221,13 +221,13 @@
                             <input type="password" name="txtPass" class="form-control" value="">
                         </div>
                         <div class="col-12 mb-3">
+                            <label for="state">Name </label>
+                            <input type="text" name="txtName" class="form-control" value="">
+                        </div>
+                        <div class="col-12 mb-3">
                             <label for="state">Email </label>
                             <p id="txt_email" style="color: red"></p>
                             <input type="text" name="txtEmail" class="form-control" value="">
-                        </div>
-                        <div class="col-12 mb-3">
-                            <label for="state">Name </label>
-                            <input type="text" name="txtName" class="form-control" value="">
                         </div>
                         <div class="col-12 mb-3">
                             <label for="state">Image </label>
@@ -439,65 +439,88 @@
     </c:otherwise>
 </c:choose>
 
-<div class="modal fade" id="history_shipping_status" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog" style="max-width: 700px;">
-        <div class="modal-content">
-            <!-- Modal Header -->
-            <div class="modal-header">
-                <h4 class="modal-title">Your history ordered !</h4>
-                <button onclick="close_filter_table()" type="button" class="close" data-dismiss="modal">&times;</button>
-            </div>
-            <!-- Modal body -->
-            <div class="modal-body">
-                <form action="#" method="post">
-                    <div class="col-12 mb-4">
-                        <input style="background: url(../img/core-img/698627-icon-111-search-512.png) no-repeat scroll 5px 2px; padding-left: 41px;" id="myInput" onkeyup="search_filter_table()" placeholder="Search for name, date, ..." type="text" class="form-control" value="">
+<c:choose>
+    <c:when test="${sessionScope.WISHLIST_SIZE > 0}">
+        <div class="modal fade" id="history_shipping_status" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog" style="max-width: 700px;">
+                <div class="modal-content">
+                    <!-- Modal Header -->
+                    <div class="modal-header">
+                        <h4 class="modal-title">Your history ordered !</h4>
+                        <button onclick="close_filter_table()" type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <!-- Modal body -->
+                    <div class="modal-body">
+                        <form action="#" method="post">
+                            <div class="col-12 mb-4">
+                                <input style="background: url(../img/core-img/698627-icon-111-search-512.png) no-repeat scroll 5px 2px; padding-left: 41px;" id="myInput" onkeyup="search_filter_table()" placeholder="Search for name, date, ..." type="text" class="form-control" value="">
+                            </div>
+
+                            <table class="table table-striped" id="myTable">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">Total Price</th>
+                                        <th scope="col">Ordered Date</th>
+                                        <th scope="col">Receiver</th>
+                                        <th scope="col">Status</th>
+                                        <th scope="col"></th>
+                                    </tr>
+                                </thead>
+                                <c:forEach var="rows" items="${sessionScope.ORDER_LIST}">
+                                    <tbody>
+                                        <tr>
+                                            <th scope="row">${rows.id}</th>
+                                            <td><fmt:formatNumber type="number" value="${rows.total}"/></td>
+                                            <td>${rows.orderdate}</td>
+                                            <td>${rows.name}</td>
+                                            <c:choose>
+                                                <c:when test="${rows.paymentstatus == 1}">
+                                                    <td style="color: grey;"><i class="fa fa-spinner fa-spin" style="font-size:20px"></i> Processing </td>
+                                                </c:when>
+                                                <c:when test="${rows.paymentstatus == 2}">
+                                                    <td style="color: brown;"><i style="text-decoration: underline;" class="fa fa-motorcycle" aria-hidden="true"></i> Shipper </td>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <td style="color: green;"><i class="fa fa-check" aria-hidden="true"></i> Delivered </td>
+                                                </c:otherwise>
+                                            </c:choose>
+                                            <td>                    
+                                                <a href="<s:url value="../orderdetail/${rows.id}.htm"/>"><div class="hoverrr" style="width: 22px;text-align: center;border-radius: 50%;border: 1px solid black;"><i class="fa fa-info"></i></div></a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </c:forEach>
+
+
+                            </table>
+                        </form>
                     </div>
 
-                    <table class="table table-striped" id="myTable">
-                        <thead>
-                            <tr>
-                                <th scope="col">#</th>
-                                <th scope="col">Total Price</th>
-                                <th scope="col">Ordered Date</th>
-                                <th scope="col">Buyer</th>
-                                <th scope="col">Status</th>
-                                <th scope="col"></th>
-                            </tr>
-                        </thead>
-                        <c:forEach var="rows" items="${sessionScope.ORDER_LIST}">
-                            <tbody>
-                                <tr>
-                                    <th scope="row">${rows.id}</th>
-                                    <td><fmt:formatNumber type="number" value="${rows.total}"/></td>
-                                    <td>${rows.orderdate}</td>
-                                    <td>${rows.name}</td>
-                                    <c:choose>
-                                        <c:when test="${rows.paymentstatus == 1}">
-                                            <td style="color: grey;"><i class="fa fa-spinner fa-spin" style="font-size:20px"></i> Processing </td>
-                                        </c:when>
-                                        <c:when test="${rows.paymentstatus == 2}">
-                                            <td style="color: brown;"><i style="text-decoration: underline;" class="fa fa-motorcycle" aria-hidden="true"></i> Shipper </td>
-                                        </c:when>
-                                        <c:otherwise>
-                                            <td style="color: green;"><i class="fa fa-check" aria-hidden="true"></i> Delivered </td>
-                                        </c:otherwise>
-                                    </c:choose>
-                                    <td>                    
-                                        <a href="<s:url value="../orderdetail/${rows.id}.htm"/>"><div class="hoverrr" style="width: 22px;text-align: center;border-radius: 50%;border: 1px solid black;"><i class="fa fa-info"></i></div></a>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </c:forEach>
-
-
-                    </table>
-                </form>
+                </div>
             </div>
-
         </div>
-    </div>
-</div>
+    </c:when>
+    <c:otherwise>
+        <div class="modal fade" id="history_shipping_status" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog" style="max-width: 700px;">
+                <div class="modal-content">
+                    <!-- Modal Header -->
+                    <div class="modal-header">
+                        <h4 class="modal-title">Your history ordered !</h4>
+                        <button onclick="close_filter_table()" type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <!-- Modal body -->
+                    <div class="modal-body">
+                        You have no ordered.
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </c:otherwise>
+</c:choose>
+
 
 <script>
     function search_filter_table() {
@@ -581,7 +604,6 @@
 
 
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.js"></script>
 <script>
     $(document).ready(function () {
         $('#loginclick').click(function () {

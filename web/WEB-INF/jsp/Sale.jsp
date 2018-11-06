@@ -1,16 +1,17 @@
+<%-- 
+    Document   : Sale
+    Created on : Oct 22, 2018, 9:43:32 PM
+    Author     : tanks
+--%>
 
-<%@page import="java.math.RoundingMode"%>
-<%@page import="java.text.NumberFormat"%>
-<%@page import="java.util.Locale"%>
-<%@taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@taglib uri="http://www.springframework.org/tags" prefix="s"%>
-<%@taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
     <head>
-        <script src="../js/pace.js"></script>
         <meta charset="UTF-8">
         <meta name="description" content="">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -26,7 +27,6 @@
         <!-- Core Style CSS -->
         <link rel="stylesheet" href="../css/core-style.css">
         <link rel="stylesheet" href="../style.css">
-
         <style>
             .easyPaginateNav{
                 width: 100% !important;
@@ -43,7 +43,7 @@
                 color: #0315ff;
             }
         </style>
-                <link href="../css/pace/blue/pace-theme-corner-indicator.css" rel="stylesheet" type="text/css"/>
+        <link href="../css/pace/blue/pace-theme-corner-indicator.css" rel="stylesheet" type="text/css"/>
         <script>
             paceOptions = {
                 elements: false,
@@ -77,7 +77,9 @@
         </script>
     </head>
     <body>
+        <!--header-->
         <jsp:include page="header.jsp"/>
+        <!--cart-->
         <jsp:include page="nav_right_side.jsp"/>
 
         <!-- ##### Breadcumb Area Start ##### -->
@@ -86,10 +88,7 @@
                 <div class="row h-100 align-items-center">
                     <div class="col-12">
                         <div class="page-title text-center">
-                            <c:forEach var="rows" items="${shop_title}">
-                                <h2>${rows.name}</h2>
-                            </c:forEach>
-                            <h2>${sale}${shop_title_search_result}</h2>
+                            <h2>${sale}</h2>
                         </div>
                     </div>
                 </div>
@@ -111,21 +110,36 @@
 
                                 <!--  Catagories  -->
                                 <div class="catagories-menu">
-
                                     <ul id="menu-content2" class="menu-content collapse show">
-                                        <c:forEach var="rows" items="${sessionScope.list_Nav}">
-                                            <!-- Single Item -->
-                                            <li data-toggle="collapse" data-target="#clothing${rows.id}">
-                                                <a href="#">${rows.name}</a>
-                                                <ul class="sub-menu collapse show" id="clothing${rows.id}">
-                                                    <c:forEach var="rowss" items="${sessionScope.list_Catalog}">
-                                                        <c:if test="${rows.id == rowss.navid}">
-                                                            <li><a href="<s:url value="../products/${rowss.id}.htm"/>">${rowss.name}</a></li>
-                                                            </c:if>
-                                                        </c:forEach>
-                                                </ul>
-                                            </li>
-                                        </c:forEach>
+                                        <!-- Single Item -->
+                                        <li data-toggle="collapse" data-target="#clothing">
+                                            <a href="#">Thương hiệu</a>
+                                            <ul class="sub-menu collapse show" id="clothing">
+                                                <li><a href="../products/products_selection_thuonghieu.htm">All</a></li>
+                                                    <c:forEach var="rows" items="${listNav_thuonghieu}">
+                                                    <li><a href="<s:url value="../products/${rows.catalogmenuid}.htm"/>">${rows.catalogmenuname}</a></li>
+                                                    </c:forEach>
+                                            </ul>
+                                        </li>
+                                        <!-- Single Item -->
+                                        <li data-toggle="collapse" data-target="#shoes" class="collapsed">
+                                            <a href="#">Linh kiện</a>
+                                            <ul class="sub-menu collapse show" id="shoes">
+                                                <li><a href="../products/products_selection_linhkien.htm">All</a></li>
+                                                    <c:forEach var="rows" items="${listNav_linhkien}">
+                                                    <li><a href="<s:url value="../products/${rows.catalogmenuid}.htm"/>">${rows.catalogmenuname}</a></li>
+                                                    </c:forEach>
+                                            </ul>
+                                        </li>
+                                        <!-- Single Item -->
+                                        <li data-toggle="collapse" data-target="#accessories" class="collapsed">
+                                            <a href="#">Đồng hồ cho giới tính</a>
+                                            <ul class="sub-menu collapse show" id="accessories">
+                                                <c:forEach var="rows" items="${listNav_gioitinh}">
+                                                    <li><a href="<s:url value="../products/${rows.catalogmenuid}.htm"/>">${rows.catalogmenuname}</a></li>
+                                                    </c:forEach>
+                                            </ul>
+                                        </li>
                                     </ul>
                                 </div>
                             </div>
@@ -150,20 +164,6 @@
                             </div>
 
 
-                            <!-- ##### Single Widget ##### -->
-                            <div class="widget brands mb-50">
-                                <!-- Widget Title 2 -->
-                                <p class="widget-title2 mb-30">Brands</p>
-                                <div class="widget-desc">
-                                    <ul>
-                                        <li><a href="#">Asos</a></li>
-                                        <li><a href="#">Mango</a></li>
-                                        <li><a href="#">River Island</a></li>
-                                        <li><a href="#">Topshop</a></li>
-                                        <li><a href="#">Zara</a></li>
-                                    </ul>
-                                </div>
-                            </div>
                         </div>
                     </div>
 
@@ -174,19 +174,7 @@
                                     <div class="product-topbar d-flex align-items-center justify-content-between">
                                         <!-- Total Products -->
                                         <div class="total-products">
-                                            <p><span>${product_size}${search_size}${shopIndex_size}</span> products found</p>
-                                        </div>
-                                        <!-- Sorting -->
-                                        <div class="product-sorting d-flex">
-                                            <p>Sort by:</p>
-                                            <form action="#" method="get">
-                                                <select name="select" id="sortByselect">
-                                                    <option value="1">Highest Rated</option>
-                                                    <option value="2">Newest</option>
-                                                    <option value="3">Price: $$ - $</option>
-                                                    <option value="4">Price: $ - $$</option>
-                                                </select>
-                                            </form>
+                                            <p><span>${sale_size}</span> products found</p>
                                         </div>
                                     </div>
                                 </div>
@@ -207,39 +195,44 @@
                                                 <img class="hover-img" src="../img/product-img/${rows.img2}" alt="">
 
                                                 <!-- Product Badge -->
-                                                <c:if test="${(rows.discount/rows.price)*100 > 0}">
-                                                    <div class="product-badge offer-badge">
-                                                        <span>-<fmt:formatNumber value="${(rows.discount/rows.price)*100}" maxFractionDigits="0"/>%</span>
-                                                    </div>
-                                                </c:if>
-
+                                                <div class="product-badge offer-badge">
+                                                    <span>-<fmt:formatNumber value="${(rows.discount/rows.price)*100}" maxFractionDigits="0"/>%</span>
+                                                </div>
                                                 <!-- Favourite -->
                                                 <c:if test="${sessionScope.USER != null}">
-                                                    <c:forEach var="rowss" items="${sessionScope.WISHLIST_LIST}">
-                                                        <c:if test="${rowss.productid == rows.id}">
-                                                            <c:set var="productid" value="${rowss.productid}"/>
-                                                            <c:set var="wishlist_id" value="${rowss.id}"/>
-                                                        </c:if>
-                                                    </c:forEach>
                                                     <c:choose>
-                                                        <c:when test="${productid == rows.id}">
-                                                            <div class="product-favourite">
-                                                                <a href="<s:url value="../wishlist/remove/${wishlist_id}.htm"/>" onclick="return location.reload();" class="favme fa fa-heart active"></a>
-                                                            </div>
+                                                        <c:when test="${sessionScope.WISHLIST_SIZE > 0}">
+                                                            <c:forEach var="rowss" items="${sessionScope.WISHLIST_LIST}">
+                                                                <c:if test="${rowss.productid == rows.id}">
+                                                                    <c:set var="productid" value="${rowss.productid}"/>
+                                                                    <c:set var="wishlist_id" value="${rowss.id}"/>
+                                                                </c:if>
+                                                            </c:forEach>
+                                                            <c:choose>
+                                                                <c:when test="${productid == rows.id}">
+                                                                    <div class="product-favourite">
+                                                                        <a href="<s:url value="javascript:void(0)"/>" onclick="$.get('../wishlist/remove/${wishlist_id}.htm');return location.reload();" class="favme fa fa-heart active"></a>
+                                                                    </div>
+                                                                </c:when>
+                                                                <c:otherwise>
+                                                                    <div class="product-favourite">
+                                                                        <a href="<s:url value="javascript:void(0)"/>" onclick="$.get('../wishlist/${rows.id}.htm');return location.reload();" class="favme fa fa-heart"></a>
+                                                                    </div>
+                                                                </c:otherwise>
+                                                            </c:choose>
+
                                                         </c:when>
                                                         <c:otherwise>
                                                             <div class="product-favourite">
-                                                                <a href="<s:url value="../wishlist/${rows.id}.htm"/>" onclick="return location.reload();" class="favme fa fa-heart"></a>
+                                                                <a href="<s:url value="javascript:void(0)"/>" onclick="$.get('../wishlist/${rows.id}.htm');return location.reload();" class="favme fa fa-heart"></a>
                                                             </div>
                                                         </c:otherwise>
                                                     </c:choose>
                                                 </c:if>
-
                                             </div>
 
                                             <!-- Product Description -->
                                             <div class="product-description">
-
                                                 <span>${rows.brand}</span>
                                                 <a href="<s:url value="../product_detail/${rows.id}.htm"/>">
                                                     <h6>${rows.name}</h6>
@@ -252,11 +245,9 @@
                                                     <!-- Add to Cart -->
                                                     <div class="add-to-cart-btn">
                                                         <a href="<s:url value="javascript:void(0)"/>" onclick="$.get('../cartbean/${rows.id}.htm');return location.reload();" class="btn essence-btn">Add to Cart</a>
-
                                                     </div>
                                                 </div>
                                             </div>
-
                                         </div>
                                     </div>
                                 </c:forEach>
@@ -280,19 +271,6 @@
                                                                 effect: 'default'
                                                             });
         </script>
-        <!--        <script>
-        //            addtocart
-                    $(function () {
-                        $("a.btn").click(function () {
-                            return location.reload();
-                        });
-                    });
-                </script>-->
         <jsp:include page="footer.jsp"/>
-
-
-
-
-
     </body>
 </html>

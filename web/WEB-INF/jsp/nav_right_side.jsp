@@ -27,16 +27,14 @@
                         <div class="product-image">
                             <img src="../img/product-img/${rows.value.sanpham.img1}" class="cart-thumb" alt="">
                             <!-- Cart Item Desc -->
-                            <form action="../cartbean/remove.htm" method="get">
                                 <div class="cart-item-desc">
-                                    <button type="submit" class="product-remove" style="background-color: transparent;border: 0;"><input type="hidden" name="rmv" value="${rows.value.sanpham.id}"><i class="fa fa-close" aria-hidden="true"></i></button>
+                                    <a href="../cartbean/delete/${rows.value.sanpham.id}.htm" class="product-remove"><i class="fa fa-close" aria-hidden="true"></i></a>
                                     <span class="badge">${rows.value.sanpham.brand}</span>
                                     <h6>${rows.value.sanpham.name}</h6>
                                     <p class="size">Quantity: ${rows.value.quantity}</p>
                                     <p class="size">Discount: <fmt:formatNumber value="${(rows.value.sanpham.discount/rows.value.sanpham.price)*100}" maxFractionDigits="0"/>%</p>
                                     <p class="price"><fmt:formatNumber type="number" value="${rows.value.sanpham.price}"/> &#8363</p>
                                 </div>
-                            </form>
                         </div>
                     </div>
                 </c:forEach>
@@ -69,6 +67,7 @@
                 </ul>
                 <div class="checkout-btn mt-100">
                     <a href="../checkout/checkout.htm" class="btn essence-btn">check out</a>
+                    <a href="../cartbean/viewcart.htm" class="btn essence-btn">view cart</a>
                 </div>
             </div>
         </c:if>

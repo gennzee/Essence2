@@ -1,7 +1,7 @@
 <%-- 
-    Document   : user2
-    Created on : Oct 31, 2018, 4:33:12 PM
-    Author     : tanks
+    Document   : profile
+    Created on : Nov 5, 2018, 2:47:45 PM
+    Author     : Genn
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -11,7 +11,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta charset="utf-8">
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
         <title>Pike Admin - Free Bootstrap 4 Admin Template</title>
@@ -28,32 +28,9 @@
         <link href="../admin/assets/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
 
         <!-- Custom CSS -->
-        <link href="../admin/assets/css/style.css" rel="stylesheet" type="text/css" />		
-
+        <link href="../admin/assets/css/style.css" rel="stylesheet" type="text/css" />	
         <!-- BEGIN CSS for this page -->
-        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.dataTables.min.css"/>
-        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/css/bootstrap.css"/>
-        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css"/>
-        <style>	
-            td.details-control {
-                background: url('../admin/assets/plugins/datatables/img/details_open.png') no-repeat center center;
-                cursor: pointer;
-            }
-            tr.shown td.details-control {
-                background: url('../admin/assets/plugins/datatables/img/details_close.png') no-repeat center center;
-            }
-        </style>		
-        <style>
-            .ellipsis{
-                overflow: hidden;
-                text-overflow: ellipsis;
-                display: -webkit-box;
-                -webkit-line-clamp: 2; /* number of lines to show */
-                -webkit-box-orient: vertical;
-            }
-        </style>
         <!-- END CSS for this page -->
-
     </head>
     <body class="adminbody">
         <div id="main">
@@ -80,7 +57,7 @@
                             </li>
 
                             <li class="submenu">
-                                <a class="active" href="../admin/news.htm"><i class="fa fa-fw fa-newspaper-o"></i><span> Collections </span> </a>
+                                <a href="../admin/news.htm"><i class="fa fa-fw fa-newspaper-o"></i><span> Collections </span> </a>
                             </li>
 
                             <li class="submenu">
@@ -130,10 +107,10 @@
                         <div class="row">
                             <div class="col-xl-12">
                                 <div class="breadcrumb-holder">
-                                    <h1 class="main-title float-left">Articles</h1>
+                                    <h1 class="main-title float-left">My Profile</h1>
                                     <ol class="breadcrumb float-right">
                                         <li class="breadcrumb-item">Home</li>
-                                        <li class="breadcrumb-item active">Articles</li>
+                                        <li class="breadcrumb-item active">Profile</li>
                                     </ol>
                                     <div class="clearfix"></div>
                                 </div>
@@ -143,56 +120,99 @@
 
 
 
+
                         <div class="row">
 
                             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">						
-
                                 <div class="card mb-3">
-
                                     <div class="card-header">
-                                        <span class="pull-right"><a href="../admin/view_add_news.htm" class="btn btn-primary btn-sm"><i class="fa fa-plus" aria-hidden="true"></i> Add new article</a></span>
-                                        <h3><i class="fa fa-file-text-o"></i> All articles (${listNews_size} articles)</h3>								
+                                        <h3><i class="fa fa-user"></i> Profile details</h3>								
                                     </div>
-                                    <!-- end card-header -->	
 
                                     <div class="card-body">
 
-                                        <div class="table-responsive">	
-                                            <table id="newss" class="table table-bordered table-hover display" style="width: 100%">
-                                                <thead>
-                                                    <tr>
-                                                        <th></th>
-                                                        <th>Actions</th>
-                                                        <th>Article details</th>
-                                                        <th>ID</th>
 
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <c:forEach var="rows" items="${listNews}">
-                                                        <tr >
-                                                            <td></td>
-                                                            <td>
-                                                                <a href="../news/${rows.id}.htm" class="btn btn-primary btn-sm" data-placement="top" data-toggle="tooltip" data-title="Edit"><i class="fa fa-pencil" aria-hidden="true"></i></a>								
-                                                                <a href="../admin/remove_news/${rows.id}.htm" class="btn btn-danger btn-sm" data-placement="top" data-toggle="tooltip" data-title="Delete"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
-                                                            </td>
-                                                            <td>
-                                                                <span style="float: left; margin-right:10px;"><img alt="image" style="max-width:140px; height:auto;" src="../img/bg-img/${rows.imagetitle}" /></span>
-                                                                <h5> ${rows.title}</h5>Posted by <b>${rows.createdby}</b> at ${rows.createddate}<br />
-                                                                <c:if test="${rows.editedby != null && rows.editeddate != null}">
-                                                                    <small>Lastest edited by <b>${rows.editedby}</b> at ${rows.editeddate}</small><br />
-                                                                </c:if>
-                                                            </td>
+                                        <form action="../admin/edit_profile.htm" method="post">
+                                            <c:forEach var="rows" items="${logged_in_user}">
+                                                <div class="row">	
 
-                                                            <td>${rows.id}</td>
+                                                    <div class="col-lg-9 col-xl-9">
+
+                                                        <div class="row">				
+                                                            <div class="col-lg-12">
+                                                                <div class="form-group">
+                                                                    <label>Full name </label>
+                                                                    <input class="form-control" name="txtName" type="text" value="${rows.name}" required />
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+
+                                                        <div class="row">
+                                                            <div class="col-lg-6">
+                                                                <div class="form-group">
+                                                                    <label> Email</label>
+                                                                    <input class="form-control" name="txtEmail" type="email" value="${rows.email}" required />
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-6">
+                                                                <div class="form-group">
+                                                                    <label>Password </label>
+                                                                    <input class="form-control" name="txtPass" type="password" value="" placeholder="**********" />
+                                                                </div>
+                                                            </div>              			                                
 
 
-                                                        </tr>
-                                                    </c:forEach>
-                                                </tbody>
-                                            </table>
-                                        </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-lg-6">
+                                                                <div class="form-group">
+                                                                    <label>Phone number</label>
+                                                                    <input class="form-control" name="txtPhone" type="text" value="${rows.phone}" />
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-6">
+                                                                <div class="form-group">
+                                                                    <label>Address</label>
+                                                                    <input class="form-control" name="txtAddress" type="text" value="${rows.address}" />
+                                                                </div>
+                                                            </div>
+                                                        </div>
 
+                                                        <div class="row">
+                                                            <div class="col-lg-12">
+                                                                <button type="submit" class="btn btn-primary">Edit profile</button>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+
+
+
+                                                    <div class="col-lg-3 col-xl-3 border-left">
+
+                                                        <div class="m-b-10"></div>
+
+                                                        <div id="avatar_image">
+                                                            <img alt="image" style="width:100%; height:auto;" src="../img/users-img/${rows.imageuser}" />
+                                                            <input type="text" hidden="true" name="txtOldimage" value="${rows.imageuser}"/>
+                                                            <br />
+
+                                                        </div>  
+                                                        <div id="image_deleted_text"></div>                      
+
+
+                                                        <div class="m-b-10"></div>
+
+                                                        <div class="form-group">
+                                                            <label>Change avatar</label> 
+                                                            <input type="file" name="txtImage" class="form-control">
+                                                        </div>
+
+                                                    </div>
+                                                </div>								
+                                            </c:forEach>
+                                        </form>										
 
                                     </div>	
                                     <!-- end card-body -->								
@@ -205,7 +225,6 @@
 
                         </div>
                         <!-- end row -->	
-
 
 
                     </div>
@@ -233,31 +252,5 @@
 
         <!-- App js -->
         <script src="../admin/assets/js/pikeadmin.js"></script>
-
-        <!-- dataTable child row -->
-        <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
-        <script src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
-        <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
-        <script>
-            $(document).ready(function () {
-                $('#newss').DataTable({
-                    responsive: {
-                        details: {
-                            type: 'column',
-                            target: 'tr'
-                        }
-                    },
-                    columnDefs: [{
-                            className: 'control',
-                            orderable: false,
-                            targets: 0
-                        }],
-                    order: [1, 'asc']
-                });
-            });
-        </script>	
-        <!-- dataTable child row -->
-
-
     </body>
 </html>

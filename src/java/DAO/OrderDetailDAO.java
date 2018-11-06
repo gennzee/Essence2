@@ -29,7 +29,7 @@ public class OrderDetailDAO {
             String sql = "select OrderDetail.OrderID, Product.Id, Product.Name, OrderDetail.Quantity, Product.Discount, Product.Price\n"
                     + "from OrderDetail\n"
                     + "inner join Product on OrderDetail.ProductID = Product.Id\n"
-                    + "where OrderID = '" + idd + "'";
+                    + "where OrderID = " + idd + "";
             Statement st = conn.createStatement();
             ResultSet rs = st.executeQuery(sql);
             List<OrderDetailWithId> list = new ArrayList<>();

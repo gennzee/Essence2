@@ -83,7 +83,9 @@ public class LoginController {
 
             session.setAttribute("NAME", ds2.get(0).getName());
             session.setAttribute("IMGUSER", ds2.get(0).getImageuser());
-
+            session.setAttribute("ID", ds2.get(0).getId());
+            session.setAttribute("ROLE_ID", ds2.get(0).getRoleid());
+            
             session.setAttribute("user_items", ds2);
 
             return "admin/dashboard";
