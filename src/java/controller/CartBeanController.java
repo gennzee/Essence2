@@ -79,9 +79,9 @@ public class CartBeanController {
     @RequestMapping(value = "delete/{id}", method = RequestMethod.GET)
     public String remove(HttpServletRequest request, ModelMap model, @PathVariable int id) {
         HttpSession session = request.getSession(true);
-        if (session != null) {
             CartBean a = (CartBean) session.getAttribute("SHOP");
             if (a != null) {
+                
                 a.removeSanpham(id);
                 session.setAttribute("SHOP", a);
                 session.setAttribute("CARTSIZE", a.countQuantity());
@@ -89,8 +89,8 @@ public class CartBeanController {
                     session.removeAttribute("SHOP");
                     session.removeAttribute("CARTSIZE");
                 }
+                
             }
-        }
         session.getAttribute("IMGUSER");
         session.getAttribute("listUser");
         session.getAttribute("ORDER_LIST");
@@ -111,7 +111,7 @@ public class CartBeanController {
                 a.updateQuantity(Integer.parseInt(id), Integer.parseInt(quantity));
 
             }
-
+            
             session.setAttribute("SHOP", a);
             session.setAttribute("CARTSIZE", a.countQuantity());
         }
