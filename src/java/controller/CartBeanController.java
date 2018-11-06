@@ -72,7 +72,7 @@ public class CartBeanController {
         session.getAttribute("IMGUSER");
         session.getAttribute("listUser");
         session.getAttribute("ORDER_LIST");
-        session.setAttribute("uri", request.getRequestURI().substring(request.getContextPath().length()));
+        session.setAttribute("uriii", request.getRequestURI().substring(request.getContextPath().length()));
         return "viewcart";
     }
 
@@ -118,6 +118,13 @@ public class CartBeanController {
         session.getAttribute("IMGUSER");
         session.getAttribute("listUser");
         session.getAttribute("ORDER_LIST");
+        return "redirect:" + session.getAttribute("uriii").toString();
+    }
+    
+    @RequestMapping(value = "continue_shopping")
+    public String continue_shopping(HttpServletRequest request){
+        HttpSession session = request.getSession(false);
+        
         return "redirect:" + session.getAttribute("uri").toString();
     }
 

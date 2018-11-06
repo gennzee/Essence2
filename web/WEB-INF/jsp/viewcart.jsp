@@ -59,6 +59,16 @@
                 console.log('done');
             });
         </script>
+        <style>
+            a.hover{
+                color: #007bff;
+                width: 100%;
+                height: 100%;
+            }
+            a.hover:hover{
+                color: white;
+            }
+        </style>
     </head>
     <body>
         <jsp:include page="header.jsp"/>
@@ -144,7 +154,7 @@
                                     <button type="submit" form="updatecart" class="btn btn-outline-primary btn-sm btn-block">Update Cart</button>
                                 </div>
                                 <div class="col-md-6">
-                                    <button class="btn btn-outline-primary btn-sm btn-block" onclick="window.history.back();">Continue Shopping</button>
+                                    <button type="button" class="btn btn-outline-primary btn-sm btn-block" onclick="location.href='../cartbean/continue_shopping.htm';">Continue Shopping</button>
                                 </div>
                             </div>
                         </div>
