@@ -52,7 +52,6 @@ public class CartBeanController {
         Products s = new Products(products_id, name, detail, price, discount, brand, img1, img2, catalogid);
         ProductDTO sanpham = new ProductDTO(s);
         a.addSanPham(sanpham);
-        
 
         session.setAttribute("SHOP", a);
         session.setAttribute("CARTSIZE", a.countQuantity());
@@ -67,6 +66,11 @@ public class CartBeanController {
     public String viewcart(HttpServletRequest request) {
         HttpSession session = request.getSession(false);
 
+        session.getAttribute("SHOP");
+        session.getAttribute("CARTSIZE");
+        session.getAttribute("IMGUSER");
+        session.getAttribute("listUser");
+        session.getAttribute("ORDER_LIST");
         session.setAttribute("uri", request.getRequestURI().substring(request.getContextPath().length()));
         return "viewcart";
     }
@@ -74,18 +78,38 @@ public class CartBeanController {
     @RequestMapping(value = "delete/{id}", method = RequestMethod.GET)
     public String remove(HttpServletRequest request, ModelMap model, @PathVariable int id) {
         HttpSession session = request.getSession(true);
-            if (session != null) {
-                CartBean a = (CartBean) session.getAttribute("SHOP");
-                if (a != null) {
-                    a.removeSanpham(id);
-                    session.setAttribute("SHOP", a);
-                    session.setAttribute("CARTSIZE", a.countQuantity());
-                    if (a.size() == 0) {
-                        session.removeAttribute("SHOP");
-                        session.removeAttribute("CARTSIZE");
-                    }
+        if (session != null) {
+            CartBean a = (CartBean) session.getAttribute("SHOP");
+            if (a != null) {
+                a.removeSanpham(id);
+                session.setAttribute("SHOP", a);
+                session.setAttribute("CARTSIZE", a.countQuantity());
+                if (a.size() == 0) {
+                    session.removeAttribute("SHOP");
+                    session.removeAttribute("CARTSIZE");
                 }
             }
+        }
+        session.getAttribute("IMGUSER");
+        session.getAttribute("listUser");
+        session.getAttribute("ORDER_LIST");
+        return "redirect:" + session.getAttribute("uri").toString();
+    }
+
+    @RequestMapping(value = "update")
+    public String update(HttpServletRequest request, ModelMap model) {
+        HttpSession session = request.getSession(true);
+        if (session != null) {
+            CartBean a = (CartBean) session.getAttribute("SHOP");
+            if (a != null) {
+
+                int id = Integer.parseInt(request.getParameter("txtId"));
+                int quantity = Integer.parseInt(request.getParameter("txtQuantity"));
+                a.updateQuantity(id, quantity);
+
+                session.setAttribute("CARTSIZE", a.countQuantity());
+            }
+        }
         session.getAttribute("IMGUSER");
         session.getAttribute("listUser");
         session.getAttribute("ORDER_LIST");

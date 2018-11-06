@@ -82,7 +82,7 @@
             <div class="site-section">
                 <div class="container">
                     <div class="row mb-5">
-                        <form class="col-md-12" method="post">
+                        <form class="col-md-12" id="updatecart" action="../cartbean/update.htm" method="post">
                             <div class="site-blocks-table">
                                 <table class="table table-bordered">
                                     <thead>
@@ -103,8 +103,8 @@
                                             <c:forEach var="rows" items="${shop}">
                                                 <c:set var="totalprice" value="${totalprice + rows.value.sanpham.price * rows.value.quantity}"/>
                                                 <c:set var="totaldiscount" value="${totaldiscount + rows.value.sanpham.discount * rows.value.quantity}"/>
-                                            <form action="../cartbean/remove.htm" method="get">
                                                 <tr style="text-align: center;">
+
                                                     <td class="product-thumbnail" style="width: 15%;">
                                                         <img src="../img/product-img/${rows.value.sanpham.img1}" style="width: 75%" alt="Image" class="img-fluid">
                                                     </td>
@@ -118,7 +118,8 @@
                                                             <div class="input-group-prepend">
                                                                 <button class="btn btn-outline-primary js-btn-minus" type="button">&minus;</button>
                                                             </div>
-                                                            <input type="number" class="form-control text-center" value="${rows.value.quantity}" placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1">
+                                                            <input type="text" name="txtId" hidden="true" value="${rows.value.sanpham.id}"/>
+                                                            <input type="number" name="txtQuantity" class="form-control text-center" value="${rows.value.quantity}" placeholder="" >
                                                             <div class="input-group-append">
                                                                 <button class="btn btn-outline-primary js-btn-plus" type="button">&plus;</button>
                                                             </div>
@@ -128,9 +129,8 @@
                                                     <td><fmt:formatNumber type="number" value="${rows.value.quantity * rows.value.sanpham.price}"/> &#8363</td>
                                                     <td><a href="<s:url value="../cartbean/delete/${rows.value.sanpham.id}.htm"/>" class="product-remove" ><i class="fa fa-trash-o" style="font-size: 24px" aria-hidden="true"></i></a></td>
                                                 </tr>
-                                            </form>
-                                        </c:forEach>
-                                    </c:if>
+                                            </c:forEach>
+                                        </c:if>
                                     </tbody>
                                 </table>
                             </div>
@@ -141,7 +141,7 @@
                         <div class="col-md-6">
                             <div class="row mb-5">
                                 <div class="col-md-6 mb-3 mb-md-0">
-                                    <button class="btn btn-outline-primary btn-sm btn-block">Update Cart</button>
+                                    <button type="submit" form="updatecart" class="btn btn-outline-primary btn-sm btn-block">Update Cart</button>
                                 </div>
                                 <div class="col-md-6">
                                     <button class="btn btn-outline-primary btn-sm btn-block" onclick="window.history.back();">Continue Shopping</button>
