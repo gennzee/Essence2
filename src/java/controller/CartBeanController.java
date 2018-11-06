@@ -12,6 +12,7 @@ import cart.CartBean;
 import cart.ProductDTO;
 import com.sun.net.httpserver.HttpServer;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -96,19 +97,23 @@ public class CartBeanController {
         return "redirect:" + session.getAttribute("uri").toString();
     }
 
-    @RequestMapping(value = "update")
+    @RequestMapping(value = "update", method = RequestMethod.GET)
     public String update(HttpServletRequest request, ModelMap model) {
         HttpSession session = request.getSession(true);
-        if (session != null) {
-            CartBean a = (CartBean) session.getAttribute("SHOP");
-            if (a != null) {
+        CartBean a = (CartBean) session.getAttribute("SHOP");
+        if (a != null) {
 
-                int id = Integer.parseInt(request.getParameter("txtId"));
-                int quantity = Integer.parseInt(request.getParameter("txtQuantity"));
-                a.updateQuantity(id, quantity);
+            String[] idd = request.getParameterValues("txtId");
+            String[] quantityy = request.getParameterValues("txtQuantity");
+            for (int i = 0; i < idd.length; i++) {
+                String id = idd[i];
+                String quantity = quantityy[i];
+                a.updateQuantity(Integer.parseInt(id), Integer.parseInt(quantity));
 
-                session.setAttribute("CARTSIZE", a.countQuantity());
             }
+
+            session.setAttribute("SHOP", a);
+            session.setAttribute("CARTSIZE", a.countQuantity());
         }
         session.getAttribute("IMGUSER");
         session.getAttribute("listUser");

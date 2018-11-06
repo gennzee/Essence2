@@ -82,7 +82,7 @@
             <div class="site-section">
                 <div class="container">
                     <div class="row mb-5">
-                        <form class="col-md-12" id="updatecart" action="../cartbean/update.htm" method="post">
+                        <form class="col-md-12" id="updatecart" action="../cartbean/update.htm" method="get">
                             <div class="site-blocks-table">
                                 <table class="table table-bordered">
                                     <thead>
