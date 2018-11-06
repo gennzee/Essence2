@@ -52,37 +52,14 @@ public class CartBeanController {
         Products s = new Products(products_id, name, detail, price, discount, brand, img1, img2, catalogid);
         ProductDTO sanpham = new ProductDTO(s);
         a.addSanPham(sanpham);
+        
 
         session.setAttribute("SHOP", a);
-        session.setAttribute("CARTSIZE", a.size());
+        session.setAttribute("CARTSIZE", a.countQuantity());
         session.getAttribute("IMGUSER");
         session.getAttribute("listUser");
         session.getAttribute("ORDER_LIST");
 
-        return "redirect:" + session.getAttribute("uri").toString();
-    }
-
-    @RequestMapping(value = "remove", method = RequestMethod.GET)
-    public String remove(HttpServletRequest request, ModelMap model) {
-        HttpSession session = request.getSession(true);
-        String rmv = request.getParameter("rmv");
-        if (rmv != null) {
-            if (session != null) {
-                CartBean a = (CartBean) session.getAttribute("SHOP");
-                if (a != null) {
-                    a.removeSanpham(Integer.parseInt(rmv));
-                    session.setAttribute("SHOP", a);
-                    session.setAttribute("CARTSIZE", a.size());
-                    if (a.size() == 0) {
-                        session.removeAttribute("SHOP");
-                        session.removeAttribute("CARTSIZE");
-                    }
-                }
-            }
-        }
-        session.getAttribute("IMGUSER");
-        session.getAttribute("listUser");
-        session.getAttribute("ORDER_LIST");
         return "redirect:" + session.getAttribute("uri").toString();
     }
 
@@ -102,7 +79,7 @@ public class CartBeanController {
                 if (a != null) {
                     a.removeSanpham(id);
                     session.setAttribute("SHOP", a);
-                    session.setAttribute("CARTSIZE", a.size());
+                    session.setAttribute("CARTSIZE", a.countQuantity());
                     if (a.size() == 0) {
                         session.removeAttribute("SHOP");
                         session.removeAttribute("CARTSIZE");
