@@ -130,25 +130,6 @@
                                 </div>
                             </div>
 
-                            <!-- ##### Single Widget ##### -->
-                            <div class="widget price mb-50">
-                                <!-- Widget Title -->
-                                <h6 class="widget-title mb-30">Filter by</h6>
-                                <!-- Widget Title 2 -->
-                                <p class="widget-title2 mb-30">Price</p>
-
-                                <div class="widget-desc">
-                                    <div class="slider-range">
-                                        <div data-min="49" data-max="360" data-unit="$" class="slider-range-price ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all" data-value-min="49" data-value-max="360" data-label-result="Range:">
-                                            <div class="ui-slider-range ui-widget-header ui-corner-all"></div>
-                                            <span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0"></span>
-                                            <span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0"></span>
-                                        </div>
-                                        <div class="range-price">Range: $49.00 - $360.00</div>
-                                    </div>
-                                </div>
-                            </div>
-
 
                             <!-- ##### Single Widget ##### -->
                             <div class="widget brands mb-50">
@@ -175,18 +156,6 @@
                                         <!-- Total Products -->
                                         <div class="total-products">
                                             <p><span>${product_size}${search_size}${shopIndex_size}</span> products found</p>
-                                        </div>
-                                        <!-- Sorting -->
-                                        <div class="product-sorting d-flex">
-                                            <p>Sort by:</p>
-                                            <form action="#" method="get">
-                                                <select name="select" id="sortByselect">
-                                                    <option value="1">Highest Rated</option>
-                                                    <option value="2">Newest</option>
-                                                    <option value="3">Price: $$ - $</option>
-                                                    <option value="4">Price: $ - $$</option>
-                                                </select>
-                                            </form>
                                         </div>
                                     </div>
                                 </div>
