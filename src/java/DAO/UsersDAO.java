@@ -25,7 +25,7 @@ public class UsersDAO {
     public String Login(String username, String password) {
         try {
             Connection conn = DBConnection.getConn();
-            String sql = "Select * from Users where Username like ? and Password like ?";
+            String sql = "Select * from Users where Username like ? and Password like ? and isActive = 1";
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setString(1, username);
             ps.setString(2, password);
@@ -95,10 +95,10 @@ public class UsersDAO {
         return true;
     }
 
-    public List<Users> showList_users_admin() {
+    public List<Users> showList_users_admin(int isActive) {
         try {
             Connection conn = DBConnection.getConn();
-            String sql = "  select * from Users where RoleID = 2";
+            String sql = "  select * from Users where RoleID = 2 and isActive = " + isActive + "";
             Statement st = conn.createStatement();
             ResultSet rs = st.executeQuery(sql);
             List<Users> list = new ArrayList<Users>();
@@ -152,7 +152,7 @@ public class UsersDAO {
     public boolean Insert_with_admin_page(Users users) {
         try {
             Connection conn = DBConnection.getConn();
-            String sql = "Insert into Users values(?,?,?,?,?,?,?,?,?)";
+            String sql = "Insert into Users values(?,?,?,?,?,?,?,?,?,1)";
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setString(1, users.getUsername());
             ps.setString(2, users.getPassword());
@@ -328,10 +328,10 @@ public class UsersDAO {
         return false;
     }
 
-    public boolean Delete(int id) {
+    public boolean Delete(int isActive, int id) {
         try {
             Connection conn = DBConnection.getConn();
-            String sql = "Delete from Users where Id like " + id + "";
+            String sql = "Update Users set isActive = " + isActive + " where Id = " + id + "";
             Statement st = conn.createStatement();
             int rs = st.executeUpdate(sql);
             if (rs > 0) {

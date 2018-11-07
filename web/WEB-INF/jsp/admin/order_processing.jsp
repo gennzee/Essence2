@@ -64,66 +64,7 @@
     <body class="adminbody">
         <div id="main">
             <jsp:include page="part/navigationbar.jsp"/>
-            <!-- Left Sidebar -->
-            <div class="left main-sidebar">
-
-                <div class="sidebar-inner leftscroll">
-
-                    <div id="sidebar-menu">
-
-                        <ul>
-
-                            <li class="submenu">
-                                <a href="../admin/dashboard.htm"><i class="fa fa-fw fa-bars"></i><span> Dashboard </span> </a>
-                            </li>
-
-                            <li class="submenu">
-                                <a href="../admin/users.htm"><i class="fa fa-fw fa-users"></i><span> Users </span> </a>
-                            </li>
-
-                            <li class="submenu">
-                                <a href="../admin/nav.htm"><i class="fa fa-fw fa-indent"></i><span> Navigate Menu </span> </a>
-                            </li>
-
-                            <li class="submenu">
-                                <a href="../admin/news.htm"><i class="fa fa-fw fa-newspaper-o"></i><span> Collections </span> </a>
-                            </li>
-
-                            <li class="submenu">
-                                <a href="../admin/contact.htm"><i class="fa fa-fw fa-address-card-o"></i><span> Contact Manage </span> </a>
-                            </li>
-
-                            <li class="submenu">
-                                <a class="active" href="#"><i class="fa fa-fw fa-cubes"></i> <span> Order Handler </span> <span class="menu-arrow"></span></a>
-                                <ul class="list-unstyled">
-                                    <li><a href="../admin/search_order.htm">Search Order</a></li>
-                                    <li><a href="../admin/order_is_processing.htm">Processing</a></li>
-                                    <li><a href="../admin/order_is_Delivering.htm">Delivering</a></li>
-                                </ul>
-                            </li>
-
-                            <li class="submenu">
-                                <a href="#"><i class="fa fa-fw fa-paperclip"></i> <span> Supplier </span> <span class="menu-arrow"></span></a>
-                                <ul class="list-unstyled">
-                                    <li><a href="../admin/supplier.htm">List suppliers</a></li>
-                                    <li><a href="../admin/invoice.htm">List invoices</a></li>
-                                </ul>
-                            </li>
-
-
-
-                        </ul>
-
-                        <div class="clearfix"></div>
-
-                    </div>
-
-                    <div class="clearfix"></div>
-
-                </div>
-
-            </div>
-            <!-- End Sidebar -->
+            <jsp:include page="part/leftsidebar.jsp"/>
 
             <div class="content-page">
 
@@ -171,35 +112,35 @@
 
                                     <div class="card-body">
                                         <form action="../admin/edit_order_to_delivering.htm" method="post">
-                                            
+
                                             <div class="modal fade custom-modal" tabindex="-1" role="dialog" aria-labelledby="modal_add_product" aria-hidden="true" id="modal_add_product">
                                                 <div class="modal-dialog">
                                                     <div class="modal-content">
-                                                            <div class="modal-header">
-                                                                <h5 class="modal-title">Add product</h5>
-                                                                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>          	
-                                                            </div>
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title">Add product</h5>
+                                                            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>          	
+                                                        </div>
 
-                                                            <div class="modal-body">          
-                                                                <div class="row">
-                                                                    <div class="col-lg-12">
+                                                        <div class="modal-body">          
+                                                            <div class="row">
+                                                                <div class="col-lg-12">
                                                                     <div class="form-group">
                                                                         <label>Select Shipper</label>
                                                                         <select name="txtShipper" class="form-control" required>
                                                                             <c:forEach var="shipper" items="${listShipper}">
-                                                                            <option value="${shipper.id}">${shipper.name}</option>
+                                                                                <option value="${shipper.id}">${shipper.name}</option>
                                                                             </c:forEach>
                                                                         </select>
                                                                     </div>
                                                                 </div>
-                                                                </div>
-
                                                             </div>
 
-                                                            <div class="modal-footer">
-                                                                <button type="submit" class="btn btn-primary">Send</button>
-                                                                <button type="button" class="btn btn-primary" data-dismiss="modal">Cancel</button>          	
-                                                            </div>                                                       
+                                                        </div>
+
+                                                        <div class="modal-footer">
+                                                            <button type="submit" class="btn btn-primary">Send</button>
+                                                            <button type="button" class="btn btn-primary" data-dismiss="modal">Cancel</button>          	
+                                                        </div>                                                       
                                                     </div>
                                                 </div>
                                             </div>

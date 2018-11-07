@@ -218,7 +218,24 @@
                             </li>
 
                             <li class="submenu">
-                                <a href="../../admin/users.htm"><i class="fa fa-fw fa-users"></i><span> Users </span> </a>
+                                <a href="#"><i class="fa fa-fw fa-users"></i><span> Users </span><span class="menu-arrow"></span> </a>
+                                <ul>
+                                    <li class="submenu">
+                                        <a href="#"><span>Staffs</span> <span class="menu-arrow"></span> </a>
+                                        <ul>
+                                            <li><a href="../../admin/users.htm"><span>Active Staffs</span></a></li>
+                                            <li><a href="../../admin/users_inactive.htm"><span>Inactive Staffs</span></a></li>
+                                        </ul>
+                                    </li>      
+                                    <li class="submenu">
+                                        <a href="#"><span>Shipper</span> <span class="menu-arrow"></span> </a>
+                                        <ul>
+                                            <li><a href="#"><span>Active Shippers</span></a></li>
+                                            <li><a href="#"><span>Inactive Shippers</span></a></li>
+                                        </ul>
+                                    </li>  
+                                </ul>
+
                             </li>
 
                             <li class="submenu">

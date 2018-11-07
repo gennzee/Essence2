@@ -154,13 +154,27 @@ public class AdminTemplate {
 
         List<Users> ds = new ArrayList<>();
         UsersDAO a = new UsersDAO();
-        ds = a.showList_users_admin();
+        ds = a.showList_users_admin(1);
 
         model.addAttribute("list_users_admin", ds);
         model.addAttribute("list_users_admin_size", ds.size());
 
         session.setAttribute("urii", request.getRequestURI().substring(request.getContextPath().length()));
         return "admin/user";
+    }
+
+    @RequestMapping(value = "users_inactive")
+    public String users_inactive(ModelMap model, HttpSession session, HttpServletRequest request) {
+
+        List<Users> ds = new ArrayList<>();
+        UsersDAO a = new UsersDAO();
+        ds = a.showList_users_admin(0);
+
+        model.addAttribute("list_users_admin", ds);
+        model.addAttribute("list_users_admin_size", ds.size());
+
+        session.setAttribute("urii", request.getRequestURI().substring(request.getContextPath().length()));
+        return "admin/user_inactive";
     }
 
     @RequestMapping(value = "edit_user")
@@ -208,7 +222,19 @@ public class AdminTemplate {
 
         if (id > 0) {
             UsersDAO user = new UsersDAO();
-            user.Delete(id);
+            user.Delete(0, id);// ẩn về inactive - isActive = 0
+        }
+
+        return "redirect:" + session.getAttribute("urii").toString();
+    }
+
+    @RequestMapping(value = "revert_user/{id}")
+    public String revert_user(ModelMap model, HttpServletRequest request, HttpSession session, @PathVariable int id) {
+        session = request.getSession(false);
+
+        if (id > 0) {
+            UsersDAO user = new UsersDAO();
+            user.Delete(1, id); // revert về active - isActive = 1
         }
 
         return "redirect:" + session.getAttribute("urii").toString();
@@ -639,7 +665,7 @@ public class AdminTemplate {
 
         List<Shipper> ds2 = new ArrayList<>();
         ShipperDAO b = new ShipperDAO();
-        ds2 = b.showShipper();
+        ds2 = b.showShipper(1);// show isActive shipper
 
         model.addAttribute("listOrders_processing", ds);
         model.addAttribute("listShipper", ds2);
@@ -795,6 +821,86 @@ public class AdminTemplate {
 
             user.Update_user_with_password_and_image_is_not_null(a, id);
         }
+
+        return "redirect:" + session.getAttribute("urii").toString();
+    }
+
+    //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+    @RequestMapping(value = "shipper")
+    public String shipper(ModelMap model, HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
+
+        List<Shipper> ds2 = new ArrayList<>();
+        ShipperDAO b = new ShipperDAO();
+        ds2 = b.showShipper(1);// show isActive shipper
+
+        model.addAttribute("listShipper", ds2);
+        model.addAttribute("listShipper_size", ds2.size());
+
+        session.setAttribute("urii", request.getRequestURI().substring(request.getContextPath().length()));
+        return "admin/shipper";
+    }
+
+    @RequestMapping(value = "shipper_inactive")
+    public String shipper_inactive(ModelMap model, HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
+
+        List<Shipper> ds2 = new ArrayList<>();
+        ShipperDAO b = new ShipperDAO();
+        ds2 = b.showShipper(0);// show isActive shipper
+
+        model.addAttribute("listShipper", ds2);
+        model.addAttribute("listShipper_size", ds2.size());
+
+        session.setAttribute("urii", request.getRequestURI().substring(request.getContextPath().length()));
+        return "admin/shipper_inactive";
+    }
+
+    @RequestMapping(value = "add_shipper")
+    public String add_shipper(ModelMap model, HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
+
+        String name = request.getParameter("txtName");
+        String phone = request.getParameter("txtPhone");
+
+        Shipper a = new Shipper(name, phone);
+        ShipperDAO b = new ShipperDAO();
+        b.add_shipper(a);
+
+        return "redirect:" + session.getAttribute("urii").toString();
+    }
+
+    @RequestMapping(value = "delete_shipper/{id}")
+    public String delete_shipper(ModelMap model, HttpServletRequest request, @PathVariable int id) {
+        HttpSession session = request.getSession(false);
+
+        ShipperDAO b = new ShipperDAO();
+        b.deleteShipper(0, id);// hide shipper set isActive = 0
+
+        return "redirect:" + session.getAttribute("urii").toString();
+    }
+
+    @RequestMapping(value = "revert_shipper/{id}")
+    public String revert_shipper(ModelMap model, HttpServletRequest request, @PathVariable int id) {
+        HttpSession session = request.getSession(false);
+
+        ShipperDAO b = new ShipperDAO();
+        b.deleteShipper(1, id);// revert shipper set isActive = 1
+
+        return "redirect:" + session.getAttribute("urii").toString();
+    }
+
+    @RequestMapping(value = "edit_shipper")
+    public String edit_shipper(ModelMap model, HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
+
+        String id = request.getParameter("txtId");
+        String name = request.getParameter("txtName");
+        String phone = request.getParameter("txtPhone");
+
+        Shipper a = new Shipper(Integer.parseInt(id), name, phone);
+        ShipperDAO b = new ShipperDAO();
+        b.updateShipper(a);
 
         return "redirect:" + session.getAttribute("urii").toString();
     }

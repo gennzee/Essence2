@@ -83,98 +83,7 @@
 
                             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6" style="flex: 0 0 100%;max-width: 100%;">						
                                 <div class="card mb-3">
-                                    <div class="card-header">
-                                        <span class="pull-right"><button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modal_add_user"><i class="fa fa-user-plus" aria-hidden="true"></i> Add new user</button></span>
-                                        <div class="modal fade custom-modal" tabindex="-1" role="dialog" aria-labelledby="modal_add_user" aria-hidden="true" id="modal_add_user">
-                                            <div class="modal-dialog">
-                                                <div class="modal-content">
-
-                                                    <form action="../admin/add_user.htm" method="post">
-
-                                                        <div class="modal-header">
-                                                            <h5 class="modal-title">Add new user</h5>
-                                                            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>          	
-                                                        </div>
-
-                                                        <div class="modal-body">          
-
-                                                            <div class="row">
-
-                                                                <div class="col-lg-12">
-                                                                    <div class="form-group">
-                                                                        <label>Username</label>
-                                                                        <input class="form-control" name="txtUsername" type="text" required value="" />
-                                                                    </div>
-                                                                </div>
-
-                                                            </div>
-
-                                                            <div class="row">
-                                                                <div class="col-lg-6">
-                                                                    <div class="form-group">
-                                                                        <label>Full name</label>
-                                                                        <input class="form-control" name="txtName" type="text" required value="" />
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-lg-6">
-                                                                    <div class="form-group">
-                                                                        <label>Role</label>
-                                                                        <select name="txtRole" class="form-control" required>
-                                                                            <option selected="selected" value="2">Nhân viên</option>
-                                                                        </select>
-                                                                    </div>
-                                                                </div>	
-                                                            </div>
-
-                                                            <div class="row">
-                                                                <div class="col-lg-6">
-                                                                    <div class="form-group">
-                                                                        <label>Valid Email </label>
-                                                                        <input class="form-control" name="txtEmail" type="email" required value="" />
-                                                                    </div>
-                                                                </div>  
-
-                                                                <div class="col-lg-6">
-                                                                    <div class="form-group">
-                                                                        <label>Password </label>
-                                                                        <input class="form-control" name="txtPass" type="password" value=""/>
-                                                                    </div>
-                                                                </div>  
-                                                            </div>
-
-                                                            <div class="row">
-
-                                                                <div class="col-lg-6">
-                                                                    <div class="form-group">
-                                                                        <label>Address </label>
-                                                                        <input class="form-control" name="txtAddress" type="text" value="" />
-                                                                    </div>
-                                                                </div>  
-                                                                <div class="col-lg-6">
-                                                                    <div class="form-group">
-                                                                        <label>Phone Number </label>
-                                                                        <input class="form-control" name="txtPhone" type="text" value="" />
-                                                                    </div>
-                                                                </div> 
-                                                            </div>
-
-                                                            <div class="form-group">
-                                                                <label>Change avatar :</label> <br />
-
-                                                                <input type="file" name="txtImage">
-                                                            </div>
-
-                                                        </div>             
-
-                                                        <div class="modal-footer">
-                                                            <button type="submit" class="btn btn-primary">Edit user</button>
-                                                        </div>
-
-                                                    </form>	
-
-                                                </div>
-                                            </div>
-                                        </div> 
+                                    <div class="card-header"> 
                                         <h3><i class="fa fa-user"></i> All users (${list_users_admin_size} users)</h3>								
                                     </div>
                                     <!-- end card-header -->	
@@ -295,7 +204,7 @@
                                                                         </div>
                                                                     </div>
                                                                 </div> 
-                                                                <a href="<s:url value="../admin/remove_user/${rows.id}.htm"/>" class="btn btn-danger btn-sm" data-placement="top" data-toggle="tooltip" data-title="Delete"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+                                                                <a href="<s:url value="../admin/revert_user/${rows.id}.htm"/>" class="btn btn-danger btn-sm" data-placement="top" data-toggle="tooltip" data-title="Delete"><i class="fa fa-undo" aria-hidden="true"></i></a>
                                                             </td>
                                                             <td>${rows.id}</td>
                                                             <td style="height: 50px;">

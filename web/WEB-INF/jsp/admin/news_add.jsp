@@ -49,66 +49,7 @@
     <body class="adminbody">
         <div id="main">
             <jsp:include page="part/navigationbar.jsp"/>
-            <!-- Left Sidebar -->
-            <div class="left main-sidebar">
-
-                <div class="sidebar-inner leftscroll">
-
-                    <div id="sidebar-menu">
-
-                        <ul>
-
-                            <li class="submenu">
-                                <a href="../admin/dashboard.htm"><i class="fa fa-fw fa-bars"></i><span> Dashboard </span> </a>
-                            </li>
-
-                            <li class="submenu">
-                                <a href="../admin/users.htm"><i class="fa fa-fw fa-users"></i><span> Users </span> </a>
-                            </li>
-
-                            <li class="submenu">
-                                <a href="../admin/nav.htm"><i class="fa fa-fw fa-indent"></i><span> Navigate Menu </span> </a>
-                            </li>
-
-                            <li class="submenu">
-                                <a class="active" href="../admin/news.htm"><i class="fa fa-fw fa-newspaper-o"></i><span> Collections </span> </a>
-                            </li>
-
-                            <li class="submenu">
-                                <a href="../admin/contact.htm"><i class="fa fa-fw fa-address-card-o"></i><span> Contact Manage </span> </a>
-                            </li>
-
-                            <li class="submenu">
-                                <a href="#"><i class="fa fa-fw fa-cubes"></i> <span> Order Handler </span> <span class="menu-arrow"></span></a>
-                                <ul class="list-unstyled">
-                                    <li><a href="../admin/search_order.htm">Search Order</a></li>
-                                    <li><a href="../admin/order_is_processing.htm">Processing</a></li>
-                                    <li><a href="../admin/order_is_Delivering.htm">Delivering</a></li>
-                                </ul>
-                            </li>
-
-                            <li class="submenu">
-                                <a href="#"><i class="fa fa-fw fa-paperclip"></i> <span> Supplier </span> <span class="menu-arrow"></span></a>
-                                <ul class="list-unstyled">
-                                    <li><a href="../admin/supplier.htm">List suppliers</a></li>
-                                    <li><a href="../admin/invoice.htm">List invoices</a></li>
-                                </ul>
-                            </li>
-
-
-
-                        </ul>
-
-                        <div class="clearfix"></div>
-
-                    </div>
-
-                    <div class="clearfix"></div>
-
-                </div>
-
-            </div>
-            <!-- End Sidebar -->
+            <jsp:include page="part/leftsidebar.jsp"/>
 
 
             <div class="content-page">
@@ -142,57 +83,57 @@
                                 <div class="card mb-3">
 
                                     <div class="card-body">
-                                        
+
                                         <form action="../admin/add_news.htm" method="post">	
-                                            
-                                                <div class="row">
 
-                                                    <div class="form-group col-xl-9 col-md-8 col-sm-12">
-                                                        <div class="form-group">
-                                                            <label>News title</label>
-                                                            <input class="form-control" name="txtTitle" type="text" required value="">
-                                                        </div>
+                                            <div class="row">
 
-                                                        <div class="form-group">
-                                                            <label>Thumbnail image</label><br />
-                                                            <input type="file" name="txtImg">
-                                                        </div>
-
-                                                        <div class="form-group">
-                                                            <label>News content</label>
-                                                            <textarea rows="3" class="form-control editor" name="txtContent"></textarea>
-                                                        </div>
-
-
-
-                                                        <div class="form-group">
-                                                            <button type="submit" class="btn btn-primary">Add article</button>
-                                                            <a href="../admin/news.htm" class="btn btn-primary">Cancel </a>
-                                                        </div>
+                                                <div class="form-group col-xl-9 col-md-8 col-sm-12">
+                                                    <div class="form-group">
+                                                        <label>News title</label>
+                                                        <input class="form-control" name="txtTitle" type="text" required value="">
                                                     </div>
 
-                                                    <div class="form-group col-xl-3 col-md-4 col-sm-12 border-left">
-                                                        <div class="form-group">
-                                                            <label>Creating by</label>
-                                                            <input type="text" disabled="true" class="form-control" value="${sessionScope.NAME}">    
-                                                        </div>
-
-                                                        <div class="form-group">
-                                                            <label>Creating date</label>
-                                                            <input type="text" disabled="true" class="form-control" id="datecreating">    
-                                                            <script>
-                                                                n = new Date();
-                                                                y = n.getFullYear();
-                                                                m = n.getMonth() + 1;
-                                                                d = n.getDate();
-                                                                document.getElementById("datecreating").value = y+"-"+m+"-"+d;
-                                                            </script>
-                                                        </div>
-
+                                                    <div class="form-group">
+                                                        <label>Thumbnail image</label><br />
+                                                        <input type="file" name="txtImg">
                                                     </div>
 
-                                                </div><!-- end row -->	
-                                            
+                                                    <div class="form-group">
+                                                        <label>News content</label>
+                                                        <textarea rows="3" class="form-control editor" name="txtContent"></textarea>
+                                                    </div>
+
+
+
+                                                    <div class="form-group">
+                                                        <button type="submit" class="btn btn-primary">Add article</button>
+                                                        <a href="../admin/news.htm" class="btn btn-primary">Cancel </a>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group col-xl-3 col-md-4 col-sm-12 border-left">
+                                                    <div class="form-group">
+                                                        <label>Creating by</label>
+                                                        <input type="text" disabled="true" class="form-control" value="${sessionScope.NAME}">    
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <label>Creating date</label>
+                                                        <input type="text" disabled="true" class="form-control" id="datecreating">    
+                                                        <script>
+                                                            n = new Date();
+                                                            y = n.getFullYear();
+                                                            m = n.getMonth() + 1;
+                                                            d = n.getDate();
+                                                            document.getElementById("datecreating").value = y + "-" + m + "-" + d;
+                                                        </script>
+                                                    </div>
+
+                                                </div>
+
+                                            </div><!-- end row -->	
+
                                         </form>
 
                                     </div>	
@@ -247,37 +188,37 @@
         <script src="../admin/assets/plugins/trumbowyg/plugins/table/trumbowyg.table.js"></script>
         <script src="../admin/assets/plugins/trumbowyg/plugins/lineheight/trumbowyg.lineheight.js"></script>
         <script>
-            $(document).ready(function () {
-                $('.editor')
-                        .trumbowyg({
-                            btnsDef: {
-                                // Create a new dropdown
-                                image: {
-                                    dropdown: ['insertImage', 'base64'],
-                                    ico: 'insertImage'
-                                }
-                            },
-                            // Redefine the button pane
-                            btns: [
-                                ['viewHTML'],
-                                ['fontsize'],
-                                ['foreColor', 'backColor'],
-                                ['table'],
-                                ['undo'],
-                                ['redo'],
-                                ['formatting'],
-                                ['strong', 'em', 'del'],
-                                ['superscript', 'subscript'],
-                                ['link'],
-                                ['image'], // Our fresh created dropdown
-                                ['justifyLeft', 'justifyCenter', 'justifyRight', 'justifyFull'],
-                                ['unorderedList', 'orderedList'],
-                                ['horizontalRule'],
-                                ['removeformat'],
-                                ['fullscreen']
-                            ]
-                        });
-            });
+                                                            $(document).ready(function () {
+                                                                $('.editor')
+                                                                        .trumbowyg({
+                                                                            btnsDef: {
+                                                                                // Create a new dropdown
+                                                                                image: {
+                                                                                    dropdown: ['insertImage', 'base64'],
+                                                                                    ico: 'insertImage'
+                                                                                }
+                                                                            },
+                                                                            // Redefine the button pane
+                                                                            btns: [
+                                                                                ['viewHTML'],
+                                                                                ['fontsize'],
+                                                                                ['foreColor', 'backColor'],
+                                                                                ['table'],
+                                                                                ['undo'],
+                                                                                ['redo'],
+                                                                                ['formatting'],
+                                                                                ['strong', 'em', 'del'],
+                                                                                ['superscript', 'subscript'],
+                                                                                ['link'],
+                                                                                ['image'], // Our fresh created dropdown
+                                                                                ['justifyLeft', 'justifyCenter', 'justifyRight', 'justifyFull'],
+                                                                                ['unorderedList', 'orderedList'],
+                                                                                ['horizontalRule'],
+                                                                                ['removeformat'],
+                                                                                ['fullscreen']
+                                                                            ]
+                                                                        });
+                                                            });
 
         </script>
         <!-- END Java Script for this page -->

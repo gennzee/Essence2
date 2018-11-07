@@ -43,15 +43,6 @@
                 background: url('../admin/assets/plugins/datatables/img/details_close.png') no-repeat center center;
             }
         </style>		
-        <style>
-            .ellipsis{
-                overflow: hidden;
-                text-overflow: ellipsis;
-                display: -webkit-box;
-                -webkit-line-clamp: 2; /* number of lines to show */
-                -webkit-box-orient: vertical;
-            }
-        </style>
         <!-- END CSS for this page -->
 
     </head>
@@ -68,13 +59,14 @@
                     <div class="container-fluid">
 
 
+
                         <div class="row">
                             <div class="col-xl-12">
                                 <div class="breadcrumb-holder">
-                                    <h1 class="main-title float-left">Articles</h1>
+                                    <h1 class="main-title float-left">Data Tables</h1>
                                     <ol class="breadcrumb float-right">
                                         <li class="breadcrumb-item">Home</li>
-                                        <li class="breadcrumb-item active">Articles</li>
+                                        <li class="breadcrumb-item active">Data Tables</li>
                                     </ol>
                                     <div class="clearfix"></div>
                                 </div>
@@ -84,68 +76,102 @@
 
 
 
+
+
                         <div class="row">
 
-                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">						
 
+                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6" style="flex: 0 0 100%;max-width: 100%;">						
                                 <div class="card mb-3">
-
-                                    <div class="card-header">
-                                        <span class="pull-right"><a href="../admin/view_add_news.htm" class="btn btn-primary btn-sm"><i class="fa fa-plus" aria-hidden="true"></i> Add new article</a></span>
-                                        <h3><i class="fa fa-file-text-o"></i> All articles (${listNews_size} articles)</h3>								
+                                    <div class="card-header"> 
+                                        <h3><i class="fa fa-user"></i> All shippers (${listShipper_size} shippers)</h3>								
                                     </div>
                                     <!-- end card-header -->	
 
                                     <div class="card-body">
 
-                                        <div class="table-responsive">	
-                                            <table id="newss" class="table table-bordered table-hover display" style="width: 100%">
+                                        <div class="table-responsive">
+                                            <table id="user" class="table table-bordered table-hover display" style="width: 100%">
                                                 <thead>
                                                     <tr>
                                                         <th></th>
                                                         <th>Actions</th>
-                                                        <th>Article details</th>
                                                         <th>ID</th>
-
+                                                        <th style="width: 215px;">Name</th>
+                                                        <th>Phone</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <c:forEach var="rows" items="${listNews}">
-                                                        <tr >
+                                                    <c:forEach var="rows" items="${listShipper}">
+                                                        <tr>
                                                             <td></td>
                                                             <td>
-                                                                <a href="../news/${rows.id}.htm" class="btn btn-primary btn-sm" data-placement="top" data-toggle="tooltip" data-title="Edit"><i class="fa fa-pencil" aria-hidden="true"></i></a>								
-                                                                <a href="../admin/remove_news/${rows.id}.htm" class="btn btn-danger btn-sm" data-placement="top" data-toggle="tooltip" data-title="Delete"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
-                                                            </td>
-                                                            <td>
-                                                                <span style="float: left; margin-right:10px;"><img alt="image" style="max-width:140px; height:auto;" src="../img/bg-img/${rows.imagetitle}" /></span>
-                                                                <h5> ${rows.title}</h5>Posted by <b>${rows.createdby}</b> at ${rows.createddate}<br />
-                                                                <c:if test="${rows.editedby != null && rows.editeddate != null}">
-                                                                    <small>Lastest edited by <b>${rows.editedby}</b> at ${rows.editeddate}</small><br />
-                                                                </c:if>
-                                                            </td>
+                                                                <a href="#" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modal_edit_shipper_${rows.id}"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                                                                <div class="modal fade custom-modal" tabindex="-1" role="dialog" aria-hidden="true" id="modal_edit_shipper_${rows.id}">
+                                                                    <div class="modal-dialog">
+                                                                        <div class="modal-content">
+                                                                            <form action="../admin/edit_shipper.htm" method="post">
 
+                                                                                <div class="modal-header">
+                                                                                    <h5 class="modal-title">Edit shipper</h5>
+                                                                                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>          	
+                                                                                </div>
+
+                                                                                <div class="modal-body">          
+
+                                                                                    <div class="row">
+
+                                                                                        <div class="col-lg-12">
+                                                                                            <div class="form-group">
+                                                                                                <label>Name</label>
+                                                                                                <input type="text" name="txtId" value="${rows.id}" hidden="true"/>
+                                                                                                <input class="form-control" name="txtName" type="text" required value="${rows.name}" />
+                                                                                            </div>
+                                                                                        </div>
+
+                                                                                    </div>
+
+                                                                                    <div class="row">
+                                                                                        <div class="col-lg-12">
+                                                                                            <div class="form-group">
+                                                                                                <label>Phone</label>
+                                                                                                <input class="form-control" name="txtPhone" type="number" required value="${rows.phone}" />
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+
+                                                                                </div>             
+
+                                                                                <div class="modal-footer">
+                                                                                    <button type="submit" class="btn btn-primary">Edit</button>
+                                                                                    <button type="button" class="btn btn-primary" data-dismiss="modal">Cancel</button>
+                                                                                </div>
+
+                                                                            </form>	
+
+                                                                        </div>
+                                                                    </div>
+                                                                </div> 
+                                                                <a href="<s:url value="../admin/revert_shipper/${rows.id}.htm"/>" class="btn btn-danger btn-sm" data-placement="top" data-toggle="tooltip" data-title="Delete"><i class="fa fa-undo" aria-hidden="true"></i></a>
+                                                            </td>
                                                             <td>${rows.id}</td>
-
-
+                                                            <td style="height: 50px;">${rows.name}</td>
+                                                            <td>${rows.phone}</td>
                                                         </tr>
                                                     </c:forEach>
                                                 </tbody>
                                             </table>
                                         </div>
 
-
-                                    </div>	
-                                    <!-- end card-body -->								
-
-                                </div>
-                                <!-- end card -->					
-
+                                    </div>							
+                                </div><!-- end card-->					
                             </div>
-                            <!-- end col -->	
 
                         </div>
-                        <!-- end row -->	
+
+
+
+
 
 
 
@@ -181,7 +207,7 @@
         <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
         <script>
             $(document).ready(function () {
-                $('#newss').DataTable({
+                $('#user').DataTable({
                     responsive: {
                         details: {
                             type: 'column',
