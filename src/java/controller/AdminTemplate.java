@@ -904,4 +904,11 @@ public class AdminTemplate {
 
         return "redirect:" + session.getAttribute("urii").toString();
     }
+    
+    //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+    
+    @RequestMapping(value = "statistical")
+    public String statistical(ModelMap model, HttpServletRequest request){
+        return "";
+    }
 }

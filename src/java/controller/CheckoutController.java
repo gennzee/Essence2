@@ -103,6 +103,9 @@ public class CheckoutController {
         order = orderdao.listOrders(session.getAttribute("USER_ID").toString());
         session.setAttribute("ORDER_LIST", order);
         // List order of user - end
+        
+        session.removeAttribute("SHOP");
+        session.removeAttribute("CARTSIZE");
 
         return "redirect:/checkout/checkout_success.htm";
     }
