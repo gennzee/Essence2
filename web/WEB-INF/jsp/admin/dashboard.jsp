@@ -13,7 +13,7 @@
     <head>
         <meta charset="utf-8">
 
-        <title>Pike Admin - Free Bootstrap 4 Admin Template</title>
+        <title>Essence Admin</title>
 
         <!-- Favicon -->
         <link rel="shortcut icon" href="../admin/assets/images/favicon.ico">

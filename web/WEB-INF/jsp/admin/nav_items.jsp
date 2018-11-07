@@ -14,7 +14,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        <title>Pike Admin PRO</title>
+        <title>Essence Admin</title>
         <meta name="description" content="Bootstrap 4 Admin Theme | Pike Admin">
         <meta name="author" content="Pike Web Development - https://www.pikephp.com">
 
