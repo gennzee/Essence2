@@ -154,7 +154,7 @@
                                     <button type="submit" form="updatecart" class="btn btn-outline-primary btn-sm btn-block">Update Cart</button>
                                 </div>
                                 <div class="col-md-6">
-                                    <button type="button" class="btn btn-outline-primary btn-sm btn-block" onclick="location.href='../cartbean/continue_shopping.htm';">Continue Shopping</button>
+                                    <button type="button" class="btn btn-outline-primary btn-sm btn-block" onclick="location.href = '../cartbean/continue_shopping.htm';">Continue Shopping</button>
                                 </div>
                             </div>
                         </div>
@@ -187,6 +187,14 @@
                                                     <span><fmt:formatNumber type="number" value="25000"/> &#8363</span>
                                                 </c:if>
                                             </strong>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-3">
+                                        <div class="col-md-6">
+                                            <span class="text-black">Discount</span>
+                                        </div>
+                                        <div class="col-md-6 text-right">
+                                            <strong class="text-black"><fmt:formatNumber value="${(totaldiscount/totalprice)*100}" maxFractionDigits="0"/>%</strong>
                                         </div>
                                     </div>
                                     <div class="row mb-5">
