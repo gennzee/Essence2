@@ -140,11 +140,11 @@
                         <div class="row">
                             <div class="col-xl-12">
                                 <div class="breadcrumb-holder">
-                                    <h1 class="main-title float-left">Add new article</h1>
+                                    <h1 class="main-title float-left">Add new collections</h1>
                                     <ol class="breadcrumb float-right">
                                         <li class="breadcrumb-item">Home</li>
-                                        <li class="breadcrumb-item">Articles</li>
-                                        <li class="breadcrumb-item active">Add article</li>
+                                        <li class="breadcrumb-item">Collections</li>
+                                        <li class="breadcrumb-item active">Add new collections</li>
                                     </ol>
                                     <div class="clearfix"></div>
                                 </div>
