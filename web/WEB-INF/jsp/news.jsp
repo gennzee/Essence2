@@ -79,7 +79,7 @@
                 <div class="row h-100 align-items-center">
                     <div class="col-12">
                         <div class="page-title text-center">
-                            <h2>Collections</h2>
+                            <h2><s:message code="label.ctitle" text="" /></h2>
                         </div>
                     </div>
                 </div>
@@ -111,7 +111,7 @@
                                     <div style="max-height: 50%;overflow: hidden;">
                                         ${rows.content}
                                     </div>
-                                        <a href="<s:url value="../news/${rows.id}.htm"/>">Continue reading <i class="fa fa-angle-right"></i></a>
+                                        <a href="<s:url value="../news/${rows.id}.htm"/>"><s:message code="label.creadmore" text="" /> <i class="fa fa-angle-right"></i></a>
                                 </div>
                             </div>
                         </div>

@@ -79,22 +79,43 @@ public class CartBeanController {
     @RequestMapping(value = "delete/{id}", method = RequestMethod.GET)
     public String remove(HttpServletRequest request, ModelMap model, @PathVariable int id) {
         HttpSession session = request.getSession(true);
-            CartBean a = (CartBean) session.getAttribute("SHOP");
-            if (a != null) {
-                
-                a.removeSanpham(id);
-                session.setAttribute("SHOP", a);
-                session.setAttribute("CARTSIZE", a.countQuantity());
-                if (a.size() == 0) {
-                    session.removeAttribute("SHOP");
-                    session.removeAttribute("CARTSIZE");
-                }
-                
+        CartBean a = (CartBean) session.getAttribute("SHOP");
+        if (a != null) {
+
+            a.removeSanpham(id);
+            session.setAttribute("SHOP", a);
+            session.setAttribute("CARTSIZE", a.countQuantity());
+            if (a.size() == 0) {
+                session.removeAttribute("SHOP");
+                session.removeAttribute("CARTSIZE");
             }
+
+        }
         session.getAttribute("IMGUSER");
         session.getAttribute("listUser");
         session.getAttribute("ORDER_LIST");
         return "redirect:" + session.getAttribute("uri").toString();
+    }
+
+    @RequestMapping(value = "delete_in_view_cart/{id}", method = RequestMethod.GET)
+    public String delete_in_view_cart(HttpServletRequest request, ModelMap model, @PathVariable int id) {
+        HttpSession session = request.getSession(true);
+        CartBean a = (CartBean) session.getAttribute("SHOP");
+        if (a != null) {
+
+            a.removeSanpham(id);
+            session.setAttribute("SHOP", a);
+            session.setAttribute("CARTSIZE", a.countQuantity());
+            if (a.size() == 0) {
+                session.removeAttribute("SHOP");
+                session.removeAttribute("CARTSIZE");
+            }
+
+        }
+        session.getAttribute("IMGUSER");
+        session.getAttribute("listUser");
+        session.getAttribute("ORDER_LIST");
+        return "redirect:" + session.getAttribute("uriii").toString();
     }
 
     @RequestMapping(value = "update", method = RequestMethod.GET)
@@ -111,7 +132,7 @@ public class CartBeanController {
                 a.updateQuantity(Integer.parseInt(id), Integer.parseInt(quantity));
 
             }
-            
+
             session.setAttribute("SHOP", a);
             session.setAttribute("CARTSIZE", a.countQuantity());
         }
@@ -120,11 +141,11 @@ public class CartBeanController {
         session.getAttribute("ORDER_LIST");
         return "redirect:" + session.getAttribute("uriii").toString();
     }
-    
+
     @RequestMapping(value = "continue_shopping")
-    public String continue_shopping(HttpServletRequest request){
+    public String continue_shopping(HttpServletRequest request) {
         HttpSession session = request.getSession(false);
-        
+
         return "redirect:" + session.getAttribute("uri").toString();
     }
 

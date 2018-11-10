@@ -15,11 +15,13 @@ import DAO.OrderDetailDAO;
 import DAO.ProductDetailDAO;
 import DAO.ProductsDAO;
 import DAO.ShipperDAO;
+import DAO.StatisticsDAO;
 import DAO.SupplierDAO;
 import DAO.UsersDAO;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.time.LocalDate;
+import java.time.Month;
 import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.ServletException;
@@ -52,11 +54,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 @RequestMapping(value = "/admin/")
 public class AdminTemplate {
-
-    @RequestMapping(value = "dashboard")
-    public String dashboard() {
-        return "admin/dashboard";
-    }
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
     @RequestMapping(value = "nav")
@@ -212,7 +209,8 @@ public class AdminTemplate {
 
             user.Update_user_with_password_and_image_is_not_null(a, id);
         }
-
+        
+        
         return "redirect:" + session.getAttribute("urii").toString();
     }
 
@@ -814,12 +812,14 @@ public class AdminTemplate {
                 Users a = new Users(username, name, email, Integer.parseInt(role), image, phone, address);
 
                 user.Update_user_with_password_is_null(a, id);
+                session.setAttribute("IMGUSER", image);
             }
         } else {
             UsersDAO user = new UsersDAO();
             Users a = new Users(username, pass, name, email, Integer.parseInt(role), image, phone, address);
 
             user.Update_user_with_password_and_image_is_not_null(a, id);
+            session.setAttribute("IMGUSER", image);
         }
 
         return "redirect:" + session.getAttribute("urii").toString();
@@ -904,11 +904,45 @@ public class AdminTemplate {
 
         return "redirect:" + session.getAttribute("urii").toString();
     }
-    
+
     //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-    
-    @RequestMapping(value = "statistical")
-    public String statistical(ModelMap model, HttpServletRequest request){
-        return "";
+    @RequestMapping(value = "dashboard")
+    public String dashboard(ModelMap model, HttpServletRequest request) {
+        LocalDate now = LocalDate.now();
+        int month = now.getMonthValue();
+        int year = now.getYear();
+
+        List<Orders> ds = new ArrayList<>();
+        OrderDAO a2 = new OrderDAO();
+        ds = a2.listOrders_is_("Processing");
+        //list order is in processing
+        model.addAttribute("listOrder_processing", ds);
+        ds = a2.listOrders_is_("Delivering");
+        //list order is in delivering
+        model.addAttribute("listOrder_delivering", ds);
+
+        StatisticsDAO a = new StatisticsDAO();
+
+        //orders in month
+        model.addAttribute("orders_in_this_month", a.show_orders_in_month(year + "-" + month));
+        //collections in month
+        model.addAttribute("collections_in_this_month", a.show_collections_in_month(year + "-" + month));
+        //customers in month
+        model.addAttribute("customers_created_in_this_month", a.show_created_customers_in_month(year + "-" + month));
+        //orders canceled in month
+        model.addAttribute("orders_canceled_in_this_month", a.show_orders_status_in_month(year + "-" + month, 4));
+        //orders delivered in month
+        model.addAttribute("orders_delivered_in_this_month", a.show_orders_status_in_month(year + "-" + month, 3));
+        //sum revenue in month
+        model.addAttribute("sum_revenue_in_month", a.show_revenue_in_month(year + "-" + month, 3));
+        //orders in today
+        model.addAttribute("orders_in_today", a.show_orders_in_month(now.toString()));
+        //orders processing in today
+        model.addAttribute("orders_pending_in_today", a.show_orders_status_in_month(now.toString(), 1));
+        //orders delivering in today
+        model.addAttribute("orders_delivering_in_today", a.show_orders_status_in_month(now.toString(), 2));
+        //orders canceled in today
+        model.addAttribute("orders_canceled_in_today", a.show_orders_status_in_month(now.toString(), 4));
+        return "admin/dashboard";
     }
 }

@@ -21,9 +21,8 @@
                 <div class="classynav">
                     <ul>
                         <li>
-
-                            <a href="#">Shop</a>
-
+                            <a href="#"><s:message code="label.navigationshop" text="Shop" /></a>
+                            
                             <div class="megamenu">
                                 <c:forEach var="rows" items="${sessionScope.list_Nav}">
                                     <ul class="single-mega cn-col-4">
@@ -41,14 +40,12 @@
                                     </div>
                                 </c:if>
                             </div>
-
+                            
                         </li>
-                        <li><a href="../sale/sale.htm">Sales</a>
-
-                        </li>
-                        <li><a href="../news/news.htm">Collections</a></li>
-                        <li><a href="../contact/contact.htm">Contact</a></li>
-                        <li><a href="#">Languages</a>
+                        <li><a href="../sale/sale.htm"><s:message code="label.nagigationsales" text="Sales" /></a></li>
+                        <li><a href="../news/news.htm"><s:message code="label.navigationcollections" text="Collections" /></a></li>
+                        <li><a href="../contact/contact.htm"><s:message code="label.navigationcontact" text="Contact" /></a></li>
+                        <li><a href="#"><s:message code="label.navigationlanguages" text="Languages" /></a>
                             <ul class="dropdown">
                                 <li><a href="?lang=en"><s:message code="label.nav.en"/></a></li>
                                 <li><a href="?lang=vi"><s:message code="label.nav.vi"/></a></li>
@@ -65,7 +62,7 @@
             <!-- Search Area -->
             <div class="search-area">
                 <form action="../products/search.htm" method="get">
-                    <input type="search" name="txtSearch" id="headerSearch" placeholder="Type for search">
+                    <input type="search" name="txtSearch" id="headerSearch" placeholder="<s:message code="label.searchtotal" text="Type for search" />">
                     <button type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
                 </form>
             </div>

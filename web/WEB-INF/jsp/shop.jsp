@@ -107,7 +107,7 @@
                             <!-- ##### Single Widget ##### -->
                             <div class="widget catagory mb-50">
                                 <!-- Widget Title -->
-                                <h6 class="widget-title mb-30">Catagories</h6>
+                                <h6 class="widget-title mb-30"><s:message code="label.scatagories" text="" /></h6>
 
                                 <!--  Catagories  -->
                                 <div class="catagories-menu">
@@ -130,21 +130,6 @@
                                 </div>
                             </div>
 
-
-                            <!-- ##### Single Widget ##### -->
-                            <div class="widget brands mb-50">
-                                <!-- Widget Title 2 -->
-                                <p class="widget-title2 mb-30">Brands</p>
-                                <div class="widget-desc">
-                                    <ul>
-                                        <li><a href="#">Asos</a></li>
-                                        <li><a href="#">Mango</a></li>
-                                        <li><a href="#">River Island</a></li>
-                                        <li><a href="#">Topshop</a></li>
-                                        <li><a href="#">Zara</a></li>
-                                    </ul>
-                                </div>
-                            </div>
                         </div>
                     </div>
 
@@ -155,7 +140,7 @@
                                     <div class="product-topbar d-flex align-items-center justify-content-between">
                                         <!-- Total Products -->
                                         <div class="total-products">
-                                            <p><span>${product_size}${search_size}${shopIndex_size}</span> products found</p>
+                                            <p><span>${product_size}${search_size}${shopIndex_size}</span> <s:message code="label.sproductfount" text="" /></p>
                                         </div>
                                     </div>
                                 </div>

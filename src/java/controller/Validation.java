@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import DAO.UsersDAO;
 import java.util.ArrayList;
 import java.util.List;
+import javax.servlet.http.HttpServletRequest;
 import javax.xml.ws.Response;
 import model.Users;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -25,12 +26,43 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @RequestMapping(value = "/validation/")
 public class Validation {
 
-    @RequestMapping(value = "users", method = RequestMethod.GET)
-    @ResponseBody
-    public String users() {
+    @RequestMapping(value = "users", method = RequestMethod.POST)
+    public @ResponseBody
+    String users(HttpServletRequest request, @RequestBody String username) {
         //tesst validation
         UsersDAO a = new UsersDAO();
-        Boolean b = a.showUsers_validation("chuacothongtin") == true;
+        Boolean b = false;
+        b = a.showUsers_validation(username);
+        return b.toString();
+    }
+
+    @RequestMapping(value = "emails", method = RequestMethod.POST)
+    public @ResponseBody
+    String emails(HttpServletRequest request, @RequestBody String email) {
+        //tesst validation
+        UsersDAO a = new UsersDAO();
+        Boolean b = false;
+        b = a.showEmails_validation(email);
+        return b.toString();
+    }
+
+    @RequestMapping(value = "staffs", method = RequestMethod.POST)
+    public @ResponseBody
+    String staffs(HttpServletRequest request, @RequestBody String username) {
+        //tesst validation
+        UsersDAO a = new UsersDAO();
+        Boolean b = false;
+        b = a.showUsers_validation(username);
+        return b.toString();
+    }
+
+    @RequestMapping(value = "products", method = RequestMethod.POST)
+    public @ResponseBody
+    String products(HttpServletRequest request, @RequestBody String product_name) {
+        //tesst validation
+        UsersDAO a = new UsersDAO();
+        Boolean b = false;
+        b = a.showProducts_validation(product_name);
         return b.toString();
     }
 }

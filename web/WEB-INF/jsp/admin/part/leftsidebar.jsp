@@ -1,3 +1,7 @@
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib uri="http://www.springframework.org/tags" prefix="s"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!-- Left Sidebar -->
 <div class="left main-sidebar">
 
@@ -10,27 +14,28 @@
                 <li class="submenu">
                     <a class="active" href="../admin/dashboard.htm"><i class="fa fa-fw fa-bars"></i><span> Dashboard </span> </a>
                 </li>
+                <c:if test="${sessionScope.ROLE == 'admin'}">
+                    <li class="submenu">
+                        <a href="#"><i class="fa fa-fw fa-users"></i><span> Users </span><span class="menu-arrow"></span> </a>
+                        <ul>
+                            <li class="submenu">
+                                <a href="#"><span>Staffs</span> <span class="menu-arrow"></span> </a>
+                                <ul>
+                                    <li><a href="../admin/users.htm"><span>Active Staffs</span></a></li>
+                                    <li><a href="../admin/users_inactive.htm"><span>Inactive Staffs</span></a></li>
+                                </ul>
+                            </li>      
+                            <li class="submenu">
+                                <a href="#"><span>Shipper</span> <span class="menu-arrow"></span> </a>
+                                <ul>
+                                    <li><a href="../admin/shipper.htm"><span>Active Shippers</span></a></li>
+                                    <li><a href="../admin/shipper_inactive.htm"><span>Inactive Shippers</span></a></li>
+                                </ul>
+                            </li>  
+                        </ul>
 
-                <li class="submenu">
-                    <a href="#"><i class="fa fa-fw fa-users"></i><span> Users </span><span class="menu-arrow"></span> </a>
-                    <ul>
-                        <li class="submenu">
-                            <a href="#"><span>Staffs</span> <span class="menu-arrow"></span> </a>
-                            <ul>
-                                <li><a href="../admin/users.htm"><span>Active Staffs</span></a></li>
-                                <li><a href="../admin/users_inactive.htm"><span>Inactive Staffs</span></a></li>
-                            </ul>
-                        </li>      
-                        <li class="submenu">
-                            <a href="#"><span>Shipper</span> <span class="menu-arrow"></span> </a>
-                            <ul>
-                                <li><a href="../admin/shipper.htm"><span>Active Shippers</span></a></li>
-                                <li><a href="../admin/shipper_inactive.htm"><span>Inactive Shippers</span></a></li>
-                            </ul>
-                        </li>  
-                    </ul>
-
-                </li>
+                    </li>
+                </c:if>
 
                 <li class="submenu">
                     <a href="../admin/nav.htm"><i class="fa fa-fw fa-indent"></i><span> Navigate Menu </span> </a>
@@ -39,11 +44,11 @@
                 <li class="submenu">
                     <a href="../admin/news.htm"><i class="fa fa-fw fa-newspaper-o"></i><span> Collections </span> </a>
                 </li>
-
-                <li class="submenu">
-                    <a href="../admin/contact.htm"><i class="fa fa-fw fa-address-card-o"></i><span> Contact Manage </span> </a>
-                </li>
-
+                <c:if test="${sessionScope.ROLE == 'admin'}">
+                    <li class="submenu">
+                        <a href="../admin/contact.htm"><i class="fa fa-fw fa-address-card-o"></i><span> Contact Manage </span> </a>
+                    </li>
+                </c:if>
                 <li class="submenu">
                     <a href="#"><i class="fa fa-fw fa-cubes"></i> <span> Order Handler </span> <span class="menu-arrow"></span></a>
                     <ul class="list-unstyled">

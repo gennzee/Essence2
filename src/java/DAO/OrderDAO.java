@@ -54,7 +54,7 @@ public class OrderDAO {
     public List<Orders> listOrders_is_(String status) {
         try {
             Connection conn = DBConnection.getConn();
-            String sql = "select o.Id, o.Total, o.OrderDate, o.Name, o.Phone, o.Address, o.Note, u.Name, s.Name, u.Phone as UserPhone, ps.Status\n"
+            String sql = "select o.Id, o.Total, o.OrderDate, o.Name, o.Phone, o.Address, o.Note, u.Name, s.Name, u.Phone as UserPhone, ps.Status, s.Phone as ShipperPhone\n"
                     + "from Orders o\n"
                     + "inner join PaymentStatus ps on ps.Id = o.PaymentStsID\n"
                     + "inner join Shipper s on s.Id = o.ShipperID\n"
@@ -75,7 +75,8 @@ public class OrderDAO {
                 String shippername = rs.getString(9);
                 String userphone = rs.getString(10);
                 String paymentstatusname = rs.getString(11);
-                Orders a = new Orders(id, total, date, name, phone, address, note, username, userphone, shippername, paymentstatusname);
+                String shipperphone = rs.getString(12);
+                Orders a = new Orders(id, total, date, name, phone, address, note, username, userphone, shippername, paymentstatusname, shipperphone);
                 list.add(a);
             }
             return list;
@@ -126,7 +127,7 @@ public class OrderDAO {
     public List<Orders> listOrders_with_date(String datee) {
         try {
             Connection conn = DBConnection.getConn();
-            String sql = "select o.Id, o.Total, o.OrderDate, o.Name, o.Phone, o.Address, o.Note, u.Name, s.Name, u.Phone as UserPhone, ps.Status\n"
+            String sql = "select o.Id, o.Total, o.OrderDate, o.Name, o.Phone, o.Address, o.Note, u.Name, s.Name, u.Phone as UserPhone, ps.Status, s.Phone as ShipperPhone\n"
                     + "from Orders o\n"
                     + "inner join PaymentStatus ps on ps.Id = o.PaymentStsID\n"
                     + "inner join Shipper s on s.Id = o.ShipperID\n"
@@ -147,7 +148,8 @@ public class OrderDAO {
                 String shippername = rs.getString(9);
                 String userphone = rs.getString(10);
                 String paymentstatusname = rs.getString(11);
-                Orders a = new Orders(id, total, date, name, phone, address, note, username, userphone, shippername, paymentstatusname);
+                String shipperphone = rs.getString(12);
+                Orders a = new Orders(id, total, date, name, phone, address, note, username, userphone, shippername, paymentstatusname, shipperphone);
                 list.add(a);
             }
             return list;

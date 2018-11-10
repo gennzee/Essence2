@@ -99,7 +99,7 @@
                                             <div class="modal-dialog">
                                                 <div class="modal-content">
 
-                                                    <form action="../admin/add_new_product.htm" method="post">
+                                                    <form action="../admin/add_new_product.htm" onsubmit="return add_new_product();" method="post">
 
                                                         <div class="modal-header">
                                                             <h5 class="modal-title">Add product</h5>
@@ -113,14 +113,16 @@
                                                                 <div class="col-lg-6">
                                                                     <div class="form-group">
                                                                         <label>Product Name</label>
-                                                                        <input class="form-control" name="txtProductname" type="text" required value="" />
+                                                                        <p id="txt_add_product_name" style="color: red;"></p>
+                                                                        <input class="form-control" id="add_product_name" name="txtProductname" type="text" required value="" />
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-lg-6">
                                                                     <div class="form-group">
                                                                         <label>Price </label>
+                                                                        <p></p>
                                                                         <input class="form-control" name="txtPrice" type="number" required value="0" />
-                                                                        <div style="position: absolute;top: 40px;right: 48px;">&#8363</div>
+                                                                        <div style="position: absolute;top: 53px;right: 48px;">&#8363</div>
                                                                     </div>
                                                                 </div>
 
@@ -130,13 +132,15 @@
                                                                 <div class="col-lg-6">
                                                                     <div class="form-group">
                                                                         <label>Discount </label>
+                                                                        <p></p>
                                                                         <input class="form-control" name="txtDiscount" type="number" required value="0" />
-                                                                        <div style="position: absolute;top: 40px;right: 48px;">&#8363</div>
+                                                                        <div style="position: absolute;top: 53px;right: 48px;">&#8363</div>
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-lg-6">
                                                                     <div class="form-group">
                                                                         <label>Brand</label>
+                                                                        <p></p>
                                                                         <input class="form-control" name="txtBrand" type="text" required value="" />
                                                                     </div>
                                                                 </div>	
@@ -146,6 +150,7 @@
                                                                 <div class="col-lg-12">
                                                                     <div class="form-group">
                                                                         <label>Sub-category</label>
+                                                                        <p></p>
                                                                         <select name="txtSubcategory" class="form-control" required>
                                                                             <option value="${title_id}">${title_name}</option>
                                                                         </select>
@@ -157,6 +162,7 @@
                                                                 <div class="col-lg-12">
                                                                     <div class="form-group">
                                                                         <label>Detail</label><br>
+                                                                        <p></p>
                                                                         <textarea name="txtDetail" class="form-control editor" rows="3">${rows.detail}</textarea>
                                                                     </div>
                                                                 </div>
@@ -165,12 +171,12 @@
                                                             <div class="form-group">
                                                                 <label>Image product 1 :</label> <br />
 
-                                                                <input type="file" name="txtImage1">
+                                                                <input type="file" name="txtImage1" accept="image/*">
                                                             </div>
                                                             <div class="form-group">
                                                                 <label>Image product 2 :</label> <br />
 
-                                                                <input type="file" name="txtImage2">
+                                                                <input type="file" name="txtImage2" accept="image/*">
                                                             </div>
 
                                                         </div>
@@ -292,13 +298,13 @@
                                                                                         <label>Image product 1 :</label> <br />
                                                                                         <img src="../img/product-img/${rows.img1}" style="width: 65px"/>
                                                                                         <input type="text" hidden="true" value="${rows.img1}" name="txtOldimg1"/>
-                                                                                        <input type="file" name="txtImage1">
+                                                                                        <input type="file" name="txtImage1" accept="image/*">
                                                                                     </div>
                                                                                     <div class="form-group">
                                                                                         <label>Image product 2 :</label> <br />
                                                                                         <img src="../img/product-img/${rows.img2}" style="width: 65px"/>
                                                                                         <input type="text" hidden="true" value="${rows.img2}" name="txtOldimg2"/>
-                                                                                        <input type="file" name="txtImage2">
+                                                                                        <input type="file" name="txtImage2" accept="image/*">
                                                                                     </div>
 
                                                                                 </div>
@@ -449,13 +455,13 @@
                                                                                         <label>Image product 1 :</label> <br />
                                                                                         <img src="../img/product-img/${rows.img1}" style="width: 65px"/>
                                                                                         <input type="text" hidden="true" value="${rows.img1}" name="txtOldimg1"/>
-                                                                                        <input type="file" name="txtImage1">
+                                                                                        <input type="file" name="txtImage1" accept="image/*">
                                                                                     </div>
                                                                                     <div class="form-group">
                                                                                         <label>Image product 2 :</label> <br />
                                                                                         <img src="../img/product-img/${rows.img2}" style="width: 65px"/>
                                                                                         <input type="text" hidden="true" value="${rows.img2}" name="txtOldimg2"/>
-                                                                                        <input type="file" name="txtImage2">
+                                                                                        <input type="file" name="txtImage2" accept="image/*">
                                                                                     </div>
 
                                                                                 </div>
@@ -532,22 +538,22 @@
         <script src="../admin/assets/plugins/trumbowyg/plugins/table/trumbowyg.table.js"></script>
         <script src="../admin/assets/plugins/trumbowyg/plugins/lineheight/trumbowyg.lineheight.js"></script>
         <script>
-            $(document).ready(function () {
-                $('#user').DataTable({
-                    responsive: {
-                        details: {
-                            type: 'column',
-                            target: 'tr'
-                        }
-                    },
-                    columnDefs: [{
-                            className: 'control',
-                            orderable: false,
-                            targets: 0
-                        }],
-                    order: [1, 'asc']
-                });
-            });
+                                                        $(document).ready(function () {
+                                                            $('#user').DataTable({
+                                                                responsive: {
+                                                                    details: {
+                                                                        type: 'column',
+                                                                        target: 'tr'
+                                                                    }
+                                                                },
+                                                                columnDefs: [{
+                                                                        className: 'control',
+                                                                        orderable: false,
+                                                                        targets: 0
+                                                                    }],
+                                                                order: [1, 'asc']
+                                                            });
+                                                        });
         </script>
         <script>
             $(document).ready(function () {
@@ -602,7 +608,37 @@
 
         </script>
         <!-- dataTable child row -->
+        <script>
+            var secondCall = false;
 
+            function add_new_product() {
+                if (secondCall) {
+                    return true;
+                }
+
+                var txt_Add_product_name = document.getElementById("add_product_name").value;
+
+                if (txt_Add_product_name !== "") {
+                    $.ajax({
+                        type: "POST",
+                        contentType: "application/json; charset=UTF-8",
+                        url: "/Essence/validation/products.htm",
+                        data: $("#add_product_name").val(),
+                        success: function (data) {
+                            if (data === 'false') {
+                                document.getElementById("txt_add_product_name").innerHTML = "Sản phẩm này đã có trong danh sách";
+                            } else {
+                                document.getElementById("txt_add_product_name").innerHTML = "";
+                                secondCall = true;
+                            }
+                        }
+                    });
+                }
+                
+                return false;
+
+            }
+        </script>
 
     </body>
 </html>

@@ -78,8 +78,8 @@ public class UsersDAO {
         return null;
     }
 
+    //validation username
     public boolean showUsers_validation(String usernamee) {
-        //test validation
         try {
             Connection conn = DBConnection.getConn();
             String sql = "select * from Users where Username like '" + usernamee + "'";
@@ -90,6 +90,40 @@ public class UsersDAO {
             }
         } catch (Exception e) {
             System.out.println("showUsers_validation(DAO)");
+            e.printStackTrace();
+        }
+        return true;
+    }
+
+    //validation email
+    public boolean showEmails_validation(String email) {
+        try {
+            Connection conn = DBConnection.getConn();
+            String sql = "select * from Users where Email like '" + email + "'";
+            Statement st = conn.createStatement();
+            ResultSet rs = st.executeQuery(sql);
+            while (rs.next()) {
+                return false;
+            }
+        } catch (Exception e) {
+            System.out.println("showEmails_validation(DAO)");
+            e.printStackTrace();
+        }
+        return true;
+    }
+
+    //validation product
+    public boolean showProducts_validation(String product_name) {
+        try {
+            Connection conn = DBConnection.getConn();
+            String sql = "select * from Product where Name like '" + product_name + "'";
+            Statement st = conn.createStatement();
+            ResultSet rs = st.executeQuery(sql);
+            while (rs.next()) {
+                return false;
+            }
+        } catch (Exception e) {
+            System.out.println("showProducts_validation(DAO)");
             e.printStackTrace();
         }
         return true;
@@ -127,7 +161,7 @@ public class UsersDAO {
     public boolean Insert(Users users) {
         try {
             Connection conn = DBConnection.getConn();
-            String sql = "Insert into Users values(?,?,?,?,?,?,?,?,?)";
+            String sql = "Insert into Users values(?,?,?,?,?,?,?,?,?,1)";
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setString(1, users.getUsername());
             ps.setString(2, users.getPassword());

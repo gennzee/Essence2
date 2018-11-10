@@ -24,6 +24,7 @@ public class Orders {
     private String userphone;
     private String shippername;
     private String paymentstatusname;
+    private String shipperphone;
 
     public Orders() {
     }
@@ -53,7 +54,7 @@ public class Orders {
         this.paymentstatus = paymentstatus;
     }
 
-    public Orders(int id, int total, String orderdate, String name, String phone, String address, String note, String username, String userphone, String shippername, String paymentstatusname) {
+    public Orders(int id, int total, String orderdate, String name, String phone, String address, String note, String username, String userphone, String shippername, String paymentstatusname, String shipperphone) {
         this.id = id;
         this.total = total;
         this.orderdate = orderdate;
@@ -65,6 +66,7 @@ public class Orders {
         this.userphone = userphone;
         this.shippername = shippername;
         this.paymentstatusname = paymentstatusname;
+        this.shipperphone = shipperphone;
     }
 
     public int getId() {
@@ -177,6 +179,14 @@ public class Orders {
 
     public void setPaymentstatusname(String paymentstatusname) {
         this.paymentstatusname = paymentstatusname;
+    }
+
+    public String getShipperphone() {
+        return shipperphone;
+    }
+
+    public void setShipperphone(String shipperphone) {
+        this.shipperphone = shipperphone;
     }
     
     

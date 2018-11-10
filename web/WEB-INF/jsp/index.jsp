@@ -80,7 +80,7 @@
                     <div class="col-12 col-sm-6 col-md-4">
                         <div class="single_catagory_area d-flex align-items-center justify-content-center bg-img" style="background-image: url(../img/bg-img/bg-102.jpg);">
                             <div class="catagory-content">
-                                <a href="../products/4.htm">Watch</a>
+                                <a href="../products/4.htm"><s:message code="label.iwatch" text="" /></a>
                             </div>
                         </div>
                     </div>
@@ -88,7 +88,7 @@
                     <div class="col-12 col-sm-6 col-md-4">
                         <div class="single_catagory_area d-flex align-items-center justify-content-center bg-img" style="background-image: url(../img/bg-img/bg-99.jpg);">
                             <div class="catagory-content">
-                                <a href="../products/6.htm">Accessories</a>
+                                <a href="../products/6.htm"><s:message code="label.iaccessories" text="" /></a>
                             </div>
                         </div>
                     </div>
@@ -96,7 +96,7 @@
                     <div class="col-12 col-sm-6 col-md-4">
                         <div class="single_catagory_area d-flex align-items-center justify-content-center bg-img" style="background-image: url(../img/bg-img/bg-100.jpg);">
                             <div class="catagory-content">
-                                <a href="../news/news.htm">Collections</a>
+                                <a href="../news/news.htm"><s:message code="label.icollections" text="" /></a>
                             </div>
                         </div>
                     </div>
@@ -114,8 +114,8 @@
                             <div class="h-100 d-flex align-items-center justify-content-end">
                                 <div class="cta--text">
                                     <h6>-60%</h6>
-                                    <h2>Global Sale</h2>
-                                    <a href="../sale/sale.htm" class="btn essence-btn">Buy Now</a>
+                                    <h2><s:message code="label.iglobalsale" text="" /></h2>
+                                    <a href="../sale/sale.htm" class="btn essence-btn"><s:message code="label.ibuynow" text="" /></a>
                                 </div>
                             </div>
                         </div>

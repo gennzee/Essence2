@@ -92,25 +92,29 @@
                                     <div class="cart-page-heading mb-30">
                                         <h5>Billing Address</h5>
                                     </div>
-                                    <form id="form" action="../checkout/add_orders.htm" method="get">
+                                    <form id="form" onsubmit="return formCheckout();" action="../checkout/add_orders.htm" method="get">
                                         <div class="row">
                                             <c:forEach var="rows" items="${listUser}">
                                                 <input type="text" hidden="true" name="txtUserID" value="${rows.id}">
                                                 <div class="col-12 mb-3">
-                                                    <label for="full_name">Full Name <span>*</span></label>
-                                                    <input name="txtName" type="text" class="form-control mb-3" id="full_name" value="${rows.name}">
+                                                    <label for="checkout_name">Full Name <span>*</span></label>
+                                                    <p id="txt_checkout_name" style="color: red;"></p>
+                                                    <input name="txtName" type="text" class="form-control mb-3" id="checkout_name" value="${rows.name}">
                                                 </div>
                                                 <div class="col-12 mb-3">
-                                                    <label for="street_address">Address <span>*</span></label>
-                                                    <input name="txtAddress" type="text" class="form-control mb-3" id="street_address" value="${rows.address}">
+                                                    <label for="checkout_address">Address <span>*</span></label>
+                                                    <p id="txt_checkout_address" style="color: red;"></p>
+                                                    <input name="txtAddress" type="text" class="form-control mb-3" id="checkout_address" value="${rows.address}">
                                                 </div>
                                                 <div class="col-12 mb-3">
-                                                    <label for="phone_number">Phone No <span>*</span></label>
-                                                    <input name="txtPhone" type="number" class="form-control" id="phone_number" min="0" value="${rows.phone}">
+                                                    <label for="checkout_phone">Phone No <span>*</span></label>
+                                                    <p id="txt_checkout_phone" style="color: red;"></p>
+                                                    <input name="txtPhone" type="number" class="form-control" id="checkout_phone" min="0" value="${rows.phone}">
                                                 </div>
                                                 <div class="col-12 mb-4">
-                                                    <label for="email_address">Email Address <span>*</span></label>
-                                                    <input name="txtEmail" type="email" class="form-control" id="email_address" value="${rows.email}">
+                                                    <label for="checkout_email">Email Address <span>*</span></label>
+                                                    <p id="txt_checkout_email" style="color: red;"></p>
+                                                    <input name="txtEmail" type="email" class="form-control" id="checkout_email" value="${rows.email}">
                                                 </div>
                                                 <div class="col-12 mb-4">
                                                     <label for="note">Notes </label>
@@ -210,57 +214,7 @@
 
                                 </ul>
                             </c:if>
-                            <div id="accordion" role="tablist" class="mb-4">
-                                <div class="card">
-                                    <div class="card-header" role="tab" id="headingOne">
-                                        <h6 class="mb-0">
-                                            <a data-toggle="collapse" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne"><i class="fa fa-circle-o mr-3"></i>Paypal</a>
-                                        </h6>
-                                    </div>
 
-                                    <div id="collapseOne" class="collapse" role="tabpanel" aria-labelledby="headingOne" data-parent="#accordion">
-                                        <div class="card-body">
-                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin pharetra tempor so dales. Phasellus sagittis auctor gravida. Integ er bibendum sodales arcu id te mpus. Ut consectetur lacus.</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="card">
-                                    <div class="card-header" role="tab" id="headingTwo">
-                                        <h6 class="mb-0">
-                                            <a class="collapsed" data-toggle="collapse" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo"><i class="fa fa-circle-o mr-3"></i>direct bank transper</a>
-                                        </h6>
-                                    </div>
-                                    <div id="collapseTwo" class="collapse" role="tabpanel" aria-labelledby="headingTwo" data-parent="#accordion">
-                                        <div class="card-body">
-                                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo quis in veritatis officia inventore, tempore provident dignissimos.</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="card">
-                                    <div class="card-header" role="tab" id="headingThree">
-                                        <h6 class="mb-0">
-                                            <a class="collapsed" data-toggle="collapse" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree"><i class="fa fa-circle-o mr-3"></i>credit card</a>
-                                        </h6>
-                                    </div>
-                                    <div id="collapseThree" class="collapse" role="tabpanel" aria-labelledby="headingThree" data-parent="#accordion">
-                                        <div class="card-body">
-                                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Esse quo sint repudiandae suscipit ab soluta delectus voluptate, vero vitae</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="card">
-                                    <div class="card-header" role="tab" id="headingFour">
-                                        <h6 class="mb-0">
-                                            <a class="collapsed" data-toggle="collapse" href="#collapseFour" aria-expanded="true" aria-controls="collapseFour"><i class="fa fa-circle-o mr-3"></i>cash on delievery</a>
-                                        </h6>
-                                    </div>
-                                    <div id="collapseFour" class="collapse show" role="tabpanel" aria-labelledby="headingThree" data-parent="#accordion">
-                                        <div class="card-body">
-                                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est cum autem eveniet saepe fugit, impedit magni.</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
                             <c:choose>
                                 <c:when test="${sessionScope.USER != null}">
                                     <button type="submit" form="form" href="#" class="btn essence-btn">Place Order</button>

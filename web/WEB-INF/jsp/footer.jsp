@@ -17,9 +17,9 @@
                     <!-- Footer Menu -->
                     <div class="footer_menu">
                         <ul>
-                            <li><a href="shop.html">Shop</a></li>
-                            <li><a href="blog.html">Blog</a></li>
-                            <li><a href="contact.html">Contact</a></li>
+                            <li><a href="#">Shop</a></li>
+                            <li><a href="#">Blog</a></li>
+                            <li><a href="#">Contact</a></li>
                         </ul>
                     </div>
                 </div>
@@ -87,7 +87,7 @@
         <div class="modal-content">
             <!-- Modal Header -->
             <div class="modal-header">
-                <h4 class="modal-title">Login</h4>
+                <h4 class="modal-title"><s:message code="label.logintitle" text="Login" /></h4>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
             <form name="loginForm" onsubmit="return loginForms()" action="../login/loginIndex.htm" method="post">
@@ -95,24 +95,24 @@
                 <div class="modal-body">
                     <div>
                         <div class="col-12 mb-3">
-                            <label for="city">Username </label>
+                            <label for="city"><s:message code="label.username" text="" /> </label>
                             <p id="txt_username" style="color: red;"></p>
                             <input type="text" name="txtUser" class="form-control" value="">
 
                         </div>
                         <div class="col-12 mb-3">
-                            <label for="state">Password </label>
+                            <label for="state"><s:message code="label.password" text="" /> </label>
                             <p id="txt_password" style="color: red;"></p>
                             <input type="password" name="txtPass" class="form-control" value="">
 
                         </div>
                         <div class="col-12 mb-3">
-                            <label for="state">Đăng ký tài khoản <a href="#" style="font-size: 14px;" data-toggle="modal" data-target="#user_register">tại đây </a> </label>
-                            <label for="state" style="float: right;"><a href="#" style="font-size: 14px;" data-toggle="modal" data-target="#forgot_password" data-dismiss="modal">Quên mật khẩu ? </a> </label>
+                            <label for="state"><s:message code="label.register" text="" /> <a href="#" style="font-size: 14px;" data-toggle="modal" data-target="#user_register"><s:message code="label.here" text="" /> </a> </label>
+                            <label for="state" style="float: right;"><a href="#" style="font-size: 14px;" data-toggle="modal" data-target="#forgot_password" data-dismiss="modal"><s:message code="label.forgotpassword" text="" /> ? </a> </label>
                         </div>
                         <div style="width: 100%;text-align: center;">
-                            <button type="submit" class="btn essence-btn" >Submit</button>
-                            <button type="button" class="btn essence-btn" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn essence-btn" ><s:message code="label.loginsubmit" text="" /></button>
+                            <button type="button" class="btn essence-btn" data-dismiss="modal"><s:message code="label.loginclose" text="" /></button>
                         </div>
                     </div>
                 </div>
@@ -127,51 +127,59 @@
         <div class="modal-content">
             <!-- Modal Header -->
             <div class="modal-header">
-                <h4 class="modal-title">User Info</h4>
+                <h4 class="modal-title"><s:message code="label.utitle" text="" /></h4>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
             <!-- Modal body -->
             <div class="modal-body">
                 <c:forEach var="rows" items="${listUser}">
-                    <form action="../login/update.htm" method="POST">
+                    <form action="../login/update.htm" onsubmit="return updateInfoForm();" method="POST">
                         <div>
                             <div class="row">
                                 <input type="text" hidden="true" name="txtID" value="${rows.id}">
                                 <div class="col-3" style="line-height: 5vh;">
-                                    <label>Username </label>
+                                    <p></p>
+                                    <label><s:message code="label.username" text="" /> </label>
                                 </div>
                                 <div class="col-9">
-                                    <input type="text" disabled="true" class="form-control" value="${rows.username}">
+                                    <p id="txt_info_usernamename" style="color: red;"></p>
+                                    <input type="text" id="info_username" disabled="true" class="form-control" value="${rows.username}">
                                 </div>
                                 <div class="col-3" style="line-height: 5vh;">
-                                    <label>Name </label>
+                                    <p></p>
+                                    <label><s:message code="label.wishlistname" text="" /> </label>
                                 </div>
                                 <div class="col-9">
-                                    <input type="text" name="txtName" class="form-control" value="${rows.name}">
+                                    <p id="txt_info_name" style="color: red;"></p>
+                                    <input type="text" id="info_name" name="txtName" class="form-control" value="${rows.name}">
                                 </div>
                                 <div class="col-3" style="line-height: 5vh;">
-                                    <label>Email </label>
+                                    <p></p>
+                                    <label>Email </label>                                    
                                 </div>
                                 <div class="col-9">
-                                    <input type="email" name="txtEmail" class="form-control" value="${rows.email}">
+                                    <p id="txt_info_email" style="color: red;"></p>
+                                    <input type="email" id="info_email" name="txtEmail" class="form-control" value="${rows.email}">
                                 </div>
                                 <div class="col-3" style="line-height: 5vh;">
-                                    <label>Image </label>
+                                    <p></p>
+                                    <label><s:message code="label.rimage" text="" /> </label>
                                 </div>
                                 <div class="col-9">
+                                    <p></p>
                                     <div id="text" style="position: absolute;font-size: 20px;">
                                     </div>
-                                    <input type="file" src="../img/users-img/${rows.imageuser}" name="txtImage" style="position: absolute;width: 92%;height: 99%;opacity: 0;cursor:pointer;z-index: 999999999;" onchange="readIMG(this);" onMouseOver="showText('CLICK TO CHANGE IMAGE')" onMouseOut="hide();"/>
+                                    <input type="file" src="../img/users-img/${rows.imageuser}" name="txtImage" accept="image/*" style="position: absolute;width: 92%;height: 99%;opacity: 0;cursor:pointer;z-index: 999999999;" onchange="readIMG(this);" onMouseOver="showText('CLICK TO CHANGE IMAGE')" onMouseOut="hide();"/>
                                     <img src="../img/users-img/${rows.imageuser}" id="blah" style="margin-bottom: 2%;">
                                 </div>
                                 <div class="col-3" style="line-height: 5vh;">
-                                    <label>Phone </label>
+                                    <label><s:message code="label.uphone" text="" /> </label>
                                 </div>
                                 <div class="col-9">
                                     <input type="text" name="txtPhone" class="form-control" value="${rows.phone}">
                                 </div>
                                 <div class="col-3" style="line-height: 5vh;">
-                                    <label>Address </label>
+                                    <label><s:message code="label.raddress" text="" /> </label>
                                 </div>
                                 <div class="col-9">
                                     <input type="text" name="txtAddress" class="form-control" value="${rows.address}" style="overflow: hidden;text-overflow: ellipsis;">
@@ -179,17 +187,17 @@
                             </div>
                             <div>
                                 <div style="margin: 1vh 0vh 1vh 0vh;text-align: right">
-                                    <label><a href="#" style="font-size: 14px;" data-toggle="modal" data-target="#change_password" data-dismiss="modal">Đổi mật khẩu ? </a> </label>
+                                    <label><a href="#" style="font-size: 14px;" data-toggle="modal" data-target="#change_password" data-dismiss="modal"><s:message code="label.uchangepass" text="" /> </a> </label>
                                 </div>
                                 <div style="margin: 1vh 0vh 1vh 0vh;text-align: right">
-                                    <label><a href="../login/logout.htm" style="font-size: 14px;" >Đăng xuất. </a> </label>
+                                    <label><a href="../login/logout.htm" style="font-size: 14px;" ><s:message code="label.ulogout" text="" /> </a> </label>
                                 </div>
                             </div>
                         </div>
                         <div class="modal-footer">
                             <div style="width: 100%;text-align: center;">
-                                <button type="submit" class="btn essence-btn">Cập nhật</button>
-                                <button type="button" class="btn essence-btn" data-dismiss="modal">Close</button>
+                                <button type="submit" class="btn essence-btn"><s:message code="label.uupdate" text="" /></button>
+                                <button type="button" class="btn essence-btn" data-dismiss="modal"><s:message code="label.loginclose" text="" /></button>
                             </div>
                         </div>
                     </form>
@@ -205,48 +213,51 @@
         <div class="modal-content">
             <!-- Modal Header -->
             <div class="modal-header">
-                <h4 class="modal-title">Register</h4>
+                <h4 class="modal-title"><s:message code="label.rtitle" text="" /></h4>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
-            <form action="../login/register.htm" method="post">
+            <form action="../login/register.htm" id="registerFormm" onsubmit="return registerForms();" method="post">
                 <!-- Modal body -->
                 <div class="modal-body">
                     <div>
                         <div class="col-12 mb-3">
-                            <label for="username">Username </label>
-                            <input type="text" name="txtUser" class="form-control" value="">
+                            <label for="username"><s:message code="label.username" text="" /> <span style="color: red">*</span> </label>
+                            <p id="txt_register_username" style="color: red;"></p>
+                            <input type="text" id="register_username" name="txtUser" class="form-control" value="">
                         </div>
                         <div class="col-12 mb-3">
-                            <label for="state">Password </label>
-                            <input type="password" name="txtPass" class="form-control" value="">
+                            <label for="state"><s:message code="label.password" text="" /> <span style="color: red">*</span> </label>
+                            <p id="txt_register_password" style="color: red;"></p>
+                            <input type="password" id="register_password" name="txtPass" class="form-control" value="">
                         </div>
                         <div class="col-12 mb-3">
-                            <label for="state">Name </label>
-                            <input type="text" name="txtName" class="form-control" value="">
+                            <label for="state"><s:message code="label.rname" text="" /> <span style="color: red">*</span> </label>
+                            <p id="txt_register_name" style="color: red;"></p>
+                            <input type="text" id="register_name" name="txtName" class="form-control" value="">
                         </div>
                         <div class="col-12 mb-3">
-                            <label for="state">Email </label>
-                            <p id="txt_email" style="color: red"></p>
-                            <input type="text" name="txtEmail" class="form-control" value="">
+                            <label for="state">Email <span style="color: red">*</span> </label>
+                            <p id="txt_register_email" style="color: red"></p>
+                            <input type="email" id="register_email" name="txtEmail" class="form-control" value="">
                         </div>
                         <div class="col-12 mb-3">
-                            <label for="state">Image </label>
-                            <input type="file" class="form-control" name="txtImage" value="">
+                            <label for="state"><s:message code="label.rimage" text="" /> </label>
+                            <input type="file" class="form-control" name="txtImage" accept="image/*" value="">
                         </div>
                         <div class="col-12 mb-3">
-                            <label for="state">Phone Number </label>
-                            <input type="text" class="form-control" name="txtPhone" value="">
+                            <label for="state"><s:message code="label.rphone" text="" /> </label>
+                            <input type="number" id="register_phone" class="form-control" name="txtPhone" value="">
                         </div>
                         <div class="col-12 mb-3">
-                            <label for="state">Address </label>
-                            <input type="text" class="form-control" name="txtAddress" value="">
+                            <label for="state"><s:message code="label.raddress" text="" /> </label>
+                            <input type="text" id="register_address" class="form-control" name="txtAddress" value="">
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
                     <div style="width: 100%;text-align: center;">
-                        <button type="submit" class="btn essence-btn" >Submit</button>
-                        <button type="button" class="btn essence-btn" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn essence-btn" ><s:message code="label.rsubmit" text="" /></button>
+                        <button type="button" class="btn essence-btn" data-dismiss="modal"><s:message code="label.loginclose" text="" /></button>
                     </div>
                 </div>
             </form>
@@ -260,30 +271,30 @@
         <div class="modal-content">
             <!-- Modal Header -->
             <div class="modal-header">
-                <h4 class="modal-title">Forgot password ?</h4>
+                <h4 class="modal-title"><s:message code="label.fpasstitle" text="" /></h4>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
             <form action="../login/fogetpass.htm" method="get">
                 <!-- Modal body -->
                 <div class="modal-body">
                     <div class="col-12 mb-3">
-                        <span>We will send you a new password.</span>
+                        <span><s:message code="label.fpasslabel" text="" /></span>
                     </div>
                     <div>
                         <div class="col-12 mb-3">
-                            <label>Username </label>
+                            <label><s:message code="label.username" text="" /> </label>
                             <input type="text" name="txtUser" class="form-control" value="">
                         </div>
                         <div class="col-12 mb-3">
-                            <label>Email </label>
+                            <label><s:message code="label.fpassemail" text="" /> </label>
                             <input type="email" name="txtEmail" class="form-control" value="">
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
                     <div style="width: 100%;text-align: center;">
-                        <button type="submit" class="btn essence-btn" >Send</button>
-                        <button type="button" class="btn essence-btn" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn essence-btn" ><s:message code="label.cpasswordsend" text="" /></button>
+                        <button type="button" class="btn essence-btn" data-dismiss="modal"><s:message code="label.loginclose" text="" /></button>
                     </div>
                 </div>
             </form>
@@ -297,34 +308,34 @@
         <div class="modal-content">
             <!-- Modal Header -->
             <div class="modal-header">
-                <h4 class="modal-title">Change Password.</h4>
+                <h4 class="modal-title"><s:message code="label.cpasswordtitle" text="" />.</h4>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
             <form action="../login/changepass.htm" method="post">
                 <!-- Modal body -->
                 <div class="modal-body">
                     <div class="col-12 mb-3">
-                        <span>You will be able to use your new <b>Password</b> to <b>login</b> in the next time !</span>
+                        <span><s:message code="label.cpasswordlabel" text="" /> !</span>
                     </div>
                     <div>
                         <div class="col-12 mb-3">
-                            <label>Username </label>
+                            <label><s:message code="label.username" text="" /> </label>
                             <input type="text" name="txtUser" class="form-control" value="">
                         </div>
                         <div class="col-12 mb-3">
-                            <label>Old Password </label>
+                            <label><s:message code="label.cpasswordoldpass" text="" /> </label>
                             <input type="password" name="txtPass" class="form-control" value="">
                         </div>
                         <div class="col-12 mb-3">
-                            <label>New Password </label>
+                            <label><s:message code="label.cpasswordnewpass" text="" /> </label>
                             <input type="password" name="txtNewPass" class="form-control" value="">
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
                     <div style="width: 100%;text-align: center;">
-                        <button type="submit" class="btn essence-btn" >Send</button>
-                        <button type="button" class="btn essence-btn" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn essence-btn" ><s:message code="label.cpasswordsend" text="" /></button>
+                        <button type="button" class="btn essence-btn" data-dismiss="modal"><s:message code="label.loginclose" text="" /></button>
                     </div>
                 </div>
             </form>
@@ -339,7 +350,7 @@
                 <div class="modal-content">
                     <!-- Modal Header -->
                     <div class="modal-header">
-                        <h4 class="modal-title">Please login in to use this function</h4>
+                        <h4 class="modal-title"><s:message code="label.titleloginwishlist" text="" /></h4>
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                     </div>
                     <form action="../login/loginIndex.htm" method="post">
@@ -347,20 +358,20 @@
                         <div class="modal-body">
                             <div>
                                 <div class="col-12 mb-3">
-                                    <label for="city">Username </label>
+                                    <label for="city"><s:message code="label.username" text="" /> </label>
                                     <input type="text" name="txtUser" class="form-control" value="">
                                 </div>
                                 <div class="col-12 mb-3">
-                                    <label for="state">Password </label>
+                                    <label for="state"><s:message code="label.password" text="" /> </label>
                                     <input type="password" name="txtPass" class="form-control" value="">
                                 </div>
                                 <div class="col-12 mb-3">
-                                    <label for="state">Đăng ký tài khoản <a href="#" style="font-size: 14px;" data-toggle="modal" data-target="#user_register">tại đây </a> </label>
-                                    <label for="state" style="float: right;"><a href="#" style="font-size: 14px;" data-toggle="modal" data-target="#forgot_password" data-dismiss="modal">Quên mật khẩu ? </a> </label>
+                                    <label for="state"><s:message code="label.register" text="" /> <a href="#" style="font-size: 14px;" data-toggle="modal" data-target="#user_register"><s:message code="label.here" text="" /> </a> </label>
+                                    <label for="state" style="float: right;"><a href="#" style="font-size: 14px;" data-toggle="modal" data-target="#forgot_password" data-dismiss="modal"><s:message code="label.forgotpassword" text="" /> ? </a> </label>
                                 </div>
                                 <div style="width: 100%;text-align: center;">
-                                    <button type="submit" class="btn essence-btn" >Submit</button>
-                                    <button type="button" class="btn essence-btn" data-dismiss="modal">Close</button>
+                                    <button type="submit" class="btn essence-btn" ><s:message code="label.loginsubmit" text="" /></button>
+                                    <button type="button" class="btn essence-btn" data-dismiss="modal"><s:message code="label.loginclose" text="" /></button>
                                 </div>
                             </div>
                         </div>
@@ -378,7 +389,7 @@
                         <div class="modal-content">
                             <!-- Modal Header -->
                             <div class="modal-header">
-                                <h4 class="modal-title">Your Wishlist !</h4>
+                                <h4 class="modal-title"><s:message code="label.wishlisttitle" text="" /> !</h4>
                                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                             </div>
                             <!-- Modal body -->
@@ -387,10 +398,10 @@
                                     <table class="table table-striped">
                                         <thead>
                                             <tr>
-                                                <th scope="col">Name</th>
-                                                <th scope="col">Brand</th>
-                                                <th scope="col">Discount</th>
-                                                <th scope="col">Price</th>
+                                                <th scope="col"><s:message code="label.wishlistname" text="" /></th>
+                                                <th scope="col"><s:message code="label.wishlistbrand" text="" /></th>
+                                                <th scope="col"><s:message code="label.wishlistdiscount" text="" /></th>
+                                                <th scope="col"><s:message code="label.wishlistprice" text="" /></th>
                                                 <th scope="col"></th>
                                                 <th scope="col"></th>
                                             </tr>
@@ -446,24 +457,24 @@
                 <div class="modal-content">
                     <!-- Modal Header -->
                     <div class="modal-header">
-                        <h4 class="modal-title">Your history ordered !</h4>
+                        <h4 class="modal-title"><s:message code="label.historyorderedtitle" text="" /> !</h4>
                         <button onclick="close_filter_table()" type="button" class="close" data-dismiss="modal">&times;</button>
                     </div>
                     <!-- Modal body -->
                     <div class="modal-body">
                         <form action="#" method="post">
                             <div class="col-12 mb-4">
-                                <input style="background: url(../img/core-img/698627-icon-111-search-512.png) no-repeat scroll 5px 2px; padding-left: 41px;" id="myInput" onkeyup="search_filter_table()" placeholder="Search for name, date, ..." type="text" class="form-control" value="">
+                                <input style="background: url(../img/core-img/698627-icon-111-search-512.png) no-repeat scroll 5px 2px; padding-left: 41px;" id="myInput" onkeyup="search_filter_table()" placeholder="<s:message code="label.historyorderedsearch" text="" />" type="text" class="form-control" value="">
                             </div>
 
                             <table class="table table-striped" id="myTable">
                                 <thead>
                                     <tr>
                                         <th scope="col">#</th>
-                                        <th scope="col">Total Price</th>
-                                        <th scope="col">Ordered Date</th>
-                                        <th scope="col">Receiver</th>
-                                        <th scope="col">Status</th>
+                                        <th scope="col"><s:message code="label.historyorderedtotalprice" text="" /></th>
+                                        <th scope="col"><s:message code="label.historyorderedorderdate" text="" /></th>
+                                        <th scope="col"><s:message code="label.historyorderedreceiver" text="" /></th>
+                                        <th scope="col"><s:message code="label.historyorderedstatus" text="" /></th>
                                         <th scope="col"></th>
                                     </tr>
                                 </thead>
@@ -507,12 +518,12 @@
                 <div class="modal-content">
                     <!-- Modal Header -->
                     <div class="modal-header">
-                        <h4 class="modal-title">Your history ordered !</h4>
+                        <h4 class="modal-title"><s:message code="label.historyorderedtitle" text="" /> !</h4>
                         <button onclick="close_filter_table()" type="button" class="close" data-dismiss="modal">&times;</button>
                     </div>
                     <!-- Modal body -->
                     <div class="modal-body">
-                        You have no ordered.
+                        <s:message code="label.historyorderedsnohistory" text="" />
                     </div>
 
                 </div>
@@ -588,6 +599,7 @@
         document.getElementById("text").innerHTML = "";
     }
 </script>
+
 <!-- jQuery (Necessary for All JavaScript Plugins) -->
 <script src="../js/jquery/jquery-2.2.4.min.js"></script>
 <!-- Popper js -->
@@ -601,20 +613,156 @@
 <!-- Active js -->
 <script src="../js/active.js"></script>
 
-
-
-
 <script>
-    $(document).ready(function () {
-        $('#loginclick').click(function () {
+    function loginForms() {
+
+        var txtUser = document.forms["loginForm"]["txtUser"].value;
+
+        var txtPass = document.forms["loginForm"]["txtPass"].value;
+
+        if (txtUser === "" || txtPass === "") {
+
+            if (txtUser === "") {
+                document.getElementById("txt_username").innerHTML = "Tên tài khoảng không được để trống";
+            } else {
+                document.getElementById("txt_username").innerHTML = "";
+            }
+            if (txtPass === "") {
+                document.getElementById("txt_password").innerHTML = "Mật khẩu không được để trống";
+            } else {
+                document.getElementById("txt_password").innerHTML = "";
+            }
+            return false;
+        }
+
+    }
+</script>
+<script>
+    var secondCall = false;
+    var secondCall2 = false;
+    function registerForms() {
+        if (secondCall && secondCall2) {
+            return true;
+        }
+        var txtRegister_username = document.getElementById("register_username").value;
+        var txtRegister_password = document.getElementById("register_password").value;
+        var txtRegister_name = document.getElementById("register_name").value;
+        var txtRegister_email = document.getElementById("register_email").value;
+
+
+        //username
+        if (txtRegister_username === "") {
+            document.getElementById("txt_register_username").innerHTML = "Username không được để trống";
+        }
+        if (txtRegister_username !== "") {
             $.ajax({
-                type: 'GET',
-                url: '/Essence/validation/users.htm',
+                type: "POST",
+                contentType: "application/json; charset=UTF-8",
+                url: "/Essence/validation/users.htm",
+                data: $("#register_username").val(),
                 success: function (data) {
-                    $('#txt_username').text(data);
+                    if (data === 'false') {
+                        document.getElementById("txt_register_username").innerHTML = "Tài khoản này đã có người sử dụng";
+                    } else {
+                        document.getElementById("txt_register_username").innerHTML = "";
+                        secondCall = true;
+                    }
                 }
             });
+        }
+        //password
+        if (txtRegister_password === "") {
+            document.getElementById("txt_register_password").innerHTML = "Password không được để trống";
+        }
+        if (txtRegister_password !== "") {
+            if (txtRegister_password.length <= 7 || txtRegister_password.length >= 12) {
+                document.getElementById("txt_register_password").innerHTML = "Password không được ít hơn 7 ký tự và quá 12 ký tự";
+            } else {
+                document.getElementById("txt_register_password").innerHTML = "";
+            }
+        }
+        //name
+        if (txtRegister_name === "") {
+            document.getElementById("txt_register_name").innerHTML = "Tên không được để trống";
+        }
+        if (txtRegister_name !== "") {
+            document.getElementById("txt_register_name").innerHTML = "";
+        }
+        //email
+        if (txtRegister_email === "") {
+            document.getElementById("txt_register_email").innerHTML = "Email không được để trống";
+        }
+        if (txtRegister_email !== "") {
+            $.ajax({
+                type: "POST",
+                contentType: "application/json; charset=UTF-8",
+                url: "/Essence/validation/emails.htm",
+                data: $("#register_email").val(),
+                success: function (data) {
+                    if (data === 'false') {
+                        document.getElementById("txt_register_email").innerHTML = "Email này đã có người sử dụng";
+                    } else {
+                        document.getElementById("txt_register_email").innerHTML = "";
+                        secondCall2 = true;
+                    }
+                }
+            });
+        }
+        return false;
+    }
+
+</script>
+
+<script>
+    function updateInfoForm() {
+        var txtInfo_name = document.getElementById("info_name").value;
+        var txtInfo_email = document.getElementById("info_email").value;
+
+        if (txtInfo_name === "" || txtInfo_email === "") {
+            if(txtInfo_name === ""){
+                document.getElementById("txt_info_name").innerHTML = "Tên không được để trống";
+            }else{
+                document.getElementById("txt_info_name").innerHTML = "";
+            }
+            if(txtInfo_email === ""){
+                document.getElementById("txt_info_email").innerHTML = "Email không được để trống";
+            }else{
+                document.getElementById("txt_info_email").innerHTML = "";
+            }
             return false;
-        });
-    });
+        }
+    }
+</script>
+
+<script>
+    function formCheckout(){
+        var txtCheckout_name = document.getElementById("checkout_name").value;
+        var txtCheckout_address = document.getElementById("checkout_address").value;
+        var txtCheckout_phone = document.getElementById("checkout_phone").value;
+        var txtCheckout_email = document.getElementById("checkout_email").value;
+        
+        if(txtCheckout_name === "" || txtCheckout_address === "" || txtCheckout_phone === "" || txtCheckout_email ===""){
+            if(txtCheckout_name === ""){
+                document.getElementById("txt_checkout_name").innerHTML = "Tên không được để trống";
+            }else{
+                document.getElementById("txt_checkout_name").innerHTML = "";
+            }
+            if(txtCheckout_address === ""){
+                document.getElementById("txt_checkout_address").innerHTML = "Địa chỉ không được để trống";
+            }else{
+                document.getElementById("txt_checkout_address").innerHTML = "";
+            }
+            if(txtCheckout_phone === ""){
+                document.getElementById("txt_checkout_phone").innerHTML = "Số điện thoại không được để trống";
+            }else{
+                document.getElementById("txt_checkout_phone").innerHTML = "";
+            }
+            if(txtCheckout_email ===""){
+                document.getElementById("txt_checkout_email").innerHTML = "Email không được để trống";
+            }else{
+                document.getElementById("txt_checkout_email").innerHTML = "";
+            }
+            return false;
+        }
+    }
 </script>

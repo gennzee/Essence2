@@ -137,7 +137,35 @@
 
                                                     </td>
                                                     <td><fmt:formatNumber type="number" value="${rows.value.quantity * rows.value.sanpham.price}"/> &#8363</td>
-                                                    <td><a href="<s:url value="../cartbean/delete/${rows.value.sanpham.id}.htm"/>" class="product-remove" ><i class="fa fa-trash-o" style="font-size: 24px" aria-hidden="true"></i></a></td>
+                                                    <td>
+                                                        <a href="#" data-toggle="modal" data-target="#delete_cart_modal" class="product-remove" >
+                                                            <i class="fa fa-trash-o" style="font-size: 24px" aria-hidden="true"></i>
+                                                        </a>
+                                                        <!-- Delete cat modal -->
+                                                        <div class="modal fade" id="delete_cart_modal" tabindex="-1" role="dialog" aria-hidden="true">
+                                                            <div class="modal-dialog">
+                                                                <div class="modal-content">
+                                                                    <!-- Modal Header -->
+                                                                    <div class="modal-header">
+                                                                        <h4 class="modal-title">Delete Product</h4>
+                                                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                                    </div>                                                                    
+                                                                        <!-- Modal body -->
+                                                                        <div class="modal-body">
+                                                                            <div>
+                                                                                <div class="col-12 mb-3">
+                                                                                    <label>Are you sure want to delete this product ? </label>
+                                                                                </div>
+                                                                                <div style="width: 100%;text-align: center;">
+                                                                                    <a href="<s:url value="../cartbean/delete_in_view_cart/${rows.value.sanpham.id}.htm"/>" class="btn essence-btn" >Yes</a>
+                                                                                    <button type="button" class="btn essence-btn" data-dismiss="modal">No</button>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>   
+                                                    </td>
                                                 </tr>
                                             </c:forEach>
                                         </c:if>

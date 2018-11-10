@@ -71,12 +71,12 @@
                 </div>
 
                 <div class="contact-info">
-                    <h2>${rows.title}</h2>
+                    <h2><s:message code="label.contacttitle" text="" /></h2>
                     <p>${rows.content}</p>
 
                     <div class="contact-address mt-50">
-                        <p><span>address:</span>${rows.address}</p>
-                        <p><span>telephone:</span>${rows.phone}</p>
+                        <p><span><s:message code="label.contactaddress" text="" /></span>${rows.address}</p>
+                        <p><span><s:message code="label.contacttelephone" text="" /></span>${rows.phone}</p>
                         <p><a href="mailto:${rows.email}">${rows.email}</a></p>
                     </div>
                 </div>

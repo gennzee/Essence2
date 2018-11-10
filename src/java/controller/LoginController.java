@@ -42,7 +42,7 @@ public class LoginController {
         String username = request.getParameter("txtUser");
         String password = request.getParameter("txtPass");
         UsersDAO users = new UsersDAO();
-        if (users.Login(username, password) == "nhanvien" || users.Login(username, password) == "guest") {
+        if (users.Login(username, password) == "guest") {
             session.setAttribute("USER", username);
             session.setAttribute("PASS", password);
             session.setAttribute("ROLE", users.Login(username, password));
@@ -73,7 +73,7 @@ public class LoginController {
             // List order of user - end
 
             return "redirect:" + session.getAttribute("uri").toString();
-        } else if (users.Login(username, password) == "admin") {
+        } else if (users.Login(username, password) == "admin" || users.Login(username, password) == "nhanvien") {
             session.setAttribute("USER", username);
             session.setAttribute("PASS", password);
             session.setAttribute("ROLE", users.Login(username, password));
@@ -91,7 +91,7 @@ public class LoginController {
             session.removeAttribute("SHOP");
             session.removeAttribute("CARTSIZE");
 
-            return "admin/dashboard";
+            return "redirect:/admin/dashboard.htm";
         } else {
             session.getAttribute("CARTSIZE");
             model.addAttribute("login_error", "Sai tên tài khoản hoặc mật khẩu.");
@@ -103,7 +103,7 @@ public class LoginController {
     public String logout(ModelMap model, HttpServletRequest request) {
         HttpSession session = request.getSession(false);
 
-        if (session.getAttribute("ROLE") != null && session.getAttribute("ROLE").toString().equalsIgnoreCase("admin")) {
+        if (session.getAttribute("ROLE") != null && session.getAttribute("ROLE").toString().equalsIgnoreCase("admin") || session.getAttribute("ROLE").toString().equalsIgnoreCase("nhanvien")) {
             session.getAttribute("CARTSIZE");
 
             session.removeAttribute("USER");

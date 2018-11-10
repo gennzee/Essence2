@@ -49,7 +49,84 @@
     <body class="adminbody">
         <div id="main">
             <jsp:include page="part/navigationbar.jsp"/>
-            <jsp:include page="part/leftsidebar.jsp"/>
+            <!-- Left Sidebar -->
+            <div class="left main-sidebar">
+
+                <div class="sidebar-inner leftscroll">
+
+                    <div id="sidebar-menu">
+
+                        <ul>
+
+                            <li class="submenu">
+                                <a href="../admin/dashboard.htm"><i class="fa fa-fw fa-bars"></i><span> Dashboard </span> </a>
+                            </li>
+                            <c:if test="${sessionScope.ROLE == 'admin'}">
+                                <li class="submenu">
+                                    <a class="active" href="#"><i class="fa fa-fw fa-users"></i><span> Users </span><span class="menu-arrow"></span> </a>
+                                    <ul>
+                                        <li class="submenu">
+                                            <a class="active" href="#"><span>Staffs</span> <span class="menu-arrow"></span> </a>
+                                            <ul>
+                                                <li class="active"><a href="../admin/users.htm"><span>Active Staffs</span></a></li>
+                                                <li><a href="../admin/users_inactive.htm"><span>Inactive Staffs</span></a></li>
+                                            </ul>
+                                        </li>      
+                                        <li class="submenu">
+                                            <a href="#"><span>Shipper</span> <span class="menu-arrow"></span> </a>
+                                            <ul>
+                                                <li><a href="../admin/shipper.htm"><span>Active Shippers</span></a></li>
+                                                <li><a href="../admin/shipper_inactive.htm"><span>Inactive Shippers</span></a></li>
+                                            </ul>
+                                        </li>  
+                                    </ul>
+
+                                </li>
+                            </c:if>
+
+                            <li class="submenu">
+                                <a href="../admin/nav.htm"><i class="fa fa-fw fa-indent"></i><span> Navigate Menu </span> </a>
+                            </li>
+
+                            <li class="submenu">
+                                <a href="../admin/news.htm"><i class="fa fa-fw fa-newspaper-o"></i><span> Collections </span> </a>
+                            </li>
+                            <c:if test="${sessionScope.ROLE == 'admin'}">
+                                <li class="submenu">
+                                    <a href="../admin/contact.htm"><i class="fa fa-fw fa-address-card-o"></i><span> Contact Manage </span> </a>
+                                </li>
+                            </c:if>
+                            <li class="submenu">
+                                <a href="#"><i class="fa fa-fw fa-cubes"></i> <span> Order Handler </span> <span class="menu-arrow"></span></a>
+                                <ul class="list-unstyled">
+                                    <li><a href="../admin/search_order.htm">Search Order</a></li>
+                                    <li><a href="../admin/order_is_processing.htm">Processing</a></li>
+                                    <li><a href="../admin/order_is_Delivering.htm">Delivering</a></li>
+                                </ul>
+                            </li>
+
+                            <li class="submenu">
+                                <a href="#"><i class="fa fa-fw fa-paperclip"></i> <span> Supplier </span> <span class="menu-arrow"></span></a>
+                                <ul class="list-unstyled">
+                                    <li><a href="../admin/supplier.htm">List suppliers</a></li>
+                                    <li><a href="../admin/invoice.htm">List invoices</a></li>
+                                </ul>
+                            </li>
+
+
+
+                        </ul>
+
+                        <div class="clearfix"></div>
+
+                    </div>
+
+                    <div class="clearfix"></div>
+
+                </div>
+
+            </div>
+            <!-- End Sidebar -->
 
             <div class="content-page">
 
@@ -89,7 +166,7 @@
                                             <div class="modal-dialog">
                                                 <div class="modal-content">
 
-                                                    <form action="../admin/add_user.htm" method="post">
+                                                    <form action="../admin/add_user.htm" onsubmit="return addNewStaff();" method="post">
 
                                                         <div class="modal-header">
                                                             <h5 class="modal-title">Add new user</h5>
@@ -103,7 +180,8 @@
                                                                 <div class="col-lg-12">
                                                                     <div class="form-group">
                                                                         <label>Username</label>
-                                                                        <input class="form-control" name="txtUsername" type="text" required value="" />
+                                                                        <p id="txt_add_staff_username" style="color: red;"></p>
+                                                                        <input class="form-control" id="add_staff_username" name="txtUsername" type="text" required value="" />
                                                                     </div>
                                                                 </div>
 
@@ -137,9 +215,9 @@
                                                                 <div class="col-lg-6">
                                                                     <div class="form-group">
                                                                         <label>Password </label>
-                                                                        <input class="form-control" name="txtPass" type="password" value=""/>
+                                                                        <input class="form-control" name="txtPass" type="password" required value=""/>
                                                                     </div>
-                                                                </div>  
+                                                                </div>
                                                             </div>
 
                                                             <div class="row">
@@ -153,21 +231,21 @@
                                                                 <div class="col-lg-6">
                                                                     <div class="form-group">
                                                                         <label>Phone Number </label>
-                                                                        <input class="form-control" name="txtPhone" type="text" value="" />
+                                                                        <input class="form-control" name="txtPhone" type="number" value="" />
                                                                     </div>
                                                                 </div> 
                                                             </div>
 
                                                             <div class="form-group">
-                                                                <label>Change avatar :</label> <br />
+                                                                <label>Avatar :</label> <br />
 
-                                                                <input type="file" name="txtImage">
+                                                                <input type="file" name="txtImage" accept="image/*">
                                                             </div>
 
                                                         </div>             
 
                                                         <div class="modal-footer">
-                                                            <button type="submit" class="btn btn-primary">Edit user</button>
+                                                            <button type="submit" class="btn btn-primary">Add</button>
                                                         </div>
 
                                                     </form>	
@@ -223,7 +301,7 @@
                                                                                         <div class="col-lg-12">
                                                                                             <div class="form-group">
                                                                                                 <label>Username</label>
-                                                                                                <input class="form-control" name="txtUsername" type="text" required value="${rows.username}" />
+                                                                                                <input class="form-control" disabled="true" name="txtUsername" type="text" required value="${rows.username}" />
                                                                                             </div>
                                                                                         </div>
 
@@ -281,7 +359,7 @@
                                                                                     <div class="form-group">
                                                                                         <label>Change avatar :</label> <br />
                                                                                         <img src="../img/users-img/${rows.imageuser}" width="150" height="auto"/>
-                                                                                        <input type="file" name="txtImage">
+                                                                                        <input type="file" name="txtImage" accept="image/*">
                                                                                     </div>
 
                                                                                 </div>             
@@ -295,7 +373,33 @@
                                                                         </div>
                                                                     </div>
                                                                 </div> 
-                                                                <a href="<s:url value="../admin/remove_user/${rows.id}.htm"/>" class="btn btn-danger btn-sm" data-placement="top" data-toggle="tooltip" data-title="Delete"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+                                                                <a href="#" data-toggle="modal" data-target="#hide_active_user_${rows.id}" class="btn btn-danger btn-sm" data-placement="top" data-toggle="tooltip" data-title="Delete">
+                                                                    <i class="fa fa-trash-o" aria-hidden="true"></i>
+                                                                </a>
+                                                                <!-- Delete user active modal -->
+                                                                <div class="modal fade custom-modal" tabindex="-1" role="dialog" aria-hidden="true" id="hide_active_user_${rows.id}">
+                                                                    <div class="modal-dialog">
+                                                                        <div class="modal-content">
+                                                                            <div class="modal-header">
+                                                                                <h5 class="modal-title">Delete user</h5>
+                                                                                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>          	
+                                                                            </div>
+                                                                            <div class="modal-body">          
+                                                                                <div class="row">                                                                                    
+                                                                                    <div class="col-lg-12">
+                                                                                        <div class="form-group">
+                                                                                            <label>Are you sure want to delete <b>${rows.name}</b> ?</label>                                                                                            
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>             
+                                                                            <div class="modal-footer">
+                                                                                <a href="<s:url value="../admin/remove_user/${rows.id}.htm"/>" class="btn btn-primary">Yes</a>
+                                                                                <button type="button" data-dismiss="modal" class="btn btn-primary">No</button>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
                                                             </td>
                                                             <td>${rows.id}</td>
                                                             <td style="height: 50px;">
@@ -365,25 +469,51 @@
         <script src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
         <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
         <script>
-            $(document).ready(function () {
-                $('#user').DataTable({
-                    responsive: {
-                        details: {
-                            type: 'column',
-                            target: 'tr'
-                        }
-                    },
-                    columnDefs: [{
-                            className: 'control',
-                            orderable: false,
-                            targets: 0
-                        }],
-                    order: [1, 'asc']
-                });
-            });
+                                                        $(document).ready(function () {
+                                                            $('#user').DataTable({
+                                                                responsive: {
+                                                                    details: {
+                                                                        type: 'column',
+                                                                        target: 'tr'
+                                                                    }
+                                                                },
+                                                                columnDefs: [{
+                                                                        className: 'control',
+                                                                        orderable: false,
+                                                                        targets: 0
+                                                                    }],
+                                                                order: [1, 'asc']
+                                                            });
+                                                        });
         </script>	
         <!-- dataTable child row -->
+        <script>
+            var secondCall = false;
+            function addNewStaff() {
+                if (secondCall) {
+                    return true;
+                }
 
+                var txt_Add_username = document.getElementById("add_staff_username").value;
 
+                if (txt_Add_username !== "") {
+                    $.ajax({
+                        type: "POST",
+                        contentType: "application/json; charset=UTF-8",
+                        url: "/Essence/validation/staffs.htm",
+                        data: $("#add_staff_username").val(),
+                        success: function (data) {
+                            if (data === 'false') {
+                                document.getElementById("txt_add_staff_username").innerHTML = "Tài khoản này đã có người sử dụng";
+                            } else {
+                                document.getElementById("txt_add_staff_username").innerHTML = "";
+                                secondCall = true;
+                            }
+                        }
+                    });
+                }
+                return false;
+            }
+        </script>
     </body>
 </html>

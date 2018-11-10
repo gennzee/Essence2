@@ -76,37 +76,42 @@
                             <c:set var="payment" value="${rows.paymentstatus}"/>
                         </c:forEach>
                         <div class="page-title text-center" style="height: 10vh;padding-top: 3vh;background-color: #4E7D48;">
-                            <h4 style="height: 10vh;color: white;">Đơn hàng <b>${orderid}</b></h4>
+                            <h4 style="height: 10vh;color: white;"><s:message code="label.odtitle" text="" /> <b>${orderid}</b></h4>
                         </div>
                         <div>
                             <div class="page-title text-center" style="height: 10vh;padding-top: 3vh;background-color: #98d091;float: left;width: 50%">
-                                <b style="height: 10vh;color: #4E7D48;">Shipper : </b>&nbsp;&nbsp; <b style="color: white;">${shipper}</b>
+                                <b style="height: 10vh;color: #4E7D48;"><s:message code="label.odshipper" text="" /> </b>&nbsp;&nbsp; <b style="color: white;">${shipper}</b>
                             </div>
                             <c:choose>
                                 <c:when test="${payment == 1}">
                                     <div class="page-title text-center" style="height: 10vh;padding-top: 3vh;background-color: #98d091;float: left;width: 50%">
-                                        <b style="height: 10vh;color: #4E7D48;">Status : </b>&nbsp;&nbsp; <b style="color: white;">Đang xử lý</b>
+                                        <b style="height: 10vh;color: #4E7D48;"><s:message code="label.odstatus" text="" /> </b>&nbsp;&nbsp; <b style="color: white;"><s:message code="label.odstatus1" text="" /></b>
                                     </div>
                                 </c:when>
                                 <c:when test="${payment == 2}">
                                     <div class="page-title text-center" style="height: 10vh;padding-top: 3vh;background-color: #98d091;float: left;width: 50%">
-                                        <b style="height: 10vh;color: #4E7D48;">Status : </b>&nbsp;&nbsp; <b style="color: white;">Đang vận chuyển</b>
+                                        <b style="height: 10vh;color: #4E7D48;"><s:message code="label.odstatus" text="" /> </b>&nbsp;&nbsp; <b style="color: white;"><s:message code="label.odstatus2" text="" /></b>
                                     </div>
                                 </c:when>
                                 <c:when test="${payment == 3}">
                                     <div class="page-title text-center" style="height: 10vh;padding-top: 3vh;background-color: #98d091;float: left;width: 50%">
-                                        <b style="height: 10vh;color: #4E7D48;">Status : </b>&nbsp;&nbsp; <b style="color: white;">Đã thanh toán</b>
+                                        <b style="height: 10vh;color: #4E7D48;"><s:message code="label.odstatus" text="" /> </b>&nbsp;&nbsp; <b style="color: white;"><s:message code="label.odstatus3" text="" /></b>
+                                    </div>
+                                </c:when>
+                                <c:when test="${payment == 4}">
+                                    <div class="page-title text-center" style="height: 10vh;padding-top: 3vh;background-color: #98d091;float: left;width: 50%">
+                                        <b style="height: 10vh;color: #4E7D48;"><s:message code="label.odstatus" text="" /> </b>&nbsp;&nbsp; <b style="color: white;"><s:message code="label.odstatus4" text="" /></b>
                                     </div>
                                 </c:when>
                             </c:choose>
                         </div>
                         <div class="page-title text-center" style="height: 10vh;padding-top: 3vh;background-color: #4E7D48; clear: both;">
-                            <h4 style="height: 10vh;color: white;">Danh sách sản phẩm </h4>
+                            <h4 style="height: 10vh;color: white;"><s:message code="label.odlistproducts" text="" /> </h4>
                         </div>
                         <div>
                             <c:forEach var="rows" items="${list_order_detail_items}">
                                 <div class="page-title text-center" style="height: 10vh;padding-top: 3vh;background-color: #909090;clear: both;">
-                                    <b style="height: 10vh;color: white;">${rows.name}</b>&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; <b style="height: 10vh;color: white;">Quantity : ${rows.quantity}</b>
+                                    <b style="height: 10vh;color: white;">${rows.name}</b>&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; <b style="height: 10vh;color: white;"><s:message code="label.odquantity" text="" /> : ${rows.quantity}</b>
                                 </div>
                             </c:forEach>
                         </div>

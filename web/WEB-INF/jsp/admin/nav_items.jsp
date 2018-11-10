@@ -41,7 +41,84 @@
     <body class="adminbody">
         <div id="main">
             <jsp:include page="part/navigationbar.jsp"/>
-            <jsp:include page="part/leftsidebar.jsp"/>
+            <!-- Left Sidebar -->
+            <div class="left main-sidebar">
+
+                <div class="sidebar-inner leftscroll">
+
+                    <div id="sidebar-menu">
+
+                        <ul>
+
+                            <li class="submenu">
+                                <a href="../admin/dashboard.htm"><i class="fa fa-fw fa-bars"></i><span> Dashboard </span> </a>
+                            </li>
+                            <c:if test="${sessionScope.ROLE == 'admin'}">
+                                <li class="submenu">
+                                    <a href="#"><i class="fa fa-fw fa-users"></i><span> Users </span><span class="menu-arrow"></span> </a>
+                                    <ul>
+                                        <li class="submenu">
+                                            <a href="#"><span>Staffs</span> <span class="menu-arrow"></span> </a>
+                                            <ul>
+                                                <li><a href="../admin/users.htm"><span>Active Staffs</span></a></li>
+                                                <li><a href="../admin/users_inactive.htm"><span>Inactive Staffs</span></a></li>
+                                            </ul>
+                                        </li>      
+                                        <li class="submenu">
+                                            <a href="#"><span>Shipper</span> <span class="menu-arrow"></span> </a>
+                                            <ul>
+                                                <li><a href="../admin/shipper.htm"><span>Active Shippers</span></a></li>
+                                                <li><a href="../admin/shipper_inactive.htm"><span>Inactive Shippers</span></a></li>
+                                            </ul>
+                                        </li>  
+                                    </ul>
+
+                                </li>
+                            </c:if>
+
+                            <li class="submenu">
+                                <a class="active" href="../admin/nav.htm"><i class="fa fa-fw fa-indent"></i><span> Navigate Menu </span> </a>
+                            </li>
+
+                            <li class="submenu">
+                                <a href="../admin/news.htm"><i class="fa fa-fw fa-newspaper-o"></i><span> Collections </span> </a>
+                            </li>
+                            <c:if test="${sessionScope.ROLE == 'admin'}">
+                                <li class="submenu">
+                                    <a href="../admin/contact.htm"><i class="fa fa-fw fa-address-card-o"></i><span> Contact Manage </span> </a>
+                                </li>
+                            </c:if>
+                            <li class="submenu">
+                                <a href="#"><i class="fa fa-fw fa-cubes"></i> <span> Order Handler </span> <span class="menu-arrow"></span></a>
+                                <ul class="list-unstyled">
+                                    <li><a href="../admin/search_order.htm">Search Order</a></li>
+                                    <li><a href="../admin/order_is_processing.htm">Processing</a></li>
+                                    <li><a href="../admin/order_is_Delivering.htm">Delivering</a></li>
+                                </ul>
+                            </li>
+
+                            <li class="submenu">
+                                <a href="#"><i class="fa fa-fw fa-paperclip"></i> <span> Supplier </span> <span class="menu-arrow"></span></a>
+                                <ul class="list-unstyled">
+                                    <li><a href="../admin/supplier.htm">List suppliers</a></li>
+                                    <li><a href="../admin/invoice.htm">List invoices</a></li>
+                                </ul>
+                            </li>
+
+
+
+                        </ul>
+
+                        <div class="clearfix"></div>
+
+                    </div>
+
+                    <div class="clearfix"></div>
+
+                </div>
+
+            </div>
+            <!-- End Sidebar -->
 
             <div class="content-page">
 
@@ -206,7 +283,33 @@
                                                                         </div>
                                                                     </div>
                                                                 </div> 
-                                                                <a href="<s:url value="../admin/remove_category/${rows.id}.htm"/>" class="btn btn-danger btn-sm" data-placement="top" data-toggle="tooltip" data-title="Delete"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+                                                                <a href="#" data-toggle="modal" data-target="#hide_navigate_modal_${rows.id}" class="btn btn-danger btn-sm" data-placement="top" data-toggle="tooltip" data-title="Delete">
+                                                                    <i class="fa fa-trash-o" aria-hidden="true"></i>
+                                                                </a>
+                                                                <!-- Delete nav modal -->
+                                                                <div class="modal fade custom-modal" tabindex="-1" role="dialog" aria-hidden="true" id="hide_navigate_modal_${rows.id}">
+                                                                    <div class="modal-dialog">
+                                                                        <div class="modal-content">
+                                                                            <div class="modal-header">
+                                                                                <h5 class="modal-title">Delete Navigation bar</h5>
+                                                                                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>          	
+                                                                            </div>
+                                                                            <div class="modal-body">          
+                                                                                <div class="row">
+                                                                                    <div class="col-lg-12">
+                                                                                        <div class="form-group">
+                                                                                            <label>Are you sure want to delete <b>${rows.name}</b> ?</label>                                                                                            
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>             
+                                                                            <div class="modal-footer">
+                                                                                <a href="<s:url value="../admin/remove_category/${rows.id}.htm"/>" class="btn btn-primary">Yes</a>
+                                                                                <button type="button" data-dismiss="modal" class="btn btn-primary">No</button>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
                                                             </span>
                                                         </th>
                                                         <th style="width:150px">ID</th>
@@ -259,8 +362,33 @@
                                                                             </div>
                                                                         </div>
                                                                     </div> 
-                                                                    <a href="<s:url value="../admin/remove_catalog/${rowss.id}.htm"/>" class="btn btn-danger btn-sm" data-placement="top" data-toggle="tooltip" data-title="Delete"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
-
+                                                                    <a href="#" data-toggle="modal" data-target="#hide_catalog_modal_${rowss.id}" class="btn btn-danger btn-sm" data-placement="top" data-toggle="tooltip" data-title="Delete">
+                                                                        <i class="fa fa-trash-o" aria-hidden="true"></i>
+                                                                    </a>
+                                                                    <!-- Delete nav modal -->
+                                                                    <div class="modal fade custom-modal" tabindex="-1" role="dialog" aria-hidden="true" id="hide_catalog_modal_${rowss.id}">
+                                                                        <div class="modal-dialog">
+                                                                            <div class="modal-content">
+                                                                                <div class="modal-header">
+                                                                                    <h5 class="modal-title">Delete Sub-navigagtion bar</h5>
+                                                                                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>          	
+                                                                                </div>
+                                                                                <div class="modal-body">          
+                                                                                    <div class="row">
+                                                                                        <div class="col-lg-12">
+                                                                                            <div class="form-group">
+                                                                                                <label>Are you sure want to delete <b>${rowss.name}</b> ?</label>                                                                                            
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>             
+                                                                                <div class="modal-footer">
+                                                                                    <a href="<s:url value="../admin/remove_catalog/${rowss.id}.htm"/>" class="btn btn-primary">Yes</a>
+                                                                                    <button type="button" data-dismiss="modal" class="btn btn-primary">No</button>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
                                                                 </td>
                                                             </tr>
                                                         </c:if>
