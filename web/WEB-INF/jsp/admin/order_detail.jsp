@@ -215,7 +215,7 @@
                             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6" style="flex: 0 0 100%;max-width: 100%;">						
                                 <div class="card mb-3">
                                     <div class="card-header">   
-                                        <span class="pull-right"><a href="javascript:void(0)" onclick="window.history.back();" class="btn btn-primary btn-sm"><i class="fa fa-user-plus" aria-hidden="true"></i>Back</a></span>
+                                        <span class="pull-right"><a href="javascript:void(0)" onclick="window.history.back();" class="btn btn-primary btn-sm"><i class="fa fa-arrow-left" aria-hidden="true"></i>&nbsp;Back</a></span>
                                         <h3><i class="fa fa-user"></i> OrderID ( ${orderid} )</h3>		
 
                                     </div>
