@@ -37,15 +37,6 @@ public class ProductDetailController {
         ds = productsDetail.findOne_Id_of_Product(products_id);
         model.addAttribute("listProducts", ds);
 
-        session.getAttribute("list_Nav");
-        session.getAttribute("list_Catalog");
-        session.getAttribute("nav_Size");
-        session.getAttribute("CARTSIZE");
-        session.getAttribute("IMGUSER");
-        session.getAttribute("listUser");
-        session.getAttribute("WISHLIST_SIZE");
-        session.getAttribute("WISHLIST_LIST");
-        session.getAttribute("ORDER_LIST");
         session.setAttribute("uri", request.getRequestURI().substring(request.getContextPath().length()));
         return "shop_detail";
     }

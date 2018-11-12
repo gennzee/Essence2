@@ -56,9 +56,6 @@ public class CartBeanController {
 
         session.setAttribute("SHOP", a);
         session.setAttribute("CARTSIZE", a.countQuantity());
-        session.getAttribute("IMGUSER");
-        session.getAttribute("listUser");
-        session.getAttribute("ORDER_LIST");
 
         return "redirect:" + session.getAttribute("uri").toString();
     }
@@ -67,11 +64,6 @@ public class CartBeanController {
     public String viewcart(HttpServletRequest request) {
         HttpSession session = request.getSession(false);
 
-        session.getAttribute("SHOP");
-        session.getAttribute("CARTSIZE");
-        session.getAttribute("IMGUSER");
-        session.getAttribute("listUser");
-        session.getAttribute("ORDER_LIST");
         session.setAttribute("uriii", request.getRequestURI().substring(request.getContextPath().length()));
         return "viewcart";
     }
@@ -91,9 +83,6 @@ public class CartBeanController {
             }
 
         }
-        session.getAttribute("IMGUSER");
-        session.getAttribute("listUser");
-        session.getAttribute("ORDER_LIST");
         return "redirect:" + session.getAttribute("uri").toString();
     }
 
@@ -112,9 +101,6 @@ public class CartBeanController {
             }
 
         }
-        session.getAttribute("IMGUSER");
-        session.getAttribute("listUser");
-        session.getAttribute("ORDER_LIST");
         return "redirect:" + session.getAttribute("uriii").toString();
     }
 
@@ -136,9 +122,6 @@ public class CartBeanController {
             session.setAttribute("SHOP", a);
             session.setAttribute("CARTSIZE", a.countQuantity());
         }
-        session.getAttribute("IMGUSER");
-        session.getAttribute("listUser");
-        session.getAttribute("ORDER_LIST");
         return "redirect:" + session.getAttribute("uriii").toString();
     }
 

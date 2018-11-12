@@ -38,16 +38,7 @@ public class NewsController {
         List<News> ds = new ArrayList<>();
         ds = news.showListNews();
         model.addAttribute("listNews", ds);
-
-        session.getAttribute("list_Nav");
-        session.getAttribute("list_Catalog");
-        session.getAttribute("nav_Size");
-        session.getAttribute("CARTSIZE");
-        session.getAttribute("IMGUSER");
-        session.getAttribute("listUser");
-        session.getAttribute("WISHLIST_SIZE");
-        session.getAttribute("WISHLIST_LIST");
-        session.getAttribute("ORDER_LIST");
+        
         session.setAttribute("uri", request.getRequestURI().substring(request.getContextPath().length()));
         return "news";
     }
@@ -72,15 +63,6 @@ public class NewsController {
             ds = news.showListNews();
             model.addAttribute("listNews", ds);
 
-            session.getAttribute("list_Nav");
-            session.getAttribute("list_Catalog");
-            session.getAttribute("nav_Size");
-            session.getAttribute("CARTSIZE");
-            session.getAttribute("IMGUSER");
-            session.getAttribute("listUser");
-            session.getAttribute("WISHLIST_SIZE");
-            session.getAttribute("WISHLIST_LIST");
-            session.getAttribute("ORDER_LIST");
             session.setAttribute("uri", request.getRequestURI().substring(request.getContextPath().length()));
             return "new_detail";
         }

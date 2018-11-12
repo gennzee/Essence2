@@ -205,7 +205,7 @@
                                                 <div class="hover-content">
                                                     <!-- Add to Cart -->
                                                     <div class="add-to-cart-btn">
-                                                        <a href="<s:url value="javascript:void(0)"/>" onclick="$.get('../cartbean/${rows.id}.htm');return location.reload();" class="btn essence-btn">Add to Cart</a>
+                                                        <a href="<s:url value="../cartbean/${rows.id}.htm"/>" onclick="return location.reload();" class="btn essence-btn">Add to Cart</a>
 
                                                     </div>
                                                 </div>

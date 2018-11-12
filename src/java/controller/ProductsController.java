@@ -47,12 +47,7 @@ public class ProductsController {
         session.setAttribute("list_Nav", nav);
         session.setAttribute("list_Catalog", catalog);
         session.setAttribute("nav_Size", nav.size());
-        session.getAttribute("CARTSIZE");
-        session.getAttribute("IMGUSER");
-        session.getAttribute("listUser");
-        session.getAttribute("WISHLIST_SIZE");
-        session.getAttribute("WISHLIST_LIST");
-        session.getAttribute("ORDER_LIST");
+
         session.setAttribute("uri", request.getRequestURI().substring(request.getContextPath().length()));
         return "index";
     }
@@ -68,15 +63,6 @@ public class ProductsController {
         model.addAttribute("listProducts", ds);
         model.addAttribute("shop_title_search_result", "search result");
 
-        session.getAttribute("list_Nav");
-        session.getAttribute("list_Catalog");
-        session.getAttribute("nav_Size");
-        session.getAttribute("CARTSIZE");
-        session.getAttribute("IMGUSER");
-        session.getAttribute("listUser");
-        session.getAttribute("WISHLIST_SIZE");
-        session.getAttribute("WISHLIST_LIST");
-        session.getAttribute("ORDER_LIST");
         session.setAttribute("uri", request.getRequestURI().substring(request.getContextPath().length()));
         return "shop";
     }
@@ -115,15 +101,6 @@ public class ProductsController {
             model.addAttribute("shopIndex_size", ds.size());
             model.addAttribute("listProducts", ds);
 
-            session.getAttribute("list_Nav");
-            session.getAttribute("list_Catalog");
-            session.getAttribute("nav_Size");
-            session.getAttribute("CARTSIZE");
-            session.getAttribute("IMGUSER");
-            session.getAttribute("listUser");
-            session.getAttribute("WISHLIST_SIZE");
-            session.getAttribute("WISHLIST_LIST");
-            session.getAttribute("ORDER_LIST");
             session.setAttribute("uri", request.getRequestURI().substring(request.getContextPath().length()));
             return "shop";
         }

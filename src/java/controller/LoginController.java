@@ -63,8 +63,6 @@ public class LoginController {
             int userid = Integer.parseInt(ds2.get(0).getId());
             session.setAttribute("USER_ID", userid);
 
-            session.getAttribute("CARTSIZE");
-
             // List order of user - start
             List<Orders> order = new ArrayList<>();
             OrderDAO orderdao = new OrderDAO();
@@ -93,7 +91,6 @@ public class LoginController {
 
             return "redirect:/admin/dashboard.htm";
         } else {
-            session.getAttribute("CARTSIZE");
             model.addAttribute("login_error", "Sai tên tài khoản hoặc mật khẩu.");
             return "redirect:" + session.getAttribute("uri").toString();
         }
@@ -104,7 +101,6 @@ public class LoginController {
         HttpSession session = request.getSession(false);
 
         if (session.getAttribute("ROLE") != null && session.getAttribute("ROLE").toString().equalsIgnoreCase("admin") || session.getAttribute("ROLE").toString().equalsIgnoreCase("nhanvien")) {
-            session.getAttribute("CARTSIZE");
 
             session.removeAttribute("USER");
             session.removeAttribute("PASS");
@@ -115,7 +111,6 @@ public class LoginController {
             session.removeAttribute("ORDER_LIST");
             return "redirect:/products/productsIndex.htm";
         } else {
-            session.getAttribute("CARTSIZE");
 
             session.removeAttribute("USER");
             session.removeAttribute("PASS");

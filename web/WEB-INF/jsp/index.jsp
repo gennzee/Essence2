@@ -167,14 +167,12 @@
                                             <c:choose>
                                                 <c:when test="${productid == rows.id}">
                                                     <div class="product-favourite">
-                                                        <a href="<s:url value="javascript:void(0)"/>" onclick="$.get('../wishlist/remove/${wishlist_id}.htm');
-                                                                return location.reload();" class="favme fa fa-heart active"></a>
+                                                        <a href="<s:url value="../wishlist/remove/${wishlist_id}.htm"/>" onclick="return location.reload();" class="favme fa fa-heart active"></a>
                                                     </div>
                                                 </c:when>
                                                 <c:when test="${productid != rows.id}">
                                                     <div class="product-favourite">
-                                                        <a href="<s:url value="javascript:void(0)"/>" onclick="$.get('../wishlist/${rows.id}.htm');
-                                                                return location.reload();" class="favme fa fa-heart"></a>
+                                                        <a href="<s:url value="../wishlist/${rows.id}.htm"/>" onclick="return location.reload();" class="favme fa fa-heart"></a>
                                                     </div>
                                                 </c:when>
                                             </c:choose>
@@ -192,7 +190,7 @@
                                         <div class="hover-content">
                                             <!-- Add to Cart -->
                                             <div class="add-to-cart-btn">
-                                                <a href="<s:url value="../cartbean/${rows.id}.htm"/>" class="btn essence-btn">Add to Cart</a>
+                                                <a href="<s:url value="../cartbean/${rows.id}.htm"/>" onclick="return location.reload();" class="btn essence-btn">Add to Cart</a>
                                             </div>
                                         </div>
                                     </div>

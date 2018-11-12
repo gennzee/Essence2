@@ -44,15 +44,6 @@ public class CheckoutController {
     public String view(ModelMap model, HttpServletRequest request) {
         HttpSession session = request.getSession(false);
 
-        session.getAttribute("list_Nav");
-        session.getAttribute("list_Catalog");
-        session.getAttribute("nav_Size");
-        session.getAttribute("CARTSIZE");
-        session.getAttribute("IMGUSER");
-        session.getAttribute("listUser");
-        session.getAttribute("WISHLIST_SIZE");
-        session.getAttribute("WISHLIST_LIST");
-        session.getAttribute("ORDER_LIST");
         session.setAttribute("uri", request.getRequestURI().substring(request.getContextPath().length()));
         return "checkout";
     }
