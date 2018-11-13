@@ -38,7 +38,7 @@ public class NewsController {
         List<News> ds = new ArrayList<>();
         ds = news.showListNews();
         model.addAttribute("listNews", ds);
-        
+
         session.setAttribute("uri", request.getRequestURI().substring(request.getContextPath().length()));
         return "news";
     }
@@ -47,13 +47,26 @@ public class NewsController {
     public String news_detail(ModelMap model, HttpServletRequest request, @PathVariable int id) {
         HttpSession session = request.getSession(false);
 
-        if (session.getAttribute("ROLE") != null && session.getAttribute("ROLE").toString().equalsIgnoreCase("admin") || session.getAttribute("ROLE").toString().equalsIgnoreCase("nhanvien")) {
-            NewsDAO news = new NewsDAO();
-            List<News> ds = new ArrayList<>();
-            ds = news.show_single_news(id);
-            model.addAttribute("news_item", ds);
-            
-            return "admin/news_edit";
+        if (session.getAttribute("ROLE") != null) {
+            if (session.getAttribute("ROLE").toString().equalsIgnoreCase("admin") || session.getAttribute("ROLE").toString().equalsIgnoreCase("nhanvien")) {
+                NewsDAO news = new NewsDAO();
+                List<News> ds = new ArrayList<>();
+                ds = news.show_single_news(id);
+                model.addAttribute("news_item", ds);
+
+                return "admin/news_edit";
+            } else {
+                NewsDAO news = new NewsDAO();
+                List<News> ds = new ArrayList<>();
+                ds = news.show_single_news(id);
+                model.addAttribute("news_item", ds);
+
+                ds = news.showListNews();
+                model.addAttribute("listNews", ds);
+
+                session.setAttribute("uri", request.getRequestURI().substring(request.getContextPath().length()));
+                return "new_detail";
+            }
         } else {
             NewsDAO news = new NewsDAO();
             List<News> ds = new ArrayList<>();
@@ -67,6 +80,5 @@ public class NewsController {
             return "new_detail";
         }
     }
-
 
 }

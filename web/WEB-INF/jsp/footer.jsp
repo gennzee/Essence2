@@ -413,9 +413,8 @@
                                                     <td>${rows.productbrand}</td>
                                                     <td><fmt:formatNumber value="${(rows.productdiscount/rows.productprice)*100}" maxFractionDigits="0"/>%</td>
                                                     <td><fmt:formatNumber type="number" value="${rows.productprice}"/> &#8363</td>
-                                                    <td><a href="javascript:void(0)" onclick="$.get('../cartbean/${rows.productid}.htm');
-                                                            return location.reload();"><i style="font-size: 140%;" class="fa fa-shopping-cart"></i></a></td>
-                                                    <td><a href="javascript:void(0)" onclick="$.get('../wishlist/remove/${rows.id}.htm');return location.reload();"><i style="font-size: 140%;" class="fa fa-trash" aria-hidden="true"></i></a></td>
+                                                    <td><a href="../cartbean/${rows.productid}.htm" onclick="return location.reload();"><i style="font-size: 140%;" class="fa fa-shopping-cart"></i></a></td>
+                                                    <td><a href="../wishlist/remove/${rows.id}.htm" onclick="return location.reload();"><i style="font-size: 140%;" class="fa fa-trash" aria-hidden="true"></i></a></td>
                                                 </tr>
                                             </c:forEach>
                                         </tbody>
