@@ -27,10 +27,11 @@ public class ProductsDAO {
     public List<Products> showProducts() {
         try {
             Connection conn = DBConnection.getConn();
-            String sql = "  select p.Id, p.Name, p.Detail, p.Price, p.Discount, sum(i.Quantity) as Quantity, p.Brand, p.Img1, p.Img2, p.CatalogID\n"
-                    + "  from Product p\n"
-                    + "  inner join InvoiceDetail i on i.ProductID = p.Id\n"
-                    + "  group by p.Id, p.Name, p.Detail, p.Price, p.Discount, p.Brand, p.Img1, p.Img2, p.CatalogID";
+            String sql = "select p.Id, p.Name, p.Detail, p.Price, p.Discount, sum(i.Quantity) as Quantity, p.Brand, p.Img1, p.Img2, p.CatalogID\n"
+                    + "from Product p\n"
+                    + "inner join InvoiceDetail i on i.ProductID = p.Id\n"
+                    + "where p.isActive = 1\n"
+                    + "group by p.Id, p.Name, p.Detail, p.Price, p.Discount, p.Brand, p.Img1, p.Img2, p.CatalogID";
             Statement st = conn.createStatement();
             ResultSet rs = st.executeQuery(sql);
             List<Products> list = new ArrayList<Products>();
@@ -62,7 +63,7 @@ public class ProductsDAO {
             String sql = "  select p.Id, p.Name, p.Detail, p.Price, p.Discount, sum(i.Quantity) as Quantity, p.Brand, p.Img1, p.Img2, p.CatalogID\n"
                     + "  from Product p\n"
                     + "  inner join InvoiceDetail i on i.ProductID = p.Id\n"
-                    + "  where p.CatalogID like " + idd + "\n"
+                    + "  where p.CatalogID like " + idd + " and p.isActive like 1 \n"
                     + "  group by p.Id, p.Name, p.Detail, p.Price, p.Discount, p.Brand, p.Img1, p.Img2, p.CatalogID";
             Statement st = conn.createStatement();
             ResultSet rs = st.executeQuery(sql);
@@ -95,7 +96,7 @@ public class ProductsDAO {
             String sql = "select p.Id, p.Name, p.Detail, p.Price, p.Discount, sum(i.Quantity) as Quantity, p.Brand, p.Img1, p.Img2, p.CatalogID\n"
                     + "from Product p\n"
                     + "inner join InvoiceDetail i on i.ProductID = p.Id\n"
-                    + "where p.Name like '%" + txtName + "%' or p.Brand like '%" + txtName + "%' or p.Price like '%" + txtName + "%'\n"
+                    + "where p.Name like '%" + txtName + "%' or p.Brand like '%" + txtName + "%' or p.Price like '%" + txtName + "%' and p.isActive like 1\n"
                     + "group by p.Id, p.Name, p.Detail, p.Price, p.Discount, p.Brand, p.Img1, p.Img2, p.CatalogID";
             Statement st = conn.createStatement();
             ResultSet rs = st.executeQuery(sql);
@@ -147,7 +148,7 @@ public class ProductsDAO {
     public boolean InsertProduct(Products products) {
         try {
             Connection conn = DBConnection.getConn();
-            String sql = "insert into Product values(?,?,?,?,?,?,?,?)";
+            String sql = "insert into Product values(?,?,?,?,?,?,?,?,0)";
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setString(1, products.getName());
             ps.setString(2, products.getDetail());
@@ -191,10 +192,10 @@ public class ProductsDAO {
         return false;
     }
 
-    public boolean Delete_product(int id) {
+    public boolean Delete_product(int id, int status) {
         try {
             Connection conn = DBConnection.getConn();
-            String sql = "Delete from Product where Id like " + id + "";
+            String sql = "update Product set isActive = " + status + " where Id like " + id + "";
             Statement st = conn.createStatement();
             int rs = st.executeUpdate(sql);
             if (rs > 0) {
@@ -213,7 +214,7 @@ public class ProductsDAO {
             String sql = "select p.Id, p.Name, p.Detail, p.Price, p.Discount, sum(i.Quantity) as Quantity, p.Brand, p.Img1, p.Img2, p.CatalogID\n"
                     + "from Product p\n"
                     + "left join InvoiceDetail i on i.ProductID = p.Id\n"
-                    + "where Quantity is null\n"
+                    + "where Quantity is null and p.isActive = 1\n"
                     + "group by p.Id, p.Name, p.Detail, p.Price, p.Discount, p.Brand, p.Img1, p.Img2, p.CatalogID";
             Statement st = conn.createStatement();
             ResultSet rs = st.executeQuery(sql);
@@ -246,6 +247,7 @@ public class ProductsDAO {
             String sql = "select p.Id, p.Name, p.Detail, p.Price, p.Discount, sum(i.Quantity) as Quantity, p.Brand, p.Img1, p.Img2, p.CatalogID\n"
                     + "from Product p\n"
                     + "left join InvoiceDetail i on i.ProductID = p.Id\n"
+                    + "where p.isActive = 1\n"
                     + "group by p.Id, p.Name, p.Detail, p.Price, p.Discount, p.Brand, p.Img1, p.Img2, p.CatalogID";
             Statement st = conn.createStatement();
             ResultSet rs = st.executeQuery(sql);
@@ -267,6 +269,39 @@ public class ProductsDAO {
             return list;
         } catch (Exception e) {
             System.out.println("listProduct_doesnt_care_invoice(DAO)");
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public List<Products> listProduct_is_inactive(int idd, int status) {
+        try {
+            Connection conn = DBConnection.getConn();
+            String sql = "  select p.Id, p.Name, p.Detail, p.Price, p.Discount, sum(i.Quantity) as Quantity, p.Brand, p.Img1, p.Img2, p.CatalogID\n"
+                    + "  from Product p\n"
+                    + "  inner join InvoiceDetail i on i.ProductID = p.Id\n"
+                    + "  where p.CatalogID like " + idd + " and p.isActive like " + status + " \n"
+                    + "  group by p.Id, p.Name, p.Detail, p.Price, p.Discount, p.Brand, p.Img1, p.Img2, p.CatalogID";
+            Statement st = conn.createStatement();
+            ResultSet rs = st.executeQuery(sql);
+            List<Products> list = new ArrayList<Products>();
+            while (rs.next()) {
+                int id = rs.getInt(1);
+                String name = rs.getString(2);
+                String detail = rs.getString(3);
+                int price = rs.getInt(4);
+                int discount = rs.getInt(5);
+                int quantity = rs.getInt(6);
+                String brand = rs.getString(7);
+                String img1 = rs.getString(8);
+                String img2 = rs.getString(9);
+                int catalogid = rs.getInt(10);
+                Products a = new Products(id, name, detail, price, discount, quantity, brand, img1, img2, catalogid);
+                list.add(a);
+            }
+            return list;
+        } catch (Exception e) {
+            System.out.println("listProduct_is_inactive(DAO)");
             e.printStackTrace();
         }
         return null;

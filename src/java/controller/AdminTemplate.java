@@ -209,8 +209,7 @@ public class AdminTemplate {
 
             user.Update_user_with_password_and_image_is_not_null(a, id);
         }
-        
-        
+
         return "redirect:" + session.getAttribute("urii").toString();
     }
 
@@ -399,7 +398,19 @@ public class AdminTemplate {
 
         if (id > 0) {
             ProductsDAO products = new ProductsDAO();
-            products.Delete_product(id);
+            products.Delete_product(id,0);//0 is hide product
+        }
+
+        return "redirect:" + session.getAttribute("urii").toString();
+    }
+
+    @RequestMapping(value = "revert_product/{id}")
+    public String revert_product(ModelMap model, HttpServletRequest request, HttpSession session, @PathVariable int id) {
+        session = request.getSession(false);
+
+        if (id > 0) {
+            ProductsDAO products = new ProductsDAO();
+            products.Delete_product(id,1);// 1 is show product
         }
 
         return "redirect:" + session.getAttribute("urii").toString();

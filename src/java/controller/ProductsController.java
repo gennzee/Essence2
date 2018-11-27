@@ -83,12 +83,18 @@ public class ProductsController {
                 List<Products> ds3 = new ArrayList<>();
                 ds3 = products.listProduct_doesnt_have_invoice();
 
+                List<Products> ds4 = new ArrayList<>();
+                ds4 = products.listProduct_is_inactive(menu2id, 0);
+
                 model.addAttribute("shop_title", ds2);
                 model.addAttribute("listProducts", ds);
                 model.addAttribute("product_size", ds.size());
                 model.addAttribute("listProducts_no_invoice", ds3);
+                model.addAttribute("listProducts_no_invoice_size", ds3.size());
+                model.addAttribute("listProduct_is_inactive", ds4);
+                model.addAttribute("listProduct_is_inactive_size", ds4.size());
 
-                session.setAttribute("uri", request.getRequestURI().substring(request.getContextPath().length()));
+                session.setAttribute("urii", request.getRequestURI().substring(request.getContextPath().length()));
                 return "admin/products";
             } else {
                 ProductsDAO products = new ProductsDAO();
